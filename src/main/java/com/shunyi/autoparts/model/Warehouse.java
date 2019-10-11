@@ -9,15 +9,12 @@ public class Warehouse {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
-    /** 仓库编码 */
-    private String code;
     /** 名称 */
     private String name;
 
     public Warehouse() {}
 
-    public Warehouse(String code, String name) {
-        this.code = code;
+    public Warehouse(String name) {
         this.name = name;
     }
 
@@ -27,14 +24,6 @@ public class Warehouse {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public String getCode() {
-        return code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
     }
 
     public String getName() {
@@ -49,7 +38,6 @@ public class Warehouse {
     public String toString() {
         return "Warehouse{" +
                 "id=" + id +
-                ", code='" + code + '\'' +
                 ", name='" + name + '\'' +
                 '}';
     }

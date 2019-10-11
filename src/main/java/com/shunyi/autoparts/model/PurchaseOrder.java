@@ -21,6 +21,12 @@ public class PurchaseOrder {
             foreignKey = @ForeignKey(name = "WAREHOUSE_ID_FK")
     )
     private Warehouse warehouse;
+    /** 打包及其明细 */
+    @OneToOne
+    @JoinColumn(name = "package_id",
+            foreignKey = @ForeignKey(name = "PACKAGE_ID_FK")
+    )
+    private Package aPackage;
     /** 供应商 */
     @ManyToOne
     @JoinColumn(name = "supplier_id",
@@ -41,7 +47,7 @@ public class PurchaseOrder {
             foreignKey = @ForeignKey(name = "OPERATOR_ID_FK")
     )
     private User operator;
-    /** 操作用户 */
+    /** 经办人 */
     @ManyToOne
     @JoinColumn(name = "verifier_id",
             foreignKey = @ForeignKey(name = "VERIFIER_ID_FK")
@@ -87,6 +93,14 @@ public class PurchaseOrder {
         this.amountE = amountE;
         this.account = account;
         this.status = status;
+    }
+
+    public Package getPackage() {
+        return aPackage;
+    }
+
+    public void setPackage(Package aPackage) {
+        this.aPackage = aPackage;
     }
 
     public Long getId() {

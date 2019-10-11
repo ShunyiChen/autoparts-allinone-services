@@ -65,7 +65,7 @@ public class User {
 		this.department = department;
 	}
 
-	public Boolean getEnabled() {
+	public Boolean isEnabled() {
 		return enabled;
 	}
 

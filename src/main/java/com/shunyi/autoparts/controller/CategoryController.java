@@ -22,9 +22,9 @@ public class CategoryController {
 
     @PostMapping("/categories")
     public ResponseEntity<?> create(@RequestBody Category category) {
-        Category savedStudent = categoryDao.save(category);
+        Category savedCategory = categoryDao.save(category);
         URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
-                .buildAndExpand(savedStudent.getId()).toUri();
+                .buildAndExpand(savedCategory.getId()).toUri();
         return ResponseEntity.created(location).build();
     }
 

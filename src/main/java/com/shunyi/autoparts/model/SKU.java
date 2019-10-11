@@ -3,6 +3,8 @@ package com.shunyi.autoparts.model;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 /** 产品SKU */
 @Entity
@@ -34,10 +36,14 @@ public class SKU {
     private String productCode;
     /** 创建时间 */
     private Date dateCreated;
+    /** SKU与货位映射集合 */
+    @OneToMany(mappedBy = "sku")
+    private Set<SKUCargoSpaceMapping> SKUCargoSpaceMappings = new HashSet<>();
 
     public SKU() {}
 
-    public SKU(Long productId, String skuName, String unit, Integer quantity, BigDecimal price, BigDecimal externalEdit, String status, String properties, String barCode, String productCode, Date dateCreated) {
+    public SKU(Long id, Long productId, String skuName, String unit, Integer quantity, BigDecimal price, BigDecimal externalEdit, String status, String properties, String barCode, String productCode, Date dateCreated) {
+        this.id = id;
         this.productId = productId;
         this.skuName = skuName;
         this.unit = unit;
@@ -49,6 +55,14 @@ public class SKU {
         this.barCode = barCode;
         this.productCode = productCode;
         this.dateCreated = dateCreated;
+    }
+
+    public Set<SKUCargoSpaceMapping> getSKUCargoSpaceMappings() {
+        return SKUCargoSpaceMappings;
+    }
+
+    public void setSKUCargoSpaceMappings(Set<SKUCargoSpaceMapping> SKUCargoSpaceMappings) {
+        this.SKUCargoSpaceMappings = SKUCargoSpaceMappings;
     }
 
     public Long getId() {

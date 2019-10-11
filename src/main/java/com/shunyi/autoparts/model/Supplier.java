@@ -9,20 +9,25 @@ public class Supplier {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
+    /** 供应商编码 */
     private String code;
+    /** 供应商单位名称 */
     private String name;
+    /** 联系人 */
     private String contact;
+    /** 电话 */
     private String phone;
-    private String tag;
+    /** 供应商类目ID */
+    private Long supplierCategoryId;
 
     public Supplier() {}
 
-    public Supplier(String code, String name, String contact, String phone, String tag) {
+    public Supplier(String code, String name, String contact, String phone, Long supplierCategoryId) {
         this.code = code;
         this.name = name;
         this.contact = contact;
         this.phone = phone;
-        this.tag = tag;
+        this.supplierCategoryId = supplierCategoryId;
     }
 
     public Long getId() {
@@ -65,12 +70,12 @@ public class Supplier {
         this.phone = phone;
     }
 
-    public String getTag() {
-        return tag;
+    public Long getSupplierCategoryId() {
+        return supplierCategoryId;
     }
 
-    public void setTag(String tag) {
-        this.tag = tag;
+    public void setSupplierCategoryId(Long supplierCategoryId) {
+        this.supplierCategoryId = supplierCategoryId;
     }
 
     @Override
@@ -81,7 +86,7 @@ public class Supplier {
                 ", name='" + name + '\'' +
                 ", contact='" + contact + '\'' +
                 ", phone='" + phone + '\'' +
-                ", tag='" + tag + '\'' +
+                ", supplierCategoryId=" + supplierCategoryId +
                 '}';
     }
 }

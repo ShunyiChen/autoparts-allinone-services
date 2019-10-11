@@ -1,6 +1,8 @@
 package com.shunyi.autoparts.model;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 /** 货位 */
 @Entity
@@ -9,6 +11,8 @@ public class CargoSpace {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
+    /** 仓库ID */
+    private Long wareHouseId;
     /** 名称 */
     private String name;
     /** 第几区货架 */
@@ -19,10 +23,15 @@ public class CargoSpace {
     private String level_3;
     /** 第几个存放盒位 */
     private String level_4;
+    /** SKU与货位映射集合 */
+    @OneToMany(mappedBy = "cargoSpace")
+    private Set<SKUCargoSpaceMapping> SKUCargoSpaceMappings = new HashSet<>();
 
     public CargoSpace() {}
 
-    public CargoSpace(String name, String level_1, String level_2, String level_3, String level_4) {
+    public CargoSpace(Long id, Long wareHouseId, String name, String level_1, String level_2, String level_3, String level_4) {
+        this.id = id;
+        this.wareHouseId = wareHouseId;
         this.name = name;
         this.level_1 = level_1;
         this.level_2 = level_2;
@@ -78,10 +87,27 @@ public class CargoSpace {
         this.level_4 = level_4;
     }
 
+    public Long getWareHouseId() {
+        return wareHouseId;
+    }
+
+    public void setWareHouseId(Long wareHouseId) {
+        this.wareHouseId = wareHouseId;
+    }
+
+    public Set<SKUCargoSpaceMapping> getSKUCargoSpaceMappings() {
+        return SKUCargoSpaceMappings;
+    }
+
+    public void setSKUCargoSpaceMappings(Set<SKUCargoSpaceMapping> SKUCargoSpaceMappings) {
+        this.SKUCargoSpaceMappings = SKUCargoSpaceMappings;
+    }
+
     @Override
     public String toString() {
         return "CargoSpace{" +
                 "id=" + id +
+                ", wareHouseId=" + wareHouseId +
                 ", name='" + name + '\'' +
                 ", level_1='" + level_1 + '\'' +
                 ", level_2='" + level_2 + '\'' +
