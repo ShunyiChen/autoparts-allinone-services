@@ -17,17 +17,28 @@ public class Supplier {
     private String contact;
     /** 电话 */
     private String phone;
+    /** 其他 */
+    private String other;
     /** 供应商类目ID */
     private Long supplierCategoryId;
 
     public Supplier() {}
 
-    public Supplier(String code, String name, String contact, String phone, Long supplierCategoryId) {
+    public Supplier(String code, String name, String contact, String phone, String other, Long supplierCategoryId) {
         this.code = code;
         this.name = name;
         this.contact = contact;
         this.phone = phone;
+        this.other = other;
         this.supplierCategoryId = supplierCategoryId;
+    }
+
+    public String getOther() {
+        return other;
+    }
+
+    public void setOther(String other) {
+        this.other = other;
     }
 
     public Long getId() {
@@ -86,6 +97,7 @@ public class Supplier {
                 ", name='" + name + '\'' +
                 ", contact='" + contact + '\'' +
                 ", phone='" + phone + '\'' +
+                ", other='" + other + '\'' +
                 ", supplierCategoryId=" + supplierCategoryId +
                 '}';
     }

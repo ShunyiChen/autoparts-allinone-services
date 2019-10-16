@@ -45,7 +45,7 @@ public class SupplierCategoryController {
 
     @GetMapping("/supplier/categories")
     public List<SupplierCategory> retrieveAll() {
-        return supplierCategoryDao.findAll();
+        return supplierCategoryDao.findAllByOrderByIdAsc();
     }
 
     @GetMapping("/supplier/categories/{id}")
@@ -55,4 +55,5 @@ public class SupplierCategoryController {
             throw new SupplierCategoryNotFoundException("Supplier category not found with id -" + id);
         return supplierCategory.get();
     }
+
 }

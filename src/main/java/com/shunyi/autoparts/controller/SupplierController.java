@@ -1,16 +1,20 @@
 package com.shunyi.autoparts.controller;
 
+import com.shunyi.autoparts.dao.SupplierCategoryDao;
 import com.shunyi.autoparts.dao.SupplierDao;
 import com.shunyi.autoparts.exception.SupplierNotFoundException;
 import com.shunyi.autoparts.model.Supplier;
+import com.shunyi.autoparts.model.SupplierCategory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.persistence.criteria.*;
 import java.net.URI;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 /** 供应商控制器 */
 @RestController
@@ -18,6 +22,8 @@ import java.util.Optional;
 public class SupplierController {
     @Autowired
     private SupplierDao supplierDao;
+    @Autowired
+    private SupplierCategoryDao supplierCategoryDao;
 
     @PostMapping("/suppliers")
     public ResponseEntity<?> create(@RequestBody Supplier supplier) {
@@ -54,4 +60,43 @@ public class SupplierController {
             throw new SupplierNotFoundException("Supplier not found with id -" + id);
         return supplier.get();
     }
+
+    @GetMapping("/suppliers/category/{pid}")
+    public List<Supplier> retrieveAll(@PathVariable Long pid) {
+        List<SupplierCategory> allCategories = supplierCategoryDao.findAllByOrderByIdAsc();
+        Set<Long> idSet = new HashSet<>();
+        idSet.add(pid);
+        getNodes(pid, allCategories, idSet);
+        Specification<Supplier> specification = new Specification<Supplier>() {
+            @Override
+            public Predicate toPredicate(Root<Supplier> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
+                List<Predicate> predicates = new ArrayList<>();
+                Path<Long> path = root.get("supplierCategoryId");
+                CriteriaBuilder.In<Long> in = cb.in(path);
+                idSet.stream().forEach(e -> {
+                    in.value(e.longValue());
+                });
+                predicates.add(in);
+                return query.where(predicates.toArray(new Predicate[predicates.size()])).getRestriction();
+            }
+        };
+        Sort sort = new Sort(Sort.Direction.ASC,"id");
+        return supplierDao.findAll(specification, sort);
+    }
+
+    /**
+     *
+     * @param pid
+     * @param all
+     * @param idSet
+     */
+    private void getNodes(Long pid, List<SupplierCategory> all, Set<Long> idSet) {
+        for(SupplierCategory sc : all) {
+            if(sc.getParentId() == pid) {
+                idSet.add(sc.getId());
+                getNodes(sc.getId(), all, idSet);
+            }
+        }
+    }
+
 }
