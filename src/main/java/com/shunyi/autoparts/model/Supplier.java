@@ -19,18 +19,22 @@ public class Supplier {
     private String phone;
     /** 其他 */
     private String other;
-    /** 供应商类目ID */
-    private Long supplierCategoryId;
+    /** 供应商类目 */
+    @ManyToOne
+    @JoinColumn(name = "category_id",
+            foreignKey = @ForeignKey(name = "CATEGORY_ID_FK")
+    )
+    private SupplierCategory category;
 
     public Supplier() {}
 
-    public Supplier(String code, String name, String contact, String phone, String other, Long supplierCategoryId) {
+    public Supplier(String code, String name, String contact, String phone, String other, SupplierCategory category) {
         this.code = code;
         this.name = name;
         this.contact = contact;
         this.phone = phone;
         this.other = other;
-        this.supplierCategoryId = supplierCategoryId;
+        this.category = category;
     }
 
     public String getOther() {
@@ -81,12 +85,12 @@ public class Supplier {
         this.phone = phone;
     }
 
-    public Long getSupplierCategoryId() {
-        return supplierCategoryId;
+    public SupplierCategory getCategory() {
+        return category;
     }
 
-    public void setSupplierCategoryId(Long supplierCategoryId) {
-        this.supplierCategoryId = supplierCategoryId;
+    public void setCategory(SupplierCategory category) {
+        this.category = category;
     }
 
     @Override
@@ -98,7 +102,7 @@ public class Supplier {
                 ", contact='" + contact + '\'' +
                 ", phone='" + phone + '\'' +
                 ", other='" + other + '\'' +
-                ", supplierCategoryId=" + supplierCategoryId +
+                ", category=" + category +
                 '}';
     }
 }

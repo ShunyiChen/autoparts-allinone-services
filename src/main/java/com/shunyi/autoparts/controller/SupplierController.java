@@ -71,12 +71,50 @@ public class SupplierController {
             @Override
             public Predicate toPredicate(Root<Supplier> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
                 List<Predicate> predicates = new ArrayList<>();
-                Path<Long> path = root.get("supplierCategoryId");
+                Path<Long> path = root.get("category");
                 CriteriaBuilder.In<Long> in = cb.in(path);
                 idSet.stream().forEach(e -> {
                     in.value(e.longValue());
                 });
                 predicates.add(in);
+                return query.where(predicates.toArray(new Predicate[predicates.size()])).getRestriction();
+            }
+        };
+        Sort sort = new Sort(Sort.Direction.ASC,"id");
+        return supplierDao.findAll(specification, sort);
+    }
+
+    @PostMapping("/suppliers/search")
+    public List<Supplier> search(@RequestBody Supplier supplier) {
+        Specification<Supplier> specification = new Specification<Supplier>() {
+            @Override
+            public Predicate toPredicate(Root<Supplier> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
+                List<Predicate> predicates = new ArrayList<>();
+                if(!supplier.getCode().equals("")) {
+                    Path<String> path = root.get("code");
+                    Predicate predicate = cb.like(path, "%"+supplier.getCode()+"%");
+                    predicates.add(predicate);
+                }
+                if(!supplier.getName().equals("")) {
+                    Path<String> path = root.get("name");
+                    Predicate predicate = cb.like(path, "%"+supplier.getName()+"%");
+                    predicates.add(predicate);
+                }
+                if(!supplier.getContact().equals("")) {
+                    Path<String> path = root.get("contact");
+                    Predicate predicate = cb.like(path, "%"+supplier.getContact()+"%");
+                    predicates.add(predicate);
+                }
+                if(!supplier.getPhone().equals("")) {
+                    Path<String> path = root.get("phone");
+                    Predicate predicate = cb.like(path, "%"+supplier.getPhone()+"%");
+                    predicates.add(predicate);
+                }
+                if(!supplier.getOther().equals("")) {
+                    Path<String> path = root.get("other");
+                    Predicate predicate = cb.like(path, "%"+supplier.getOther()+"%");
+                    predicates.add(predicate);
+                }
                 return query.where(predicates.toArray(new Predicate[predicates.size()])).getRestriction();
             }
         };
