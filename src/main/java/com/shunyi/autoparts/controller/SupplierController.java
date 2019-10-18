@@ -80,7 +80,7 @@ public class SupplierController {
                 return query.where(predicates.toArray(new Predicate[predicates.size()])).getRestriction();
             }
         };
-        Sort sort = new Sort(Sort.Direction.ASC,"id");
+        Sort sort = Sort.by(Sort.Direction.ASC,"id");
         return supplierDao.findAll(specification, sort);
     }
 
@@ -118,7 +118,7 @@ public class SupplierController {
                 return query.where(predicates.toArray(new Predicate[predicates.size()])).getRestriction();
             }
         };
-        Sort sort = new Sort(Sort.Direction.ASC,"id");
+        Sort sort = Sort.by(Sort.Direction.ASC,"id");
         return supplierDao.findAll(specification, sort);
     }
 
