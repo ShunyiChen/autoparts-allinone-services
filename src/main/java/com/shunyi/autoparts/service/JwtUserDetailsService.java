@@ -1,7 +1,5 @@
 package com.shunyi.autoparts.service;
 
-import java.util.ArrayList;
-
 import com.shunyi.autoparts.dao.UserDao;
 import com.shunyi.autoparts.model.User;
 import com.shunyi.autoparts.model.dto.UserDTO;
@@ -11,6 +9,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
 
 @Service
 public class JwtUserDetailsService implements UserDetailsService {

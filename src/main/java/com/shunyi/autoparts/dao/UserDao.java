@@ -1,9 +1,8 @@
 package com.shunyi.autoparts.dao;
 
+import com.shunyi.autoparts.model.User;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
-
-import com.shunyi.autoparts.model.User;
 
 /** 登录用户Dao */
 @Repository
