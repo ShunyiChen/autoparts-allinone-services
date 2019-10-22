@@ -14,8 +14,12 @@ public class SKU {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
-    /** 产品ID */
-    private Long productId;
+    /** 产品 */
+    @ManyToOne
+    @JoinColumn(name = "product_id",
+            foreignKey = @ForeignKey(name = "PRODUCT_ID_FK")
+    )
+    private Product product;
     /** SKU名称 */
     private String skuName;
     /** 单位 */
@@ -42,9 +46,8 @@ public class SKU {
 
     public SKU() {}
 
-    public SKU(Long id, Long productId, String skuName, String unit, Integer quantity, BigDecimal price, BigDecimal externalEdit, String status, String properties, String barCode, String productCode, Date dateCreated) {
-        this.id = id;
-        this.productId = productId;
+    public SKU(Product product, String skuName, String unit, Integer quantity, BigDecimal price, BigDecimal externalEdit, String status, String properties, String barCode, String productCode, Date dateCreated, Set<SKUCargoSpaceMapping> SKUCargoSpaceMappings) {
+        this.product = product;
         this.skuName = skuName;
         this.unit = unit;
         this.quantity = quantity;
@@ -55,6 +58,15 @@ public class SKU {
         this.barCode = barCode;
         this.productCode = productCode;
         this.dateCreated = dateCreated;
+        this.SKUCargoSpaceMappings = SKUCargoSpaceMappings;
+    }
+
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
     }
 
     public Set<SKUCargoSpaceMapping> getSKUCargoSpaceMappings() {
@@ -71,14 +83,6 @@ public class SKU {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Long getProductId() {
-        return productId;
-    }
-
-    public void setProductId(Long productId) {
-        this.productId = productId;
     }
 
     public String getSkuName() {
@@ -165,7 +169,7 @@ public class SKU {
     public String toString() {
         return "SKU{" +
                 "id=" + id +
-                ", productId=" + productId +
+                ", product=" + product +
                 ", skuName='" + skuName + '\'' +
                 ", unit='" + unit + '\'' +
                 ", quantity=" + quantity +
@@ -176,6 +180,7 @@ public class SKU {
                 ", barCode='" + barCode + '\'' +
                 ", productCode='" + productCode + '\'' +
                 ", dateCreated=" + dateCreated +
+                ", SKUCargoSpaceMappings=" + SKUCargoSpaceMappings +
                 '}';
     }
 }

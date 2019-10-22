@@ -11,32 +11,58 @@ public class CargoSpace {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
-    /** 仓库ID */
-    private Long wareHouseId;
+    /** 仓库（仓库编号） */
+    @ManyToOne
+    @JoinColumn(name = "warehouse_id",
+            foreignKey = @ForeignKey(name = "WAREHOUSE_ID_FK")
+    )
+    private Warehouse warehouse;
     /** 名称 */
     private String name;
-    /** 第几区货架 */
+    /** 条形码 */
+    private String barCode;
+    /** 第几区货架/库区编号 */
     private String level_1;
-    /** 第几个货架 */
+    /** 通道编号 */
     private String level_2;
-    /** 第几层货架 */
+    /** 第几个货架/货架组编号 */
     private String level_3;
-    /** 第几个存放盒位 */
+    /** 第几层货架/货架层号 */
     private String level_4;
+    /** 第几个存放盒位/货架层中库位 */
+    private String level_5;
     /** SKU与货位映射集合 */
     @OneToMany(mappedBy = "cargoSpace")
     private Set<SKUCargoSpaceMapping> SKUCargoSpaceMappings = new HashSet<>();
 
     public CargoSpace() {}
 
-    public CargoSpace(Long id, Long wareHouseId, String name, String level_1, String level_2, String level_3, String level_4) {
-        this.id = id;
-        this.wareHouseId = wareHouseId;
+    public CargoSpace(Warehouse warehouse, String name, String barCode, String level_1, String level_2, String level_3, String level_4, String level_5, Set<SKUCargoSpaceMapping> SKUCargoSpaceMappings) {
+        this.warehouse = warehouse;
         this.name = name;
+        this.barCode = barCode;
         this.level_1 = level_1;
         this.level_2 = level_2;
         this.level_3 = level_3;
         this.level_4 = level_4;
+        this.level_5 = level_5;
+        this.SKUCargoSpaceMappings = SKUCargoSpaceMappings;
+    }
+
+    public String getBarCode() {
+        return barCode;
+    }
+
+    public void setBarCode(String barCode) {
+        this.barCode = barCode;
+    }
+
+    public String getLevel_5() {
+        return level_5;
+    }
+
+    public void setLevel_5(String level_5) {
+        this.level_5 = level_5;
     }
 
     public Long getId() {
@@ -87,12 +113,12 @@ public class CargoSpace {
         this.level_4 = level_4;
     }
 
-    public Long getWareHouseId() {
-        return wareHouseId;
+    public Warehouse getWarehouse() {
+        return warehouse;
     }
 
-    public void setWareHouseId(Long wareHouseId) {
-        this.wareHouseId = wareHouseId;
+    public void setWarehouse(Warehouse warehouse) {
+        this.warehouse = warehouse;
     }
 
     public Set<SKUCargoSpaceMapping> getSKUCargoSpaceMappings() {
@@ -107,12 +133,15 @@ public class CargoSpace {
     public String toString() {
         return "CargoSpace{" +
                 "id=" + id +
-                ", wareHouseId=" + wareHouseId +
+                ", warehouse=" + warehouse +
                 ", name='" + name + '\'' +
+                ", barCode='" + barCode + '\'' +
                 ", level_1='" + level_1 + '\'' +
                 ", level_2='" + level_2 + '\'' +
                 ", level_3='" + level_3 + '\'' +
                 ", level_4='" + level_4 + '\'' +
+                ", level_5='" + level_5 + '\'' +
+                ", SKUCargoSpaceMappings=" + SKUCargoSpaceMappings +
                 '}';
     }
 }
