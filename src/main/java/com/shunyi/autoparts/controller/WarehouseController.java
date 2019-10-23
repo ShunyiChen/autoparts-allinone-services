@@ -4,6 +4,7 @@ import com.shunyi.autoparts.dao.WarehouseDao;
 import com.shunyi.autoparts.exception.WarehouseNotFoundException;
 import com.shunyi.autoparts.model.Warehouse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -20,11 +21,9 @@ public class WarehouseController {
     private WarehouseDao warehouseDao;
 
     @PostMapping("/warehouses")
-    public ResponseEntity<?> create(@RequestBody Warehouse warehouse) {
+    public ResponseEntity<Long> create(@RequestBody Warehouse warehouse) {
         Warehouse savedWarehouse = warehouseDao.save(warehouse);
-        URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
-                .buildAndExpand(savedWarehouse.getId()).toUri();
-        return ResponseEntity.created(location).build();
+        return new ResponseEntity<>(savedWarehouse.getId(), HttpStatus.OK);
     }
 
     @PutMapping("/warehouses/{id}")

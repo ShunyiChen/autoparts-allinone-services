@@ -4,6 +4,7 @@ import com.shunyi.autoparts.dao.SupplierCategoryDao;
 import com.shunyi.autoparts.exception.SupplierCategoryNotFoundException;
 import com.shunyi.autoparts.model.SupplierCategory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -21,11 +22,9 @@ public class SupplierCategoryController {
     private SupplierCategoryDao supplierCategoryDao;
 
     @PostMapping("/supplier/categories")
-    public ResponseEntity<?> create(@RequestBody SupplierCategory supplierCategory) {
+    public ResponseEntity<Long> create(@RequestBody SupplierCategory supplierCategory) {
         SupplierCategory savedCategory = supplierCategoryDao.save(supplierCategory);
-        URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
-                .buildAndExpand(savedCategory.getId()).toUri();
-        return ResponseEntity.created(location).build();
+        return new ResponseEntity<>(savedCategory.getId(), HttpStatus.OK);
     }
 
     @PutMapping("/supplier/categories/{id}")

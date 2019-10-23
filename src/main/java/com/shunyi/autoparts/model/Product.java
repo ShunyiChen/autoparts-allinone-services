@@ -12,6 +12,8 @@ public class Product {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
+    /** 产品编码 */
+    private String code;
     /** 产品名称 */
     private String name;
     /** 品牌ID */
@@ -23,11 +25,20 @@ public class Product {
 
     public Product() {}
 
-    public Product(String name, Long brandSeriesId, BigDecimal priceExcludingTax, Date dateCreated) {
+    public Product(String code, String name, Long brandSeriesId, BigDecimal priceExcludingTax, Date dateCreated) {
+        this.code = code;
         this.name = name;
         this.brandSeriesId = brandSeriesId;
         this.priceExcludingTax = priceExcludingTax;
         this.dateCreated = dateCreated;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
     }
 
     public Long getId() {
@@ -74,6 +85,7 @@ public class Product {
     public String toString() {
         return "Product{" +
                 "id=" + id +
+                ", code='" + code + '\'' +
                 ", name='" + name + '\'' +
                 ", brandSeriesId=" + brandSeriesId +
                 ", priceExcludingTax=" + priceExcludingTax +
