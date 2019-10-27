@@ -34,12 +34,18 @@ public class BrandSeries {
     /** 品牌官方网站 */
     private String officialSite;
     /** 创建时间 */
+//    //入参哥格式化
+//    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
+//    //出参格式化
+//    @JsonFormat(
+//        pattern = "yyyy-MM-dd HH:mm:ss"
+//    )
     private Date dateCreated;
 
     public BrandSeries() {
     }
 
-    public BrandSeries(Category category, Long categoryId, String chineseName, String englishName, String description, Logo logo, String status, String officialSite, Date dateCreated) {
+    public BrandSeries(Category category, String chineseName, String englishName, String description, Logo logo, String status, String officialSite, Date dateCreated) {
         this.category = category;
         this.chineseName = chineseName;
         this.englishName = englishName;

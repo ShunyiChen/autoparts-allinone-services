@@ -23,8 +23,8 @@ public class BrandSeriesController {
 
     @PostMapping("/brandSeries")
     public ResponseEntity<?> create(@RequestBody BrandSeries brandSeries) {
+        brandSeries.setDateCreated(new Date());
         BrandSeries savedBrandSeries = brandSeriesDao.save(brandSeries);
-        savedBrandSeries.setDateCreated(new Date());
         return new ResponseEntity<>(savedBrandSeries.getId(), HttpStatus.OK);
     }
 
@@ -46,6 +46,11 @@ public class BrandSeriesController {
     @GetMapping("/brandSeries")
     public List<BrandSeries> retrieveAll() {
         return brandSeriesDao.findAll(Sort.by(Sort.Direction.ASC,"id"));
+    }
+
+    @GetMapping("/brandSeries/category/{pid}")
+    public List<BrandSeries> retrieveAllByCategory(@PathVariable Long pid) {
+        return brandSeriesDao.findAllByCategory_idOrderByIdAsc(pid);
     }
 
     @GetMapping("/brandSeries/{id}")
