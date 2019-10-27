@@ -4,6 +4,7 @@ import com.shunyi.autoparts.dao.AttributeNameDao;
 import com.shunyi.autoparts.exception.AttributeNameNotFoundException;
 import com.shunyi.autoparts.model.AttributeName;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -22,9 +23,7 @@ public class AttributeNameController {
     @PostMapping("/attributes/name")
     public ResponseEntity<?> create(@RequestBody AttributeName attributeName) {
         AttributeName savedAttributeName = attributeNameDao.save(attributeName);
-        URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
-                .buildAndExpand(savedAttributeName.getId()).toUri();
-        return ResponseEntity.created(location).build();
+        return new ResponseEntity<>(savedAttributeName.getId(), HttpStatus.OK);
     }
 
     @PutMapping("/attributes/name/{id}")

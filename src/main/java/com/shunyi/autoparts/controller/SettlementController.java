@@ -4,11 +4,10 @@ import com.shunyi.autoparts.dao.SettlementDao;
 import com.shunyi.autoparts.exception.SettlementNotFoundException;
 import com.shunyi.autoparts.model.Settlement;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,9 +22,7 @@ public class SettlementController {
     @PostMapping("/settlements")
     public ResponseEntity<?> create(@RequestBody Settlement settlement) {
         Settlement savedSettlement = settlementDao.save(settlement);
-        URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
-                .buildAndExpand(savedSettlement.getId()).toUri();
-        return ResponseEntity.created(location).build();
+        return new ResponseEntity<>(savedSettlement.getId(), HttpStatus.OK);
     }
 
     @PutMapping("/settlements/{id}")

@@ -4,6 +4,7 @@ import com.shunyi.autoparts.dao.AttributeValueDao;
 import com.shunyi.autoparts.exception.AttributeValueNotFoundException;
 import com.shunyi.autoparts.model.AttributeValue;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -22,9 +23,7 @@ public class AttributeValueController {
     @PostMapping("/attributes/value")
     public ResponseEntity<?> create(@RequestBody AttributeValue attributeValue) {
         AttributeValue savedAttributeValue = attributeValueDao.save(attributeValue);
-        URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
-                .buildAndExpand(savedAttributeValue.getId()).toUri();
-        return ResponseEntity.created(location).build();
+        return new ResponseEntity<>(savedAttributeValue.getId(), HttpStatus.OK);
     }
 
     @PutMapping("/attributes/value/{id}")

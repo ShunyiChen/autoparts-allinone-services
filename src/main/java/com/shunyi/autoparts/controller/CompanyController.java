@@ -4,11 +4,10 @@ import com.shunyi.autoparts.dao.CompanyDao;
 import com.shunyi.autoparts.exception.CompanyNotFoundException;
 import com.shunyi.autoparts.model.Company;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,9 +22,7 @@ public class CompanyController {
     @PostMapping("/companies")
     public ResponseEntity<?> create(@RequestBody Company company) {
         Company savedCompany = companyDao.save(company);
-        URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
-                .buildAndExpand(savedCompany.getId()).toUri();
-        return ResponseEntity.created(location).build();
+        return new ResponseEntity<>(savedCompany.getId(), HttpStatus.OK);
     }
 
     @PutMapping("/companies/{id}")

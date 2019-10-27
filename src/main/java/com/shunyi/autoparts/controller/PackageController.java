@@ -4,6 +4,7 @@ import com.shunyi.autoparts.dao.PackageDao;
 import com.shunyi.autoparts.exception.PackageNotFoundException;
 import com.shunyi.autoparts.model.Package;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -23,9 +24,7 @@ public class PackageController {
     @PostMapping("/packages")
     public ResponseEntity<?> create(@RequestBody Package apackage) {
         Package savedPackage = packageDao.save(apackage);
-        URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
-                .buildAndExpand(savedPackage.getId()).toUri();
-        return ResponseEntity.created(location).build();
+        return new ResponseEntity<>(savedPackage.getId(), HttpStatus.OK);
     }
 
     @PutMapping("/packages/{id}")

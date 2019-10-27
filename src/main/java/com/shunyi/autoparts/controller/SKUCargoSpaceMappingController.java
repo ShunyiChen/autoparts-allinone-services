@@ -4,11 +4,10 @@ import com.shunyi.autoparts.dao.SKUCargoSpaceDao;
 import com.shunyi.autoparts.exception.SKUCargoSpaceNotFoundException;
 import com.shunyi.autoparts.model.SKUCargoSpaceMapping;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,9 +22,7 @@ public class SKUCargoSpaceMappingController {
     @PostMapping("/skuCargoSpaceMappings")
     public ResponseEntity<?> create(@RequestBody SKUCargoSpaceMapping skuCargoSpace) {
         SKUCargoSpaceMapping savedSKUCargoSpace = skuCargoSpaceDao.save(skuCargoSpace);
-        URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
-                .buildAndExpand(savedSKUCargoSpace.getId()).toUri();
-        return ResponseEntity.created(location).build();
+        return new ResponseEntity<>(savedSKUCargoSpace.getId(), HttpStatus.OK);
     }
 
     @PutMapping("/skuCargoSpaceMappings/{id}")

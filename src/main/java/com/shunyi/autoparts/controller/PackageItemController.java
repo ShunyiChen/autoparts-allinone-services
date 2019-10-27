@@ -4,6 +4,7 @@ import com.shunyi.autoparts.dao.PackageItemDao;
 import com.shunyi.autoparts.exception.PackageItemNotFoundException;
 import com.shunyi.autoparts.model.PackageItem;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -23,9 +24,7 @@ public class PackageItemController {
     @PostMapping("/packageItems")
     public ResponseEntity<?> create(@RequestBody PackageItem packageItem) {
         PackageItem savedPackageItem = packageItemDao.save(packageItem);
-        URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
-                .buildAndExpand(savedPackageItem.getId()).toUri();
-        return ResponseEntity.created(location).build();
+        return new ResponseEntity<>(savedPackageItem.getId(), HttpStatus.OK);
     }
 
     @PutMapping("/packageItems/{id}")

@@ -4,11 +4,14 @@ import com.shunyi.autoparts.dao.BrandSeriesDao;
 import com.shunyi.autoparts.exception.BrandSeriesNotFoundException;
 import com.shunyi.autoparts.model.BrandSeries;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,9 +26,8 @@ public class BrandSeriesController {
     @PostMapping("/brandSeries")
     public ResponseEntity<?> create(@RequestBody BrandSeries brandSeries) {
         BrandSeries savedBrandSeries = brandSeriesDao.save(brandSeries);
-        URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
-                .buildAndExpand(savedBrandSeries.getId()).toUri();
-        return ResponseEntity.created(location).build();
+        savedBrandSeries.setDateCreated(new Date());
+        return new ResponseEntity<>(savedBrandSeries.getId(), HttpStatus.OK);
     }
 
     @PutMapping("/brandSeries/{id}")
@@ -45,7 +47,7 @@ public class BrandSeriesController {
 
     @GetMapping("/brandSeries")
     public List<BrandSeries> retrieveAll() {
-        return brandSeriesDao.findAll();
+        return brandSeriesDao.findAll(Sort.by(Sort.Direction.ASC,"id"));
     }
 
     @GetMapping("/brandSeries/{id}")

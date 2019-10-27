@@ -4,11 +4,10 @@ import com.shunyi.autoparts.dao.PictureDao;
 import com.shunyi.autoparts.exception.PictureNotFoundException;
 import com.shunyi.autoparts.model.Picture;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,9 +22,7 @@ public class PictureController {
     @PostMapping("/pictures")
     public ResponseEntity<?> create(@RequestBody Picture picture) {
         Picture savedPicture = pictureDao.save(picture);
-        URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
-                .buildAndExpand(savedPicture.getId()).toUri();
-        return ResponseEntity.created(location).build();
+        return new ResponseEntity<>(savedPicture.getId(), HttpStatus.OK);
     }
 
     @PutMapping("/pictures/{id}")

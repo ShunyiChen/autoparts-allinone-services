@@ -4,11 +4,10 @@ import com.shunyi.autoparts.dao.VFSDao;
 import com.shunyi.autoparts.exception.VFSNotFoundException;
 import com.shunyi.autoparts.model.VFS;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,9 +22,7 @@ public class VFSController {
     @PostMapping("/vfs")
     public ResponseEntity<?> create(@RequestBody VFS vfs) {
         VFS savedVFS = vfsDao.save(vfs);
-        URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
-                .buildAndExpand(savedVFS.getId()).toUri();
-        return ResponseEntity.created(location).build();
+        return new ResponseEntity<>(savedVFS.getId(), HttpStatus.OK);
     }
 
     @PutMapping("/vfs/{id}")

@@ -4,6 +4,8 @@ import com.shunyi.autoparts.dao.CarDao;
 import com.shunyi.autoparts.exception.CarNotFoundException;
 import com.shunyi.autoparts.model.Car;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -12,7 +14,7 @@ import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 
-/** 车型控制器 */
+/** 车型类目控制器 */
 @RestController
 @CrossOrigin
 public class CarController {
@@ -23,9 +25,7 @@ public class CarController {
     @PostMapping("/cars")
     public ResponseEntity<?> create(@RequestBody Car car) {
         Car savedCar = carDao.save(car);
-        URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
-                .buildAndExpand(savedCar.getId()).toUri();
-        return ResponseEntity.created(location).build();
+        return new ResponseEntity<>(savedCar.getId(), HttpStatus.OK);
     }
 
     @PutMapping("/cars/{id}")
@@ -45,7 +45,7 @@ public class CarController {
 
     @GetMapping("/cars")
     public List<Car> retrieveAll() {
-        return carDao.findAll();
+        return carDao.findAll(Sort.by(Sort.Direction.ASC, "id"));
     }
 
     @GetMapping("/cars/{id}")

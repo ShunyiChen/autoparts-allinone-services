@@ -4,6 +4,7 @@ import com.shunyi.autoparts.dao.PurchaseOrderDao;
 import com.shunyi.autoparts.exception.PurchaseOrderNotFoundException;
 import com.shunyi.autoparts.model.PurchaseOrder;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -23,9 +24,7 @@ public class PurchaseOrderController {
     @PostMapping("/purchaseOrders")
     public ResponseEntity<?> create(@RequestBody PurchaseOrder purchaseOrder) {
         PurchaseOrder savedPurchaseOrder = purchaseOrderDao.save(purchaseOrder);
-        URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
-                .buildAndExpand(savedPurchaseOrder.getId()).toUri();
-        return ResponseEntity.created(location).build();
+        return new ResponseEntity<>(savedPurchaseOrder.getId(), HttpStatus.OK);
     }
 
     @PutMapping("/purchaseOrders/{id}")

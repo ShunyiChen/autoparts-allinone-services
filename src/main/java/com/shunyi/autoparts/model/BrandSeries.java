@@ -11,8 +11,12 @@ public class BrandSeries {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
-    /** 类目ID */
-    private Long categoryId;
+    /** 类目 */
+    @ManyToOne
+    @JoinColumn(name = "category_id",
+            foreignKey = @ForeignKey(name = "CATEGORY_ID_FK")
+    )
+    private Category category;
     /** 品牌中文名 */
     private String chineseName;
     /** 品牌英文名 */
@@ -35,8 +39,8 @@ public class BrandSeries {
     public BrandSeries() {
     }
 
-    public BrandSeries(Long categoryId, String chineseName, String englishName, String description, Logo logo, String status, String officialSite, Date dateCreated) {
-        this.categoryId = categoryId;
+    public BrandSeries(Category category, Long categoryId, String chineseName, String englishName, String description, Logo logo, String status, String officialSite, Date dateCreated) {
+        this.category = category;
         this.chineseName = chineseName;
         this.englishName = englishName;
         this.description = description;
@@ -54,12 +58,12 @@ public class BrandSeries {
         this.id = id;
     }
 
-    public Long getCategoryId() {
-        return categoryId;
+    public Category getCategory() {
+        return category;
     }
 
-    public void setCategoryId(Long categoryId) {
-        this.categoryId = categoryId;
+    public void setCategory(Category category) {
+        this.category = category;
     }
 
     public String getChineseName() {
@@ -122,7 +126,7 @@ public class BrandSeries {
     public String toString() {
         return "BrandSeries{" +
                 "id=" + id +
-                ", categoryId=" + categoryId +
+                ", category=" + category +
                 ", chineseName='" + chineseName + '\'' +
                 ", englishName='" + englishName + '\'' +
                 ", description='" + description + '\'' +

@@ -4,11 +4,10 @@ import com.shunyi.autoparts.dao.LogoDao;
 import com.shunyi.autoparts.exception.LogoNotFoundException;
 import com.shunyi.autoparts.model.Logo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,9 +22,7 @@ public class LogoController {
     @PostMapping("/logos")
     public ResponseEntity<?> create(@RequestBody Logo logo) {
         Logo savedLogo = logoDao.save(logo);
-        URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
-                .buildAndExpand(savedLogo.getId()).toUri();
-        return ResponseEntity.created(location).build();
+        return new ResponseEntity<>(savedLogo.getId(), HttpStatus.OK);
     }
 
     @PutMapping("/logos/{id}")

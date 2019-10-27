@@ -4,6 +4,7 @@ import com.shunyi.autoparts.dao.CategoryDao;
 import com.shunyi.autoparts.exception.CategoryNotFoundException;
 import com.shunyi.autoparts.model.Category;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -23,9 +24,7 @@ public class CategoryController {
     @PostMapping("/categories")
     public ResponseEntity<?> create(@RequestBody Category category) {
         Category savedCategory = categoryDao.save(category);
-        URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
-                .buildAndExpand(savedCategory.getId()).toUri();
-        return ResponseEntity.created(location).build();
+        return new ResponseEntity<>(savedCategory.getId(), HttpStatus.OK);
     }
 
     @PutMapping("/categories/{id}")
@@ -54,5 +53,10 @@ public class CategoryController {
         if (!category.isPresent())
             throw new CategoryNotFoundException("Category not found with id -" + id);
         return category.get();
+    }
+
+    @GetMapping("/categories/sorted")
+    public List<Category> retrieveAllByOrderByIdAsc() {
+        return categoryDao.findAllByOrderByIdAsc();
     }
 }

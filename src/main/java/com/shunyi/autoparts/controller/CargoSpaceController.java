@@ -8,6 +8,7 @@ import com.shunyi.autoparts.model.Warehouse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -29,9 +30,7 @@ public class CargoSpaceController {
     @PostMapping("/cargoSpaces")
     public ResponseEntity<?> create(@RequestBody CargoSpace cargoSpace) {
         CargoSpace savedCargoSpace = cargoSpaceDao.save(cargoSpace);
-        URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
-                .buildAndExpand(savedCargoSpace.getId()).toUri();
-        return ResponseEntity.created(location).build();
+        return new ResponseEntity<>(savedCargoSpace.getId(), HttpStatus.OK);
     }
 
     @PutMapping("/cargoSpaces/{id}")

@@ -4,6 +4,7 @@ import com.shunyi.autoparts.dao.ProductDao;
 import com.shunyi.autoparts.exception.ProductNotFoundException;
 import com.shunyi.autoparts.model.Product;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -23,9 +24,7 @@ public class ProductController {
     @PostMapping("/products")
     public ResponseEntity<?> create(@RequestBody Product product) {
         Product savedProduct = productDao.save(product);
-        URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
-                .buildAndExpand(savedProduct.getId()).toUri();
-        return ResponseEntity.created(location).build();
+        return new ResponseEntity<>(savedProduct.getId(), HttpStatus.OK);
     }
 
     @PutMapping("/products/{id}")

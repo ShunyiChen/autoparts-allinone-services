@@ -4,11 +4,10 @@ import com.shunyi.autoparts.dao.DepartmentDao;
 import com.shunyi.autoparts.exception.DepartmentNotFoundException;
 import com.shunyi.autoparts.model.Department;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,9 +22,7 @@ public class DepartmentController {
     @PostMapping("/departments")
     public ResponseEntity<?> create(@RequestBody Department department) {
         Department savedDepartment = departmentDao.save(department);
-        URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
-                .buildAndExpand(savedDepartment.getId()).toUri();
-        return ResponseEntity.created(location).build();
+        return new ResponseEntity<>(savedDepartment.getId(), HttpStatus.OK);
     }
 
     @PutMapping("/departments/{id}")

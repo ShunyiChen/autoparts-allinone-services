@@ -8,12 +8,11 @@ import com.shunyi.autoparts.model.SupplierCategory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.persistence.criteria.*;
-import java.net.URI;
 import java.util.*;
 
 /** 供应商控制器 */
@@ -28,9 +27,7 @@ public class SupplierController {
     @PostMapping("/suppliers")
     public ResponseEntity<?> create(@RequestBody Supplier supplier) {
         Supplier savedSupplier = supplierDao.save(supplier);
-        URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
-                .buildAndExpand(savedSupplier.getId()).toUri();
-        return ResponseEntity.created(location).build();
+        return new ResponseEntity<>(savedSupplier.getId(), HttpStatus.OK);
     }
 
     @PutMapping("/suppliers/{id}")

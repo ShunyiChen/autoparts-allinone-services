@@ -16,8 +16,24 @@ public class Product {
     private String code;
     /** 产品名称 */
     private String name;
-    /** 品牌ID */
-    private Long brandSeriesId;
+    /** 品牌 */
+    @ManyToOne
+    @JoinColumn(name = "brandSeries_id",
+            foreignKey = @ForeignKey(name = "BRANDSERIES_ID_FK")
+    )
+    private BrandSeries brandSeries;
+    /** 车型 */
+    @ManyToOne
+    @JoinColumn(name = "car_id",
+            foreignKey = @ForeignKey(name = "CAR_ID_FK")
+    )
+    private Car car;
+    /** 单位 */
+    private String unit;
+    /** 进口 */
+    private String imported;
+    /** 产地 */
+    private String placeOfOrigin;
     /** 不含税单价 */
     private BigDecimal priceExcludingTax;
     /** 创建时间 */
@@ -25,12 +41,56 @@ public class Product {
 
     public Product() {}
 
-    public Product(String code, String name, Long brandSeriesId, BigDecimal priceExcludingTax, Date dateCreated) {
+    public Product(String code, String name, BrandSeries brandSeries, Car car, String unit, String imported, String placeOfOrigin, BigDecimal priceExcludingTax, Date dateCreated) {
         this.code = code;
         this.name = name;
-        this.brandSeriesId = brandSeriesId;
+        this.brandSeries = brandSeries;
+        this.car = car;
+        this.unit = unit;
+        this.imported = imported;
+        this.placeOfOrigin = placeOfOrigin;
         this.priceExcludingTax = priceExcludingTax;
         this.dateCreated = dateCreated;
+    }
+
+    public String getUnit() {
+        return unit;
+    }
+
+    public void setUnit(String unit) {
+        this.unit = unit;
+    }
+
+    public String getImported() {
+        return imported;
+    }
+
+    public void setImported(String imported) {
+        this.imported = imported;
+    }
+
+    public String getPlaceOfOrigin() {
+        return placeOfOrigin;
+    }
+
+    public void setPlaceOfOrigin(String placeOfOrigin) {
+        this.placeOfOrigin = placeOfOrigin;
+    }
+
+    public Car getCar() {
+        return car;
+    }
+
+    public void setCar(Car car) {
+        this.car = car;
+    }
+
+    public BrandSeries getBrandSeries() {
+        return brandSeries;
+    }
+
+    public void setBrandSeries(BrandSeries brandSeries) {
+        this.brandSeries = brandSeries;
     }
 
     public String getCode() {
@@ -57,14 +117,6 @@ public class Product {
         this.name = name;
     }
 
-    public Long getBrandSeriesId() {
-        return brandSeriesId;
-    }
-
-    public void setBrandSeriesId(Long brandSeriesId) {
-        this.brandSeriesId = brandSeriesId;
-    }
-
     public BigDecimal getPriceExcludingTax() {
         return priceExcludingTax;
     }
@@ -87,7 +139,11 @@ public class Product {
                 "id=" + id +
                 ", code='" + code + '\'' +
                 ", name='" + name + '\'' +
-                ", brandSeriesId=" + brandSeriesId +
+                ", brandSeries=" + brandSeries +
+                ", car=" + car +
+                ", unit='" + unit + '\'' +
+                ", imported='" + imported + '\'' +
+                ", placeOfOrigin='" + placeOfOrigin + '\'' +
                 ", priceExcludingTax=" + priceExcludingTax +
                 ", dateCreated=" + dateCreated +
                 '}';
