@@ -1,5 +1,7 @@
 package com.shunyi.autoparts.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Date;
@@ -36,12 +38,15 @@ public class Product {
     private String placeOfOrigin;
     /** 不含税单价 */
     private BigDecimal priceExcludingTax;
+    /** 其他 */
+    private String notes;
     /** 创建时间 */
+    @JsonFormat(pattern="yyyy-MM-dd'T'HH:mm:ss.SSSZ")
     private Date dateCreated;
 
     public Product() {}
 
-    public Product(String code, String name, BrandSeries brandSeries, Car car, String unit, String imported, String placeOfOrigin, BigDecimal priceExcludingTax, Date dateCreated) {
+    public Product(String code, String name, BrandSeries brandSeries, Car car, String unit, String imported, String placeOfOrigin, BigDecimal priceExcludingTax, String notes, Date dateCreated) {
         this.code = code;
         this.name = name;
         this.brandSeries = brandSeries;
@@ -50,7 +55,16 @@ public class Product {
         this.imported = imported;
         this.placeOfOrigin = placeOfOrigin;
         this.priceExcludingTax = priceExcludingTax;
+        this.notes = notes;
         this.dateCreated = dateCreated;
+    }
+
+    public String getNotes() {
+        return notes;
+    }
+
+    public void setNotes(String notes) {
+        this.notes = notes;
     }
 
     public String getUnit() {

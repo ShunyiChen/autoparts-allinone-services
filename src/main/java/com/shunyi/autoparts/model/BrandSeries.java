@@ -1,5 +1,7 @@
 package com.shunyi.autoparts.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -37,9 +39,7 @@ public class BrandSeries {
 //    //入参哥格式化
 //    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
 //    //出参格式化
-//    @JsonFormat(
-//        pattern = "yyyy-MM-dd HH:mm:ss"
-//    )
+    @JsonFormat(pattern="yyyy-MM-dd'T'HH:mm:ss.SSSZ")
     private Date dateCreated;
 
     public BrandSeries() {

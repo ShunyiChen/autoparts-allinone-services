@@ -4,12 +4,14 @@ import com.shunyi.autoparts.dao.ProductDao;
 import com.shunyi.autoparts.exception.ProductNotFoundException;
 import com.shunyi.autoparts.model.Product;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,6 +25,7 @@ public class ProductController {
 
     @PostMapping("/products")
     public ResponseEntity<?> create(@RequestBody Product product) {
+        product.setDateCreated(new Date());
         Product savedProduct = productDao.save(product);
         return new ResponseEntity<>(savedProduct.getId(), HttpStatus.OK);
     }
@@ -44,7 +47,12 @@ public class ProductController {
 
     @GetMapping("/products")
     public List<Product> retrieveAll() {
-        return productDao.findAll();
+        return productDao.findAll(Sort.by(Sort.Direction.ASC,"id"));
+    }
+
+    @GetMapping("/products/brandSeries/{bid}")
+    public List<Product> retrieveAllByBrand(@PathVariable Long bid) {
+        return productDao.findAllByBrandSeries_idOrderByIdAsc(bid);
     }
 
     @GetMapping("/products/{id}")
