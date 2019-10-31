@@ -36,9 +36,6 @@ public class BrandSeries {
     /** 品牌官方网站 */
     private String officialSite;
     /** 创建时间 */
-//    //入参哥格式化
-//    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
-//    //出参格式化
     @JsonFormat(pattern="yyyy-MM-dd'T'HH:mm:ss.SSSZ")
     private Date dateCreated;
 
@@ -130,16 +127,6 @@ public class BrandSeries {
 
     @Override
     public String toString() {
-        return "BrandSeries{" +
-                "id=" + id +
-                ", category=" + category +
-                ", chineseName='" + chineseName + '\'' +
-                ", englishName='" + englishName + '\'' +
-                ", description='" + description + '\'' +
-                ", logo=" + logo +
-                ", status='" + status + '\'' +
-                ", officialSite='" + officialSite + '\'' +
-                ", dateCreated=" + dateCreated +
-                '}';
+        return chineseName;
     }
 }

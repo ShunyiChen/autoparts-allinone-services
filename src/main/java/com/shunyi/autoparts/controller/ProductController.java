@@ -5,12 +5,13 @@ import com.shunyi.autoparts.exception.ProductNotFoundException;
 import com.shunyi.autoparts.model.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import java.net.URI;
+import javax.persistence.criteria.*;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -61,5 +62,58 @@ public class ProductController {
         if (!product.isPresent())
             throw new ProductNotFoundException("Product not found with id -" + id);
         return product.get();
+    }
+
+    @PostMapping("/products/search")
+    public List<Product> search(@RequestBody Product product) {
+        Specification<Product> specification = new Specification<Product>() {
+            @Override
+            public Predicate toPredicate(Root<Product> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
+                List<Predicate> predicates = new ArrayList<>();
+                if(!product.getCode().equals("")) {
+                    Path<String> path = root.get("code");
+                    Predicate predicate = cb.like(path, "%"+product.getCode()+"%");
+                    predicates.add(predicate);
+                }
+                if(!product.getName().equals("")) {
+                    Path<String> path = root.get("name");
+                    Predicate predicate = cb.like(path, "%"+product.getName()+"%");
+                    predicates.add(predicate);
+                }
+                if(!product.getBrandSeries().equals("")) {
+                    Path<String> path = root.get("brandSeries");
+                    Predicate predicate = cb.like(path, "%"+product.getBrandSeries().getChineseName()+"%");
+                    predicates.add(predicate);
+                }
+                if(product.getPriceExcludingTax() != null && !product.getPriceExcludingTax().equals("")) {
+                    Path<String> path = root.get("priceExcludingTax");
+                    Predicate predicate = cb.like(path, "%"+product.getPriceExcludingTax()+"%");
+                    predicates.add(predicate);
+                }
+                if(!product.getUnit().equals("")) {
+                    Path<String> path = root.get("unit");
+                    Predicate predicate = cb.like(path, "%"+product.getUnit()+"%");
+                    predicates.add(predicate);
+                }
+                if(!product.getImported().equals("")) {
+                    Path<String> path = root.get("imported");
+                    Predicate predicate = cb.like(path, "%"+product.getImported()+"%");
+                    predicates.add(predicate);
+                }
+                if(!product.getPlaceOfOrigin().equals("")) {
+                    Path<String> path = root.get("placeOfOrigin");
+                    Predicate predicate = cb.like(path, "%"+product.getPlaceOfOrigin()+"%");
+                    predicates.add(predicate);
+                }
+                if(!product.getCar().equals("")) {
+                    Path<String> path = root.get("car");
+                    Predicate predicate = cb.like(path, "%"+product.getCar().getModel()+"%");
+                    predicates.add(predicate);
+                }
+                return query.where(predicates.toArray(new Predicate[predicates.size()])).getRestriction();
+            }
+        };
+        Sort sort = Sort.by(Sort.Direction.ASC,"id");
+        return productDao.findAll(specification, sort);
     }
 }
