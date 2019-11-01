@@ -11,8 +11,12 @@ public class Attribute {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
-    /** 产品ID */
-    private Long productId;
+    /** 产品 */
+    @ManyToOne
+    @JoinColumn(name = "product_id",
+            foreignKey = @ForeignKey(name = "PRODUCT_ID_FK")
+    )
+    private Product product;
     /** 属性名ID */
     private Long attributeNameId;
     /** 属性值ID */
@@ -26,8 +30,8 @@ public class Attribute {
 
     public Attribute() {}
 
-    public Attribute(Long productId, Long attributeNameId, Long attributeValueId, Boolean sku, Long skuId, Date dateCreated) {
-        this.productId = productId;
+    public Attribute(Product product, Long attributeNameId, Long attributeValueId, Boolean sku, Long skuId, Date dateCreated) {
+        this.product = product;
         this.attributeNameId = attributeNameId;
         this.attributeValueId = attributeValueId;
         this.sku = sku;
@@ -43,12 +47,12 @@ public class Attribute {
         this.id = id;
     }
 
-    public Long getProductId() {
-        return productId;
+    public Product getProduct() {
+        return product;
     }
 
-    public void setProductId(Long productId) {
-        this.productId = productId;
+    public void setProduct(Product product) {
+        this.product = product;
     }
 
     public Long getAttributeNameId() {
@@ -67,7 +71,7 @@ public class Attribute {
         this.attributeValueId = attributeValueId;
     }
 
-    public Boolean isSku() {
+    public Boolean getSku() {
         return sku;
     }
 
@@ -91,16 +95,4 @@ public class Attribute {
         this.dateCreated = dateCreated;
     }
 
-    @Override
-    public String toString() {
-        return "Attribute{" +
-                "id=" + id +
-                ", productId=" + productId +
-                ", attributeNameId=" + attributeNameId +
-                ", attributeValueId=" + attributeValueId +
-                ", sku=" + sku +
-                ", skuId=" + skuId +
-                ", dateCreated=" + dateCreated +
-                '}';
-    }
 }
