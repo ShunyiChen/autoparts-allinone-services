@@ -3,15 +3,19 @@ package com.shunyi.autoparts.controller;
 import com.shunyi.autoparts.dao.AttributeNameDao;
 import com.shunyi.autoparts.exception.AttributeNameNotFoundException;
 import com.shunyi.autoparts.model.AttributeName;
+import com.shunyi.autoparts.model.Supplier;
+import com.shunyi.autoparts.model.SupplierCategory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.persistence.criteria.*;
 import java.net.URI;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 /** 属性名控制器 */
 @RestController
@@ -52,5 +56,10 @@ public class AttributeNameController {
         if (!attribute.isPresent())
             throw new AttributeNameNotFoundException("Attribute name not found with id -" + id);
         return attribute.get();
+    }
+
+    @GetMapping("/attributes/name/category/{pid}")
+    public List<AttributeName> retrieveAllByCategory(@PathVariable Long pid) {
+        return attributeNameDao.findAllByCategory_idOrderByIdAsc(pid);
     }
 }

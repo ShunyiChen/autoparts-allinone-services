@@ -2,6 +2,8 @@ package com.shunyi.autoparts.controller;
 
 import com.shunyi.autoparts.dao.ProductDao;
 import com.shunyi.autoparts.exception.ProductNotFoundException;
+import com.shunyi.autoparts.model.BrandSeries;
+import com.shunyi.autoparts.model.Car;
 import com.shunyi.autoparts.model.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
@@ -11,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.criteria.*;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -81,13 +84,13 @@ public class ProductController {
                     predicates.add(predicate);
                 }
                 if(!product.getBrandSeries().equals("")) {
-                    Path<String> path = root.get("brandSeries");
-                    Predicate predicate = cb.like(path, "%"+product.getBrandSeries().getChineseName()+"%");
+                    Path<BrandSeries> path = root.get("brandSeries");
+                    Predicate predicate = cb.like(path.get("chineseName"), "%"+product.getBrandSeries().getChineseName()+"%");
                     predicates.add(predicate);
                 }
                 if(product.getPriceExcludingTax() != null && !product.getPriceExcludingTax().equals("")) {
-                    Path<String> path = root.get("priceExcludingTax");
-                    Predicate predicate = cb.like(path, "%"+product.getPriceExcludingTax()+"%");
+                    Path<BigDecimal> path = root.get("priceExcludingTax");
+                    Predicate predicate = cb.equal(path,product.getPriceExcludingTax());
                     predicates.add(predicate);
                 }
                 if(!product.getUnit().equals("")) {
@@ -106,8 +109,8 @@ public class ProductController {
                     predicates.add(predicate);
                 }
                 if(!product.getCar().equals("")) {
-                    Path<String> path = root.get("car");
-                    Predicate predicate = cb.like(path, "%"+product.getCar().getModel()+"%");
+                    Path<Car> path = root.get("car");
+                    Predicate predicate = cb.like(path.get("model"), "%"+product.getCar().getModel()+"%");
                     predicates.add(predicate);
                 }
                 return query.where(predicates.toArray(new Predicate[predicates.size()])).getRestriction();

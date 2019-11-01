@@ -13,8 +13,12 @@ public class AttributeValue {
     private Long id;
     /** 属性值名称 */
     private String name;
-    /** 类目ID */
-    private Long categoryId;
+    /** 类目 */
+    @ManyToOne
+    @JoinColumn(name = "category_id",
+            foreignKey = @ForeignKey(name = "CATEGORY_ID_FK")
+    )
+    private Category category;
     /** 属性名ID */
     private Long attributeNameId;
     /** 状态 */
@@ -26,9 +30,9 @@ public class AttributeValue {
 
     public AttributeValue() {}
 
-    public AttributeValue(String name, Long categoryId, Long attributeNameId, String status, Integer sort, Date dateCreated) {
+    public AttributeValue(String name, Category category, Long attributeNameId, String status, Integer sort, Date dateCreated) {
         this.name = name;
-        this.categoryId = categoryId;
+        this.category = category;
         this.attributeNameId = attributeNameId;
         this.status = status;
         this.sort = sort;
@@ -51,12 +55,12 @@ public class AttributeValue {
         this.name = name;
     }
 
-    public Long getCategoryId() {
-        return categoryId;
+    public Category getCategory() {
+        return category;
     }
 
-    public void setCategoryId(Long categoryId) {
-        this.categoryId = categoryId;
+    public void setCategory(Category category) {
+        this.category = category;
     }
 
     public Long getAttributeNameId() {
@@ -93,14 +97,6 @@ public class AttributeValue {
 
     @Override
     public String toString() {
-        return "AttributeValue{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", categoryId=" + categoryId +
-                ", attributeNameId=" + attributeNameId +
-                ", status='" + status + '\'' +
-                ", sort=" + sort +
-                ", dateCreated=" + dateCreated +
-                '}';
+        return name;
     }
 }
