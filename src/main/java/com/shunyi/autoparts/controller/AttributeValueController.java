@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,6 +23,7 @@ public class AttributeValueController {
 
     @PostMapping("/attributes/value")
     public ResponseEntity<?> create(@RequestBody AttributeValue attributeValue) {
+        attributeValue.setDateCreated(new Date());
         AttributeValue savedAttributeValue = attributeValueDao.save(attributeValue);
         return new ResponseEntity<>(savedAttributeValue.getId(), HttpStatus.OK);
     }
@@ -52,5 +54,10 @@ public class AttributeValueController {
         if (!attribute.isPresent())
             throw new AttributeValueNotFoundException("Attribute value not found with id -" + id);
         return attribute.get();
+    }
+
+    @GetMapping("/attributes/value/category/{pid}")
+    public List<AttributeValue> retrieveAllByCategory(@PathVariable Long pid) {
+        return attributeValueDao.findAllByCategory_idOrderByIdAsc(pid);
     }
 }

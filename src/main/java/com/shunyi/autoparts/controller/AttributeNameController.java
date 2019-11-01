@@ -1,8 +1,10 @@
 package com.shunyi.autoparts.controller;
 
 import com.shunyi.autoparts.dao.AttributeNameDao;
+import com.shunyi.autoparts.dao.AttributeValueDao;
 import com.shunyi.autoparts.exception.AttributeNameNotFoundException;
 import com.shunyi.autoparts.model.AttributeName;
+import com.shunyi.autoparts.model.AttributeValue;
 import com.shunyi.autoparts.model.Supplier;
 import com.shunyi.autoparts.model.SupplierCategory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,9 +25,12 @@ import java.util.*;
 public class AttributeNameController {
     @Autowired
     private AttributeNameDao attributeNameDao;
+    @Autowired
+    private AttributeValueDao attributeValueDao;
 
     @PostMapping("/attributes/name")
     public ResponseEntity<?> create(@RequestBody AttributeName attributeName) {
+        attributeName.setDateCreated(new Date());
         AttributeName savedAttributeName = attributeNameDao.save(attributeName);
         return new ResponseEntity<>(savedAttributeName.getId(), HttpStatus.OK);
     }
@@ -42,6 +47,16 @@ public class AttributeNameController {
 
     @DeleteMapping("/attributes/name/{id}")
     public void delete(@PathVariable Long id) {
+        attributeNameDao.deleteById(id);
+    }
+
+    @DeleteMapping("/attributes/name/children/{id}")
+    public void deleteCurrentAndAllChildren(@PathVariable Long id) {
+        //查询属性值列表通过属性名ID
+        List<AttributeValue> values = attributeValueDao.findAllByAttributeName_idOrderByIdAsc(id);
+        //删除属性值列表
+        attributeValueDao.deleteAll(values);
+        //删除当前属性名
         attributeNameDao.deleteById(id);
     }
 

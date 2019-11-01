@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,6 +23,7 @@ public class AttributeController {
 
     @PostMapping("/attributes")
     public ResponseEntity<?> create(@RequestBody Attribute attribute) {
+        attribute.setDateCreated(new Date());
         Attribute savedAttribute = attributeDao.save(attribute);
         return new ResponseEntity<>(savedAttribute.getId(), HttpStatus.OK);
     }

@@ -13,14 +13,20 @@ public class AttributeValue {
     private Long id;
     /** 属性值名称 */
     private String name;
+    /** 颜色RGB */
+    private String rgb;
     /** 类目 */
     @ManyToOne
     @JoinColumn(name = "category_id",
             foreignKey = @ForeignKey(name = "CATEGORY_ID_FK")
     )
     private Category category;
-    /** 属性名ID */
-    private Long attributeNameId;
+    /** 属性名 */
+    @ManyToOne
+    @JoinColumn(name = "attributeName_id",
+            foreignKey = @ForeignKey(name = "ATTRIBUTENAME_ID_FK")
+    )
+    private AttributeName attributeName;
     /** 状态 */
     private String status;
     /** 排序 */
@@ -30,13 +36,22 @@ public class AttributeValue {
 
     public AttributeValue() {}
 
-    public AttributeValue(String name, Category category, Long attributeNameId, String status, Integer sort, Date dateCreated) {
+    public AttributeValue(String name, String rgb, Category category, AttributeName attributeName, String status, Integer sort, Date dateCreated) {
         this.name = name;
+        this.rgb = rgb;
         this.category = category;
-        this.attributeNameId = attributeNameId;
+        this.attributeName = attributeName;
         this.status = status;
         this.sort = sort;
         this.dateCreated = dateCreated;
+    }
+
+    public String getRgb() {
+        return rgb;
+    }
+
+    public void setRgb(String rgb) {
+        this.rgb = rgb;
     }
 
     public Long getId() {
@@ -63,12 +78,12 @@ public class AttributeValue {
         this.category = category;
     }
 
-    public Long getAttributeNameId() {
-        return attributeNameId;
+    public AttributeName getAttributeName() {
+        return attributeName;
     }
 
-    public void setAttributeNameId(Long attributeNameId) {
-        this.attributeNameId = attributeNameId;
+    public void setAttributeName(AttributeName attributeName) {
+        this.attributeName = attributeName;
     }
 
     public String getStatus() {
