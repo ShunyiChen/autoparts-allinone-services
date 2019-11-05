@@ -19,3 +19,5 @@ drop table if exists stock CASCADE;
 drop table if exists suppliers CASCADE;
 drop table if exists vfs CASCADE;
 drop table if exists warehouses CASCADE;
+drop table if exists sku_cargospace_mapping CASCADE;
+drop table if exists supplier_categories CASCADE;

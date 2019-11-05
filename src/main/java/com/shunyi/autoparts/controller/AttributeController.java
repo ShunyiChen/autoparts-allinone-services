@@ -55,4 +55,9 @@ public class AttributeController {
             throw new AttributeNotFoundException("Attribute not found with id -" + id);
         return attribute.get();
     }
+
+//    @GetMapping("/attributes/{pid}/{aid}")
+//    public List<Attribute> retrieveAllByPidAndAid(@PathVariable Long pid, @PathVariable Long aid) {
+//        return attributeDao.findAllByProduct_idAndAttributeName_id(pid, aid);
+//    }
 }
