@@ -60,4 +60,9 @@ public class AttributeValueController {
     public List<AttributeValue> retrieveAllByCategory(@PathVariable Long pid) {
         return attributeValueDao.findAllByCategory_idOrderByIdAsc(pid);
     }
+
+    @GetMapping("/attributes/value/name/{pid}")
+    public List<AttributeValue> retrieveAllByAttributeName(@PathVariable Long pid) {
+        return attributeValueDao.findAllByAttributeName_idOrderByIdAsc(pid);
+    }
 }

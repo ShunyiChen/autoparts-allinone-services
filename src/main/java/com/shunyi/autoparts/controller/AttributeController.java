@@ -43,6 +43,12 @@ public class AttributeController {
         attributeDao.deleteById(id);
     }
 
+    @DeleteMapping("/attributes/{pid}/{aid}")
+    public void deleteByProductIdAndAttributeValueId(@PathVariable Long pid, @PathVariable Long aid) {
+        List<Attribute> attributes = attributeDao.findByProduct_idAndAttributeValueId(pid, aid);
+        attributeDao.deleteAll(attributes);
+    }
+
     @GetMapping("/attributes")
     public List<Attribute> retrieveAll() {
         return attributeDao.findAll();
@@ -56,8 +62,8 @@ public class AttributeController {
         return attribute.get();
     }
 
-//    @GetMapping("/attributes/{pid}/{aid}")
-//    public List<Attribute> retrieveAllByPidAndAid(@PathVariable Long pid, @PathVariable Long aid) {
-//        return attributeDao.findAllByProduct_idAndAttributeName_id(pid, aid);
-//    }
+    @GetMapping("/attributes/{pid}")
+    public List<Attribute> retrieveAllByProductId(@PathVariable Long pid) {
+        return attributeDao.findAllByProduct_idOrderByAttributeNameIdAsc(pid);
+    }
 }

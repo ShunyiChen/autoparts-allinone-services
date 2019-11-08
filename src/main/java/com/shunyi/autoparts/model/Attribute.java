@@ -17,12 +17,10 @@ public class Attribute {
             foreignKey = @ForeignKey(name = "PRODUCT_ID_FK")
     )
     private Product product;
-    /** 属性值 */
-    @OneToOne
-    @JoinColumn(name = "attributeValue_id",
-            foreignKey = @ForeignKey(name = "ATTRIBUTEVALUE_ID_FK")
-    )
-    private AttributeValue attributeValue;
+    /** 属性名ID */
+    private Long attributeNameId;
+    /** 属性值ID */
+    private Long attributeValueId;
     /** 是否SKU */
     private Boolean sku;
     /** SKU ID */
@@ -32,9 +30,10 @@ public class Attribute {
 
     public Attribute() {}
 
-    public Attribute(Product product, AttributeValue attributeValue, Boolean sku, Long skuId, Date dateCreated) {
+    public Attribute(Product product, Long attributeNameId, Long attributeValueId, Boolean sku, Long skuId, Date dateCreated) {
         this.product = product;
-        this.attributeValue = attributeValue;
+        this.attributeNameId = attributeNameId;
+        this.attributeValueId = attributeValueId;
         this.sku = sku;
         this.skuId = skuId;
         this.dateCreated = dateCreated;
@@ -56,12 +55,20 @@ public class Attribute {
         this.product = product;
     }
 
-    public AttributeValue getAttributeValue() {
-        return attributeValue;
+    public Long getAttributeNameId() {
+        return attributeNameId;
     }
 
-    public void setAttributeValue(AttributeValue attributeValue) {
-        this.attributeValue = attributeValue;
+    public void setAttributeNameId(Long attributeNameId) {
+        this.attributeNameId = attributeNameId;
+    }
+
+    public Long getAttributeValueId() {
+        return attributeValueId;
+    }
+
+    public void setAttributeValueId(Long attributeValueId) {
+        this.attributeValueId = attributeValueId;
     }
 
     public Boolean getSku() {

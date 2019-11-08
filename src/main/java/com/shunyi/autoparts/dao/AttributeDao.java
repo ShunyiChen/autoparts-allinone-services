@@ -7,6 +7,7 @@ import java.util.List;
 
 /** 产品基本属性Dao */
 public interface AttributeDao extends JpaRepository<Attribute, Long> {
+    List<Attribute> findAllByProduct_idOrderByAttributeNameIdAsc(Long product_id);
 
-//    List<Attribute> findAllByProduct_idAndAttributeName_id(Long product_id, Long attributeName_id);
+    List<Attribute> findByProduct_idAndAttributeValueId(Long product_id, Long attributeValueId);
 }
