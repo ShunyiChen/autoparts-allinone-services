@@ -49,7 +49,7 @@ public class SKUCargoSpaceMappingController {
     public SKUCargoSpaceMapping retrieve(@PathVariable SKUCargoSpaceMapping.Id id) {
         Optional<SKUCargoSpaceMapping> skuCargoSpace = skuCargoSpaceDao.findById(id);
         if (!skuCargoSpace.isPresent())
-            throw new SKUCargoSpaceNotFoundException("SKUCargoSpaceMapping not found with id -" + id);
+            throw new SKUCargoSpaceNotFoundException("SKUCargoSpaceMapping not found with id - " + id);
         return skuCargoSpace.get();
     }
 }

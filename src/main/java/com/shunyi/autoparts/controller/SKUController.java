@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,6 +22,7 @@ public class SKUController {
 
     @PostMapping("/sku")
     public ResponseEntity<?> create(@RequestBody SKU sku) {
+        sku.setDateCreated(new Date());
         SKU savedSKU = skuDao.save(sku);
         return new ResponseEntity<>(savedSKU.getId(), HttpStatus.OK);
     }

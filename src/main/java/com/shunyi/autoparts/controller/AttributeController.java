@@ -3,13 +3,13 @@ package com.shunyi.autoparts.controller;
 import com.shunyi.autoparts.dao.AttributeDao;
 import com.shunyi.autoparts.exception.AttributeNotFoundException;
 import com.shunyi.autoparts.model.Attribute;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import java.net.URI;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -18,6 +18,8 @@ import java.util.Optional;
 @RestController
 @CrossOrigin
 public class AttributeController {
+    /** 日志 */
+    private static final Logger logger = LoggerFactory.getLogger(AttributeController.class);
     @Autowired
     private AttributeDao attributeDao;
 
@@ -57,13 +59,15 @@ public class AttributeController {
     @GetMapping("/attributes/{id}")
     public Attribute retrieve(@PathVariable Long id) {
         Optional<Attribute> attribute = attributeDao.findById(id);
-        if (!attribute.isPresent())
-            throw new AttributeNotFoundException("Attribute not found with id -" + id);
+        if (!attribute.isPresent()) {
+            logger.error("Attribute not found with id " + id);
+            throw new AttributeNotFoundException("Attribute not found with id " + id);
+        }
         return attribute.get();
     }
 
-    @GetMapping("/attributes/{pid}")
+    @GetMapping("/attributes/products/{pid}")
     public List<Attribute> retrieveAllByProductId(@PathVariable Long pid) {
-        return attributeDao.findAllByProduct_idOrderByAttributeNameIdAsc(pid);
+        return attributeDao.findByProduct_id(pid);
     }
 }
