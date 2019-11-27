@@ -4,15 +4,15 @@ import com.shunyi.autoparts.dao.AttributeValueDao;
 import com.shunyi.autoparts.exception.AttributeValueNotFoundException;
 import com.shunyi.autoparts.model.AttributeValue;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.persistence.criteria.*;
 import java.net.URI;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 /** 属性值控制器 */
 @RestController
@@ -65,4 +65,23 @@ public class AttributeValueController {
     public List<AttributeValue> retrieveAllByAttributeName(@PathVariable Long pid) {
         return attributeValueDao.findAllByAttributeName_idOrderByIdAsc(pid);
     }
+
+//    @PostMapping("/attributes/value/ids")
+//    public List<AttributeValue> retrieveAllByIds(@RequestBody Long[] ids) {
+//        Specification<AttributeValue> specification = new Specification<AttributeValue>() {
+//            @Override
+//            public Predicate toPredicate(Root<AttributeValue> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
+//                List<Predicate> predicates = new ArrayList<>();
+//                Path<Long> path = root.get("id");
+//                CriteriaBuilder.In<Long> in = cb.in(path);
+//                for(Long id : ids) {
+//                    in.value(id);
+//                }
+//                predicates.add(in);
+//                return query.where(predicates.toArray(new Predicate[predicates.size()])).getRestriction();
+//            }
+//        };
+//        Sort sort = Sort.by(Sort.Direction.ASC,"id");
+//        return attributeValueDao.findAll(specification, sort);
+//    }
 }

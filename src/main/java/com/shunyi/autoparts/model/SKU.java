@@ -20,8 +20,6 @@ public class SKU {
             foreignKey = @ForeignKey(name = "PRODUCT_ID_FK")
     )
     private Product product;
-    /** SKU编码 */
-    private String skuCode;
     /** SKU名称 */
     private String skuName;
     /** 单位 */
@@ -38,8 +36,6 @@ public class SKU {
     private String properties;
     /** 条形码 */
     private String barCode;
-    /** 产品编码 */
-    private String productCode;
     /** 创建时间 */
     private Date dateCreated;
     /** SKU与货位映射集合 */
@@ -48,9 +44,8 @@ public class SKU {
 
     public SKU() {}
 
-    public SKU(Product product, String skuCode, String skuName, String unit, Integer quantity, BigDecimal price, BigDecimal externalEdit, String status, String properties, String barCode, String productCode, Date dateCreated, Set<SKUCargoSpaceMapping> SKUCargoSpaceMappings) {
+    public SKU(Product product, String skuName, String unit, Integer quantity, BigDecimal price, BigDecimal externalEdit, String status, String properties, String barCode, Date dateCreated, Set<SKUCargoSpaceMapping> SKUCargoSpaceMappings) {
         this.product = product;
-        this.skuCode = skuCode;
         this.skuName = skuName;
         this.unit = unit;
         this.quantity = quantity;
@@ -59,17 +54,8 @@ public class SKU {
         this.status = status;
         this.properties = properties;
         this.barCode = barCode;
-        this.productCode = productCode;
         this.dateCreated = dateCreated;
         this.SKUCargoSpaceMappings = SKUCargoSpaceMappings;
-    }
-
-    public String getSkuCode() {
-        return skuCode;
-    }
-
-    public void setSkuCode(String skuCode) {
-        this.skuCode = skuCode;
     }
 
     public Product getProduct() {
@@ -160,14 +146,6 @@ public class SKU {
         this.barCode = barCode;
     }
 
-    public String getProductCode() {
-        return productCode;
-    }
-
-    public void setProductCode(String productCode) {
-        this.productCode = productCode;
-    }
-
     public Date getDateCreated() {
         return dateCreated;
     }
@@ -181,7 +159,6 @@ public class SKU {
         return "SKU{" +
                 "id=" + id +
                 ", product=" + product +
-                ", skuCode='" + skuCode + '\'' +
                 ", skuName='" + skuName + '\'' +
                 ", unit='" + unit + '\'' +
                 ", quantity=" + quantity +
@@ -190,7 +167,6 @@ public class SKU {
                 ", status='" + status + '\'' +
                 ", properties='" + properties + '\'' +
                 ", barCode='" + barCode + '\'' +
-                ", productCode='" + productCode + '\'' +
                 ", dateCreated=" + dateCreated +
                 ", SKUCargoSpaceMappings=" + SKUCargoSpaceMappings +
                 '}';
