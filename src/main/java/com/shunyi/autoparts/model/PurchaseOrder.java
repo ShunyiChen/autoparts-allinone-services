@@ -17,8 +17,8 @@ public class PurchaseOrder {
     private Date orderDate;
     /** 仓库 */
     @ManyToOne
-    @JoinColumn(name = "warehouse_id",
-            foreignKey = @ForeignKey(name = "WAREHOUSE_ID_FK")
+    @JoinColumn(name = "order_warehouse_id",
+            foreignKey = @ForeignKey(name = "ORDER_WAREHOUSE_ID_FK")
     )
     private Warehouse warehouse;
     /** 打包及其明细 */

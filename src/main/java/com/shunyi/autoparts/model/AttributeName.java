@@ -15,8 +15,8 @@ public class AttributeName {
     private String name;
     /** 类目 */
     @ManyToOne
-    @JoinColumn(name = "category_id",
-        foreignKey = @ForeignKey(name = "CATEGORY_ID_FK")
+    @JoinColumn(name = "name_category_id",
+        foreignKey = @ForeignKey(name = "NAME_CATEGORY_ID_FK")
     )
     private Category category;
     /** 是否允许别名 */

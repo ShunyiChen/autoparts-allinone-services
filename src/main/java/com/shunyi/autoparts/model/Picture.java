@@ -17,8 +17,8 @@ public class Picture {
     private String path;
     /** 图片所在的文件系统 */
     @ManyToOne
-    @JoinColumn(name = "vfs_id",
-            foreignKey = @ForeignKey(name = "VFS_ID_FK")
+    @JoinColumn(name = "picture_vfs_id",
+            foreignKey = @ForeignKey(name = "PICTURE_VFS_ID_FK")
     )
     private VFS vfs;
     /** 创建时间 */

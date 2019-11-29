@@ -15,8 +15,8 @@ public class BrandSeries {
     private Long id;
     /** 类目 */
     @ManyToOne
-    @JoinColumn(name = "category_id",
-            foreignKey = @ForeignKey(name = "CATEGORY_ID_FK")
+    @JoinColumn(name = "brand_category_id",
+            foreignKey = @ForeignKey(name = "BRAND_CATEGORY_ID_FK")
     )
     private Category category;
     /** 品牌中文名 */

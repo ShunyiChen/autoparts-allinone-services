@@ -17,8 +17,8 @@ public class AttributeValue {
     private String rgb;
     /** 类目 */
     @ManyToOne
-    @JoinColumn(name = "category_id",
-            foreignKey = @ForeignKey(name = "CATEGORY_ID_FK")
+    @JoinColumn(name = "value_category_id",
+            foreignKey = @ForeignKey(name = "VALUE_CATEGORY_ID_FK")
     )
     private Category category;
     /** 属性名 */

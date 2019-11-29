@@ -16,8 +16,8 @@ public class SKU {
     private Long id;
     /** 产品 */
     @ManyToOne
-    @JoinColumn(name = "product_id",
-            foreignKey = @ForeignKey(name = "PRODUCT_ID_FK")
+    @JoinColumn(name = "sku_product_id",
+            foreignKey = @ForeignKey(name = "SKU_PRODUCT_ID_FK")
     )
     private Product product;
     /** SKU名称 */

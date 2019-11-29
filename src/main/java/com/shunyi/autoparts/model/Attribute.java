@@ -13,8 +13,8 @@ public class Attribute {
     private Long id;
     /** 产品 */
     @ManyToOne
-    @JoinColumn(name = "product_id",
-            foreignKey = @ForeignKey(name = "PRODUCT_ID_FK")
+    @JoinColumn(name = "attribute_product_id",
+            foreignKey = @ForeignKey(name = "ATTRIBUTE_PRODUCT_ID_FK")
     )
     private Product product;
     /** 属性名ID */

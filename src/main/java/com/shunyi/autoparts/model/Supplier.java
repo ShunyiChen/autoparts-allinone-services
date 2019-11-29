@@ -21,8 +21,8 @@ public class Supplier {
     private String other;
     /** 供应商类目 */
     @ManyToOne
-    @JoinColumn(name = "category_id",
-            foreignKey = @ForeignKey(name = "CATEGORY_ID_FK")
+    @JoinColumn(name = "supplier_category_id",
+            foreignKey = @ForeignKey(name = "SUPPLIER_CATEGORY_ID_FK")
     )
     private SupplierCategory category;
 

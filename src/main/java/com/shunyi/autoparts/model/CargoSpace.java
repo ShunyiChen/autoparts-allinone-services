@@ -13,8 +13,8 @@ public class CargoSpace {
     private Long id;
     /** 仓库（仓库编号） */
     @ManyToOne
-    @JoinColumn(name = "warehouse_id",
-            foreignKey = @ForeignKey(name = "WAREHOUSE_ID_FK")
+    @JoinColumn(name = "cargo_warehouse_id",
+            foreignKey = @ForeignKey(name = "CARGO_WAREHOUSE_ID_FK")
     )
     private Warehouse warehouse;
     /** 名称 */
