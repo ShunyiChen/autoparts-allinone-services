@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 
-/** 登录用户/操作者/审核人 */
+/** 用户 */
 @Entity
 @Table(name = "users")
 public class User {
@@ -22,15 +22,15 @@ public class User {
 	@JoinColumn(name = "department_id",
 			foreignKey = @ForeignKey(name = "DEPARTMENT_ID_FK")
 	)
-	private Department department;
+	private Shop shop;
 
 	public User() {}
 
-	public User(String username, String password, Boolean enabled, Department department) {
+	public User(String username, String password, Boolean enabled, Shop shop) {
 		this.username = username;
 		this.password = password;
 		this.enabled = enabled;
-		this.department = department;
+		this.shop = shop;
 	}
 
 	public long getId() {
@@ -57,12 +57,12 @@ public class User {
 		this.password = password;
 	}
 
-	public Department getDepartment() {
-		return department;
+	public Shop getShop() {
+		return shop;
 	}
 
-	public void setDepartment(Department department) {
-		this.department = department;
+	public void setShop(Shop shop) {
+		this.shop = shop;
 	}
 
 	public Boolean isEnabled() {
@@ -80,7 +80,7 @@ public class User {
 				", username='" + username + '\'' +
 				", password='" + password + '\'' +
 				", enabled=" + enabled +
-				", department=" + department +
+				", shop=" + shop +
 				'}';
 	}
 }

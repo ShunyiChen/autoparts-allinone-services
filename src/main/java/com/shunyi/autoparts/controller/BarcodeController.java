@@ -1,0 +1,32 @@
+package com.shunyi.autoparts.controller;
+
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.util.Random;
+
+/** 生成条形码controller */
+@RestController
+@CrossOrigin
+public class BarcodeController {
+
+    private Random random = new Random();
+
+    @GetMapping("/barcode")
+    public String generate() {
+        return createRandomInteger(100000000, 999999999L, random)+"";
+    }
+
+    private long createRandomInteger(int aStart, long aEnd, Random aRandom){
+        if ( aStart > aEnd ) {
+            throw new IllegalArgumentException("Start cannot exceed End.");
+        }
+        //get the range, casting to long to avoid overflow problems
+        long range = aEnd - (long)aStart + 1;
+        // compute a fraction of the range, 0 <= frac < range
+        long fraction = (long)(range * aRandom.nextDouble());
+        long randomNumber =  fraction + (long)aStart;
+        return randomNumber;
+    }
+}

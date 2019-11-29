@@ -46,7 +46,7 @@ public class AttributeController {
     }
 
     @DeleteMapping("/attributes/{pid}/{aid}")
-    public void deleteByProductIdAndAttributeValueId(@PathVariable Long pid, @PathVariable Long aid) {
+    public void delete(@PathVariable Long pid, @PathVariable Long aid) {
         List<Attribute> attributes = attributeDao.findByProduct_idAndAttributeValueId(pid, aid);
         attributeDao.deleteAll(attributes);
     }

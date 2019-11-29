@@ -7,7 +7,7 @@ import java.io.Serializable;
 
 /** SKU与货位映射关系表 */
 @Entity
-@Table(name = "sku_cargospace_mapping")
+@Table(name = "sku_cargospace_mappings")
 public class SKUCargoSpaceMapping {
 
     @Embeddable

@@ -2,10 +2,10 @@ package com.shunyi.autoparts.model;
 
 import javax.persistence.*;
 
-/** 部门 */
+/** 店铺 */
 @Entity
-@Table(name = "departments")
-public class Department {
+@Table(name = "shops")
+public class Shop {
 
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
@@ -19,9 +19,9 @@ public class Department {
     )
     private Company company;
 
-    public Department() {}
+    public Shop() {}
 
-    public Department(String name, Company company) {
+    public Shop(String name, Company company) {
         this.name = name;
         this.company = company;
     }
