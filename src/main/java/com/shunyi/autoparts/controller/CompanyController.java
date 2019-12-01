@@ -3,6 +3,8 @@ package com.shunyi.autoparts.controller;
 import com.shunyi.autoparts.dao.CompanyDao;
 import com.shunyi.autoparts.exception.CompanyNotFoundException;
 import com.shunyi.autoparts.model.Company;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,7 +17,8 @@ import java.util.Optional;
 @RestController
 @CrossOrigin
 public class CompanyController {
-
+    /** 日志 */
+    private static final Logger logger = LoggerFactory.getLogger(CompanyController.class);
     @Autowired
     private CompanyDao companyDao;
 

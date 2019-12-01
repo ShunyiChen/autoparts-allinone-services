@@ -7,6 +7,8 @@ import com.shunyi.autoparts.model.AttributeName;
 import com.shunyi.autoparts.model.AttributeValue;
 import com.shunyi.autoparts.model.Supplier;
 import com.shunyi.autoparts.model.SupplierCategory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
@@ -23,6 +25,8 @@ import java.util.*;
 @RestController
 @CrossOrigin
 public class AttributeNameController {
+    /** 日志 */
+    private static final Logger logger = LoggerFactory.getLogger(AttributeNameController.class);
     @Autowired
     private AttributeNameDao attributeNameDao;
     @Autowired

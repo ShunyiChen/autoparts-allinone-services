@@ -3,6 +3,8 @@ package com.shunyi.autoparts.controller;
 import com.shunyi.autoparts.dao.CarDao;
 import com.shunyi.autoparts.exception.CarNotFoundException;
 import com.shunyi.autoparts.model.Car;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
@@ -18,7 +20,8 @@ import java.util.Optional;
 @RestController
 @CrossOrigin
 public class CarController {
-
+    /** 日志 */
+    private static final Logger logger = LoggerFactory.getLogger(CarController.class);
     @Autowired
     private CarDao carDao;
 

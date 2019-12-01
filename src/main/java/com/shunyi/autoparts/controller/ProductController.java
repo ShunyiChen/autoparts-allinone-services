@@ -5,6 +5,8 @@ import com.shunyi.autoparts.exception.ProductNotFoundException;
 import com.shunyi.autoparts.model.BrandSeries;
 import com.shunyi.autoparts.model.Car;
 import com.shunyi.autoparts.model.Product;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
@@ -23,7 +25,8 @@ import java.util.Optional;
 @RestController
 @CrossOrigin
 public class ProductController {
-
+    /** 日志 */
+    private static final Logger logger = LoggerFactory.getLogger(ProductController.class);
     @Autowired
     private ProductDao productDao;
 

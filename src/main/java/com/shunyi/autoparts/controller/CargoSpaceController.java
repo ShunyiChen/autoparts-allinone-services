@@ -5,6 +5,8 @@ import com.shunyi.autoparts.dao.WarehouseDao;
 import com.shunyi.autoparts.exception.CargoSpaceNotFoundException;
 import com.shunyi.autoparts.model.CargoSpace;
 import com.shunyi.autoparts.model.Warehouse;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
@@ -21,7 +23,8 @@ import java.util.*;
 @RestController
 @CrossOrigin
 public class CargoSpaceController {
-
+    /** 日志 */
+    private static final Logger logger = LoggerFactory.getLogger(CargoSpaceController.class);
     @Autowired
     private CargoSpaceDao cargoSpaceDao;
     @Autowired

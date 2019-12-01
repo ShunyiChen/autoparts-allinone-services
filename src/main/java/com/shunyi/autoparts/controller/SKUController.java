@@ -4,6 +4,8 @@ import com.shunyi.autoparts.dao.SKUDao;
 import com.shunyi.autoparts.exception.SKUNotFoundException;
 import com.shunyi.autoparts.model.AttributeValue;
 import com.shunyi.autoparts.model.SKU;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
@@ -21,7 +23,8 @@ import java.util.Optional;
 @RestController
 @CrossOrigin
 public class SKUController {
-
+    /** 日志 */
+    private static final Logger logger = LoggerFactory.getLogger(SKUController.class);
     @Autowired
     private SKUDao skuDao;
 

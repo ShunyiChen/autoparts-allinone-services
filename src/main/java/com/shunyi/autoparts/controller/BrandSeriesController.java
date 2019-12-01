@@ -3,6 +3,8 @@ package com.shunyi.autoparts.controller;
 import com.shunyi.autoparts.dao.BrandSeriesDao;
 import com.shunyi.autoparts.exception.BrandSeriesNotFoundException;
 import com.shunyi.autoparts.model.BrandSeries;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
@@ -17,7 +19,8 @@ import java.util.Optional;
 @RestController
 @CrossOrigin
 public class BrandSeriesController {
-
+    /** 日志 */
+    private static final Logger logger = LoggerFactory.getLogger(BrandSeriesController.class);
     @Autowired
     private BrandSeriesDao brandSeriesDao;
 

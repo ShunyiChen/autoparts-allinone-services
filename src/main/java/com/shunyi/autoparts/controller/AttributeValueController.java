@@ -3,6 +3,8 @@ package com.shunyi.autoparts.controller;
 import com.shunyi.autoparts.dao.AttributeValueDao;
 import com.shunyi.autoparts.exception.AttributeValueNotFoundException;
 import com.shunyi.autoparts.model.AttributeValue;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
@@ -18,6 +20,8 @@ import java.util.*;
 @RestController
 @CrossOrigin
 public class AttributeValueController {
+    /** 日志 */
+    private static final Logger logger = LoggerFactory.getLogger(AttributeValueController.class);
     @Autowired
     private AttributeValueDao attributeValueDao;
 

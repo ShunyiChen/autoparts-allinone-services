@@ -3,6 +3,8 @@ package com.shunyi.autoparts.controller;
 import com.shunyi.autoparts.dao.PictureDao;
 import com.shunyi.autoparts.exception.PictureNotFoundException;
 import com.shunyi.autoparts.model.Picture;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,7 +17,8 @@ import java.util.Optional;
 @RestController
 @CrossOrigin
 public class PictureController {
-
+    /** 日志 */
+    private static final Logger logger = LoggerFactory.getLogger(PictureController.class);
     @Autowired
     private PictureDao pictureDao;
 

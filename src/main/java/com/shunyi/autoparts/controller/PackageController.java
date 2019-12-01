@@ -3,6 +3,8 @@ package com.shunyi.autoparts.controller;
 import com.shunyi.autoparts.dao.PackageDao;
 import com.shunyi.autoparts.exception.PackageNotFoundException;
 import com.shunyi.autoparts.model.Package;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +19,8 @@ import java.util.Optional;
 @RestController
 @CrossOrigin
 public class PackageController {
-
+    /** 日志 */
+    private static final Logger logger = LoggerFactory.getLogger(PackageController.class);
     @Autowired
     private PackageDao packageDao;
 

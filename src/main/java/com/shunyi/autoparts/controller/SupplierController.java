@@ -5,6 +5,8 @@ import com.shunyi.autoparts.dao.SupplierDao;
 import com.shunyi.autoparts.exception.SupplierNotFoundException;
 import com.shunyi.autoparts.model.Supplier;
 import com.shunyi.autoparts.model.SupplierCategory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
@@ -19,6 +21,8 @@ import java.util.*;
 @RestController
 @CrossOrigin
 public class SupplierController {
+    /** 日志 */
+    private static final Logger logger = LoggerFactory.getLogger(SupplierController.class);
     @Autowired
     private SupplierDao supplierDao;
     @Autowired
