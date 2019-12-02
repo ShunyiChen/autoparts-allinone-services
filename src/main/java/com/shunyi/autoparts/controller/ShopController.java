@@ -48,6 +48,11 @@ public class ShopController {
         return shopDao.findAll();
     }
 
+    @GetMapping("/shops/company/{companyId}")
+    public List<Shop> retrieveAll(@PathVariable Long companyId) {
+        return shopDao.findAllByCompany_idOrderById(companyId);
+    }
+
     @GetMapping("/shops/{id}")
     public Shop retrieve(@PathVariable Long id) {
         Optional<Shop> department = shopDao.findById(id);

@@ -48,6 +48,11 @@ public class VFSController {
         return vfsDao.findAll();
     }
 
+    @GetMapping("/vfs/vfscategory/{pid}")
+    public List<VFS> retrieveAll(@PathVariable Long pid) {
+        return vfsDao.findAllByvfsCategory_idOrderById(pid);
+    }
+
     @GetMapping("/vfs/{id}")
     public VFS retrieve(@PathVariable Long id) {
         Optional<VFS> vfs = vfsDao.findById(id);

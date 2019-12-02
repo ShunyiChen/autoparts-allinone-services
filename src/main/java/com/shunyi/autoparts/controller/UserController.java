@@ -49,6 +49,11 @@ public class UserController {
         return userDao.findAll();
     }
 
+    @GetMapping("/users/{sid}")
+    public List<User> retrieveAll(@PathVariable Long sid) {
+        return userDao.findAllByShop_idOrderById(sid);
+    }
+
     @GetMapping("/users/{id}")
     public User retrieve(@PathVariable Long id) {
         Optional<User> aUser = userDao.findById(id);

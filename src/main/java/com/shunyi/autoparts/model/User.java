@@ -19,8 +19,8 @@ public class User {
 	/** 是否激活 */
 	private Boolean enabled;
 	@ManyToOne
-	@JoinColumn(name = "department_id",
-			foreignKey = @ForeignKey(name = "DEPARTMENT_ID_FK")
+	@JoinColumn(name = "shop_id",
+			foreignKey = @ForeignKey(name = "SHOP_ID_FK")
 	)
 	private Shop shop;
 
