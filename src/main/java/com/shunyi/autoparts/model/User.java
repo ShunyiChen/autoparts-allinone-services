@@ -3,34 +3,39 @@ package com.shunyi.autoparts.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 /** 用户 */
 @Entity
 @Table(name = "users")
 public class User {
+	/** ID */
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
+
 	/** 用户名 */
 	private String username;
+
 	/** 加密的密码 */
 	@JsonIgnore
 	private String password;
+
 	/** 是否激活 */
 	private Boolean enabled;
-	@ManyToOne
-	@JoinColumn(name = "shop_id",
-			foreignKey = @ForeignKey(name = "SHOP_ID_FK")
-	)
-	private Shop shop;
+
+	/** 用户店铺映射关系 */
+	@OneToMany(mappedBy = "user")
+	protected Set<UserShopMapping> userShopMappingSet = new HashSet<>();
 
 	public User() {}
 
-	public User(String username, String password, Boolean enabled, Shop shop) {
+	public User(String username, String password, Boolean enabled, Set<UserShopMapping> userShopMappingSet) {
 		this.username = username;
 		this.password = password;
 		this.enabled = enabled;
-		this.shop = shop;
+		this.userShopMappingSet = userShopMappingSet;
 	}
 
 	public long getId() {
@@ -57,12 +62,16 @@ public class User {
 		this.password = password;
 	}
 
-	public Shop getShop() {
-		return shop;
+	public Boolean getEnabled() {
+		return enabled;
 	}
 
-	public void setShop(Shop shop) {
-		this.shop = shop;
+	public Set<UserShopMapping> getUserShopMappingSet() {
+		return userShopMappingSet;
+	}
+
+	public void setUserShopMappingSet(Set<UserShopMapping> userShopMappingSet) {
+		this.userShopMappingSet = userShopMappingSet;
 	}
 
 	public Boolean isEnabled() {
@@ -80,7 +89,7 @@ public class User {
 				", username='" + username + '\'' +
 				", password='" + password + '\'' +
 				", enabled=" + enabled +
-				", shop=" + shop +
+				", userShopMappingSet=" + userShopMappingSet +
 				'}';
 	}
 }

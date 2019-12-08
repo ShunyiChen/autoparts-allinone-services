@@ -12,5 +12,5 @@ public interface UserDao extends JpaRepository<User, Long> {
 	
 	User findByUsername(String username);
 
-	List<User> findAllByShop_idOrderById(Long shop_id);
+//	List<User> findAllByShop_idOrderById(Long shop_id);
 }

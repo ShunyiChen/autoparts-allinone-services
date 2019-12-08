@@ -12,9 +12,9 @@ psql -h localhost -U postgres -W cDe3@wsx -p 5432 -d postgres
 set search_path to public
 
 //sql常用命令
-1.列出数据库 /l
-2.列出schema /dn
-3.列出数据表 /dt
+1.列出数据库 \l
+2.列出schema \dn
+3.列出数据表 \dt
 
 
 MySQL:

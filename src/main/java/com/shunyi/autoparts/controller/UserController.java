@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,6 +20,10 @@ import java.util.Optional;
 public class UserController {
     /** 日志 */
     private static final Logger logger = LoggerFactory.getLogger(UserController.class);
+
+    @Autowired
+    private PasswordEncoder bcryptEncoder;
+
     /** 用户Dao */
     @Autowired
     private UserDao userDao;
@@ -26,6 +31,7 @@ public class UserController {
     @PostMapping("/users")
     public ResponseEntity<?> create(@RequestBody User user) {
         User savedUser = userDao.save(user);
+        savedUser.setPassword(bcryptEncoder.encode(savedUser.getPassword()));
         return new ResponseEntity<>(savedUser.getId(), HttpStatus.OK);
     }
 
@@ -49,10 +55,10 @@ public class UserController {
         return userDao.findAll();
     }
 
-    @GetMapping("/users/{sid}")
-    public List<User> retrieveAll(@PathVariable Long sid) {
-        return userDao.findAllByShop_idOrderById(sid);
-    }
+//    @GetMapping("/users/shop/{sid}")
+//    public List<User> retrieveAll(@PathVariable Long sid) {
+//        return userDao.findAllByShop_idOrderById(sid);
+//    }
 
     @GetMapping("/users/{id}")
     public User retrieve(@PathVariable Long id) {
