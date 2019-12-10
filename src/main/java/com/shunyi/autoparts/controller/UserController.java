@@ -1,8 +1,10 @@
 package com.shunyi.autoparts.controller;
 
 import com.shunyi.autoparts.dao.UserDao;
+import com.shunyi.autoparts.dao.UserShopMappingDao;
 import com.shunyi.autoparts.exception.UserNotFoundException;
 import com.shunyi.autoparts.model.User;
+import com.shunyi.autoparts.model.UserShopMapping;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,6 +30,9 @@ public class UserController {
     /** 用户Dao */
     @Autowired
     private UserDao userDao;
+    @Autowired
+    private UserShopMappingDao userShopMappingDao;
+
 
     @PostMapping("/users")
     public ResponseEntity<?> create(@RequestBody User user) {
@@ -55,10 +61,18 @@ public class UserController {
         return userDao.findAll();
     }
 
-//    @GetMapping("/users/shop/{sid}")
-//    public List<User> retrieveAll(@PathVariable Long sid) {
-//        return userDao.findAllByShop_idOrderById(sid);
-//    }
+    @GetMapping("/users/shop/{sid}")
+    public List<User> retrieveAllByShopId(@PathVariable Long sid) {
+        List<UserShopMapping> list = userShopMappingDao.findAllByShopIdOrderByUserIdAsc(sid);
+        List<User> lstUser = new ArrayList<>();
+        list.forEach(e -> {
+            Optional<User> opt = userDao.findById(e.getId().getUserId());
+            if(opt.isPresent()) {
+                lstUser.add(opt.get());
+            }
+        });
+        return lstUser;
+    }
 
     @GetMapping("/users/{id}")
     public User retrieve(@PathVariable Long id) {
