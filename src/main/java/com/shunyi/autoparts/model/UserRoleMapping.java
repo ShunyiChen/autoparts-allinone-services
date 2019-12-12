@@ -12,9 +12,13 @@ import java.io.Serializable;
 public class UserRoleMapping {
     @Embeddable
     public static class Id implements Serializable {
-        @Column(name="userId")
+
+        /** 用户ID */
+        @Column(name="user_id")
         protected Long userId;
-        @Column(name="roleId")
+
+        /** 角色ID */
+        @Column(name="role_id")
         protected Long roleId;
 
         public Id() {}
@@ -45,6 +49,14 @@ public class UserRoleMapping {
         public void setRoleId(Long roleId) {
             this.roleId = roleId;
         }
+
+        @Override
+        public String toString() {
+            return "Id{" +
+                    "userId=" + userId +
+                    ", roleId=" + roleId +
+                    '}';
+        }
     }
 
     @EmbeddedId
@@ -52,7 +64,7 @@ public class UserRoleMapping {
 
     @ManyToOne
     @JoinColumn(
-            name = "roleId",
+            name = "role_id",
             insertable = false, updatable = false
     )
     @JsonIgnore
@@ -60,7 +72,7 @@ public class UserRoleMapping {
 
     @ManyToOne
     @JoinColumn(
-            name = "userId",
+            name = "user_id",
             insertable = false, updatable = false
     )
     @JsonIgnore

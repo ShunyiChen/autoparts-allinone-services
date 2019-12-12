@@ -8,6 +8,8 @@ docker run --name postgres -e POSTGRES_PASSWORD=cDe3@wsx -p 54321:5432 -d postgr
 docker exec -it cd8f133b12f8 bash
 //用psql连接数据库
 psql -h localhost -U postgres -W cDe3@wsx -p 5432 -d postgres
+//数据库密码
+postgres
 //切换schema
 set search_path to public
 

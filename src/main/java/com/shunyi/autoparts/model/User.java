@@ -25,17 +25,22 @@ public class User {
 	/** 是否激活 */
 	private Boolean enabled;
 
-	/** 用户店铺映射关系 */
+	/** 用户和店铺映射关系 */
 	@OneToMany(mappedBy = "user")
 	protected Set<UserShopMapping> userShopMappingSet = new HashSet<>();
 
+	/** 用户和角色映射关系 */
+	@OneToMany(mappedBy = "user")
+	protected Set<UserRoleMapping> userRoleMappingSet = new HashSet<>();
+
 	public User() {}
 
-	public User(String username, String password, Boolean enabled, Set<UserShopMapping> userShopMappingSet) {
+	public User(String username, String password, Boolean enabled, Set<UserShopMapping> userShopMappingSet, Set<UserRoleMapping> userRoleMappingSet) {
 		this.username = username;
 		this.password = password;
 		this.enabled = enabled;
 		this.userShopMappingSet = userShopMappingSet;
+		this.userRoleMappingSet = userRoleMappingSet;
 	}
 
 	public long getId() {
@@ -72,6 +77,14 @@ public class User {
 
 	public void setUserShopMappingSet(Set<UserShopMapping> userShopMappingSet) {
 		this.userShopMappingSet = userShopMappingSet;
+	}
+
+	public Set<UserRoleMapping> getUserRoleMappingSet() {
+		return userRoleMappingSet;
+	}
+
+	public void setUserRoleMappingSet(Set<UserRoleMapping> userRoleMappingSet) {
+		this.userRoleMappingSet = userRoleMappingSet;
 	}
 
 	public Boolean isEnabled() {

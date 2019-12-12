@@ -7,32 +7,32 @@ import java.util.Set;
 @Entity
 @Table(name = "roles")
 public class Role {
+    /** 角色ID */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private long id;
-
+    /** 角色名称 */
     @Column(name = "name")
     private String name;
-
+    /** 描述 */
     @Column(name = "description")
     private String description;
-
+    /** 用户与角色映射关系 */
     @OneToMany(mappedBy = "role")
-    protected Set<UserRoleMapping> userUserRoleSet = new HashSet<>();
-
+    protected Set<UserRoleMapping> userRoleMappingSet = new HashSet<>();
+    /** 角色与权限映射关系 */
     @OneToMany(mappedBy = "role")
-    protected Set<RolePermissionMapping> userRoleUserRolePermissionSet = new HashSet<>();
+    protected Set<RolePermissionMapping> rolePermissionMappingSet = new HashSet<>();
 
     public Role() {
     }
 
-    public Role(long id, String name, String description, Set<UserRoleMapping> userUserRoleSet, Set<RolePermissionMapping> userRoleUserRolePermissionSet) {
-        this.id = id;
+    public Role(String name, String description, Set<UserRoleMapping> userRoleMappingSet, Set<RolePermissionMapping> rolePermissionMappingSet) {
         this.name = name;
         this.description = description;
-        this.userUserRoleSet = userUserRoleSet;
-        this.userRoleUserRolePermissionSet = userRoleUserRolePermissionSet;
+        this.userRoleMappingSet = userRoleMappingSet;
+        this.rolePermissionMappingSet = rolePermissionMappingSet;
     }
 
     public long getId() {
@@ -59,20 +59,20 @@ public class Role {
         this.description = description;
     }
 
-    public Set<UserRoleMapping> getUserUserRoleSet() {
-        return userUserRoleSet;
+    public Set<UserRoleMapping> getUserRoleMappingSet() {
+        return userRoleMappingSet;
     }
 
-    public void setUserUserRoleSet(Set<UserRoleMapping> userUserRoleSet) {
-        this.userUserRoleSet = userUserRoleSet;
+    public void setUserRoleMappingSet(Set<UserRoleMapping> userRoleMappingSet) {
+        this.userRoleMappingSet = userRoleMappingSet;
     }
 
-    public Set<RolePermissionMapping> getUserRoleUserRolePermissionSet() {
-        return userRoleUserRolePermissionSet;
+    public Set<RolePermissionMapping> getRolePermissionMappingSet() {
+        return rolePermissionMappingSet;
     }
 
-    public void setUserRoleUserRolePermissionSet(Set<RolePermissionMapping> userRoleUserRolePermissionSet) {
-        this.userRoleUserRolePermissionSet = userRoleUserRolePermissionSet;
+    public void setRolePermissionMappingSet(Set<RolePermissionMapping> rolePermissionMappingSet) {
+        this.rolePermissionMappingSet = rolePermissionMappingSet;
     }
 
     @Override
@@ -81,8 +81,8 @@ public class Role {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
-                ", userUserRoleSet=" + userUserRoleSet +
-                ", userRoleUserRolePermissionSet=" + userRoleUserRolePermissionSet +
+                ", userRoleMappingSet=" + userRoleMappingSet +
+                ", rolePermissionMappingSet=" + rolePermissionMappingSet +
                 '}';
     }
 }

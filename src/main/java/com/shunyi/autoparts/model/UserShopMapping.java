@@ -14,9 +14,11 @@ public class UserShopMapping {
     @Embeddable
     public static class Id implements Serializable {
 
+        /** 用户ID */
         @Column(name="user_id")
         protected Long userId;
 
+        /** 店铺ID */
         @Column(name="shop_id")
         protected Long shopId;
 

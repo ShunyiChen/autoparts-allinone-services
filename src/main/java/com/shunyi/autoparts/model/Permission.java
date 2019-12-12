@@ -8,19 +8,20 @@ import java.util.Set;
 @Entity
 @Table(name = "permissions")
 public class Permission {
+    /** 权限ID */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private long id;
-
+    /** 权限名称 */
     @Column(name = "name")
     private String name;
-
+    /** 描述 */
     @Column(name = "description")
     private String description;
-
+    /** 角色与权限映射关系 */
     @OneToMany(mappedBy = "permission")
-    protected Set<RolePermissionMapping> userRoleUserRolePermissionSet = new HashSet<>();
+    protected Set<RolePermissionMapping> rolePermissionMappingSet = new HashSet<>();
 
     public long getId() {
         return id;
@@ -46,12 +47,12 @@ public class Permission {
         this.description = description;
     }
 
-    public Set<RolePermissionMapping> getUserRoleUserRolePermissionSet() {
-        return userRoleUserRolePermissionSet;
+    public Set<RolePermissionMapping> getRolePermissionMappingSet() {
+        return rolePermissionMappingSet;
     }
 
-    public void setUserRoleUserRolePermissionSet(Set<RolePermissionMapping> userRoleUserRolePermissionSet) {
-        this.userRoleUserRolePermissionSet = userRoleUserRolePermissionSet;
+    public void setRolePermissionMappingSet(Set<RolePermissionMapping> rolePermissionMappingSet) {
+        this.rolePermissionMappingSet = rolePermissionMappingSet;
     }
 
     @Override
@@ -60,7 +61,7 @@ public class Permission {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
-                ", userRoleUserRolePermissionSet=" + userRoleUserRolePermissionSet +
+                ", rolePermissionMappingSet=" + rolePermissionMappingSet +
                 '}';
     }
 }

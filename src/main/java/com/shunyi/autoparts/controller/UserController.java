@@ -30,6 +30,7 @@ public class UserController {
     /** 用户Dao */
     @Autowired
     private UserDao userDao;
+
     @Autowired
     private UserShopMappingDao userShopMappingDao;
 

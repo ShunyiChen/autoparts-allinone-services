@@ -23,7 +23,7 @@ public class UserShopMappingController {
     @Autowired
     private UserShopMappingDao userShopMappingDao;
 
-        @PostMapping("/usershopmappings")
+    @PostMapping("/usershopmappings")
     public ResponseEntity<?> create(@RequestBody UserShopMapping.Id[] ids) {
         for(UserShopMapping.Id id : ids) {
             UserShopMapping userShopMapping = new UserShopMapping();

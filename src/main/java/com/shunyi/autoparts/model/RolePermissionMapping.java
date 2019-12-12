@@ -12,10 +12,13 @@ import java.io.Serializable;
 public class RolePermissionMapping {
     @Embeddable
     public static class Id implements Serializable {
-        @Column(name="roleId")
+
+        /** 角色ID */
+        @Column(name="role_id")
         protected Long roleId;
 
-        @Column(name="permissionId")
+        /** 权限ID */
+        @Column(name="permission_id")
         protected Long permissionId;
 
         public Id() {}
@@ -46,6 +49,14 @@ public class RolePermissionMapping {
         public void setPermissionId(Long permissionId) {
             this.permissionId = permissionId;
         }
+
+        @Override
+        public String toString() {
+            return "Id{" +
+                    "roleId=" + roleId +
+                    ", permissionId=" + permissionId +
+                    '}';
+        }
     }
 
     @EmbeddedId
@@ -53,7 +64,7 @@ public class RolePermissionMapping {
 
     @ManyToOne
     @JoinColumn(
-            name = "roleId",
+            name = "role_id",
             insertable = false, updatable = false
     )
     @JsonIgnore
@@ -61,7 +72,7 @@ public class RolePermissionMapping {
 
     @ManyToOne
     @JoinColumn(
-            name = "permissionId",
+            name = "permission_id",
             insertable = false, updatable = false
     )
     @JsonIgnore
