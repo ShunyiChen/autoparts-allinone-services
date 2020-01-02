@@ -12,27 +12,23 @@ public class Shop {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
-
     /** 名称 */
     private String name;
-
+    /** 父类目ID */
+    private Long parentId;
+    /** 是否父节点 */
+    private Boolean parent;
     /** 用户店铺映射关系 */
     @OneToMany(mappedBy = "shop")
     protected Set<UserShopMapping> userShopMappingSet = new HashSet<>();
 
-    /** 公司 */
-    @ManyToOne
-    @JoinColumn(name = "company_id",
-            foreignKey = @ForeignKey(name = "COMPANY_ID_FK")
-    )
-    private Company company;
-
     public Shop() {}
 
-    public Shop(String name, Set<UserShopMapping> userShopMappingSet, Company company) {
+    public Shop(String name, Long parentId, Boolean parent, Set<UserShopMapping> userShopMappingSet) {
         this.name = name;
+        this.parentId = parentId;
+        this.parent = parent;
         this.userShopMappingSet = userShopMappingSet;
-        this.company = company;
     }
 
     public Long getId() {
@@ -55,15 +51,24 @@ public class Shop {
         return userShopMappingSet;
     }
 
+    public Long getParentId() {
+        return parentId;
+    }
+
+    public void setParentId(Long parentId) {
+        this.parentId = parentId;
+    }
+
+    public Boolean getParent() {
+        return parent;
+    }
+
+    public void setParent(Boolean parent) {
+        this.parent = parent;
+    }
+
     public void setUserShopMappingSet(Set<UserShopMapping> userShopMappingSet) {
         this.userShopMappingSet = userShopMappingSet;
     }
 
-    public Company getCompany() {
-        return company;
-    }
-
-    public void setCompany(Company company) {
-        this.company = company;
-    }
 }

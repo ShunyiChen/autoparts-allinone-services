@@ -50,7 +50,7 @@ public class VFSController {
 
     @GetMapping("/vfs/vfscategory/{pid}")
     public List<VFS> retrieveAll(@PathVariable Long pid) {
-        return vfsDao.findAllByvfsCategory_idOrderById(pid);
+        return vfsDao.findAllByCategoryIdOrderById(pid);
     }
 
     @GetMapping("/vfs/{id}")

@@ -8,5 +8,5 @@ import java.util.List;
 /** VFS(虚拟文件系统)Dao */
 public interface VFSDao extends JpaRepository<VFS, Long> {
 
-    List<VFS> findAllByvfsCategory_idOrderById(Long vfsCategory_id);
+    List<VFS> findAllByCategoryIdOrderById(Long categoryId);
 }

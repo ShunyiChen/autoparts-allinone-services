@@ -6,6 +6,7 @@ import com.shunyi.autoparts.model.Shop;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -45,12 +46,7 @@ public class ShopController {
 
     @GetMapping("/shops")
     public List<Shop> retrieveAll() {
-        return shopDao.findAll();
-    }
-
-    @GetMapping("/shops/company/{companyId}")
-    public List<Shop> retrieveAll(@PathVariable Long companyId) {
-        return shopDao.findAllByCompany_idOrderById(companyId);
+        return shopDao.findAll(Sort.by(Sort.Direction.ASC, "id"));
     }
 
     @GetMapping("/shops/{id}")

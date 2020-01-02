@@ -24,18 +24,17 @@ public class VFS {
     private String userName;
     /** 连接密码 */
     private String password;
-
-    /** VFS类目 */
-    @ManyToOne
-    @JoinColumn(name = "vfsCategory_id",
-            foreignKey = @ForeignKey(name = "VFS_CATEGORY_ID_FK")
-    )
-    private VFSCategory vfsCategory;
+    /** 可读 */
+    private Boolean canRead;
+    /** 可写 */
+    private Boolean canWrite;
+    /** VFS类目ID */
+    private Long categoryId;
 
     public VFS() {
     }
 
-    public VFS(String name, String protocol, String host, Integer port, String home, String userName, String password, VFSCategory vfsCategory) {
+    public VFS(String name, String protocol, String host, Integer port, String home, String userName, String password, Boolean canRead, Boolean canWrite, Long categoryId) {
         this.name = name;
         this.protocol = protocol;
         this.host = host;
@@ -43,7 +42,9 @@ public class VFS {
         this.home = home;
         this.userName = userName;
         this.password = password;
-        this.vfsCategory = vfsCategory;
+        this.canRead = canRead;
+        this.canWrite = canWrite;
+        this.categoryId = categoryId;
     }
 
     public Long getId() {
@@ -110,12 +111,28 @@ public class VFS {
         this.password = password;
     }
 
-    public VFSCategory getVfsCategory() {
-        return vfsCategory;
+    public Boolean getCanRead() {
+        return canRead;
     }
 
-    public void setVfsCategory(VFSCategory vfsCategory) {
-        this.vfsCategory = vfsCategory;
+    public void setCanRead(Boolean canRead) {
+        this.canRead = canRead;
+    }
+
+    public Boolean getCanWrite() {
+        return canWrite;
+    }
+
+    public void setCanWrite(Boolean canWrite) {
+        this.canWrite = canWrite;
+    }
+
+    public Long getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(Long categoryId) {
+        this.categoryId = categoryId;
     }
 
     @Override
@@ -129,7 +146,9 @@ public class VFS {
                 ", home='" + home + '\'' +
                 ", userName='" + userName + '\'' +
                 ", password='" + password + '\'' +
-                ", vfsCategory=" + vfsCategory +
+                ", canRead=" + canRead +
+                ", canWrite=" + canWrite +
+                ", categoryId=" + categoryId +
                 '}';
     }
 }
