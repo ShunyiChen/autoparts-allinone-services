@@ -19,7 +19,6 @@ public class User {
 	private String username;
 
 	/** 加密的密码 */
-	@JsonIgnore
 	private String password;
 
 	/** 是否激活 */

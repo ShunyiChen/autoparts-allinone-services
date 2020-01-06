@@ -8,14 +8,15 @@ import com.shunyi.autoparts.model.UserShopMapping;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /** 用户控制器 */
 @RestController
@@ -23,9 +24,9 @@ import java.util.Optional;
 public class UserController {
     /** 日志 */
     private static final Logger logger = LoggerFactory.getLogger(UserController.class);
-
-    @Autowired
-    private PasswordEncoder bcryptEncoder;
+//
+//    @Autowired
+//    private PasswordEncoder bcryptEncoder;
 
     /** 用户Dao */
     @Autowired
@@ -38,7 +39,6 @@ public class UserController {
     @PostMapping("/users")
     public ResponseEntity<?> create(@RequestBody User user) {
         User savedUser = userDao.save(user);
-        savedUser.setPassword(bcryptEncoder.encode(savedUser.getPassword()));
         return new ResponseEntity<>(savedUser.getId(), HttpStatus.OK);
     }
 
@@ -59,7 +59,9 @@ public class UserController {
 
     @GetMapping("/users")
     public List<User> retrieveAll() {
-        return userDao.findAll();
+        return userDao.findAll(Sort.by(Sort.Direction.ASC, "id")).stream()
+                .filter(e -> !e.getUsername().equalsIgnoreCase("root"))
+                .collect(Collectors.toList());
     }
 
     @GetMapping("/users/shop/{sid}")
