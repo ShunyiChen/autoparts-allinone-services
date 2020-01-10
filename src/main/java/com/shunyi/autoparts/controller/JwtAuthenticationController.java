@@ -16,6 +16,8 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
+
 @RestController
 @CrossOrigin
 public class JwtAuthenticationController {
@@ -40,7 +42,16 @@ public class JwtAuthenticationController {
 
 		final String token = jwtTokenUtil.generateToken(userDetails);
 
-		return ResponseEntity.ok(new JwtResponse(token));
+		return ResponseEntity.ok(new JwtResponse(
+				token,
+				userDetails.getPassword(),
+				userDetails.getUsername(),
+				userDetails.getAuthorities(),
+				userDetails.isAccountNonExpired(),
+				userDetails.isAccountNonLocked(),
+				userDetails.isCredentialsNonExpired(),
+				userDetails.isEnabled(),
+				new Date()));
 	}
 	
 	@RequestMapping(value = "/register", method = RequestMethod.POST)

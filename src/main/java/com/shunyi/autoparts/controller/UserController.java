@@ -1,5 +1,6 @@
 package com.shunyi.autoparts.controller;
 
+import com.shunyi.autoparts.config.JwtTokenUtil;
 import com.shunyi.autoparts.dao.UserDao;
 import com.shunyi.autoparts.dao.UserShopMappingDao;
 import com.shunyi.autoparts.exception.UserNotFoundException;
@@ -24,16 +25,15 @@ import java.util.stream.Collectors;
 public class UserController {
     /** 日志 */
     private static final Logger logger = LoggerFactory.getLogger(UserController.class);
-//
-//    @Autowired
-//    private PasswordEncoder bcryptEncoder;
-
     /** 用户Dao */
     @Autowired
     private UserDao userDao;
-
+    /** 用户与店铺关系Dao */
     @Autowired
     private UserShopMappingDao userShopMappingDao;
+    /** JWTToken工具 */
+    @Autowired
+    private JwtTokenUtil jwtTokenUtil;
 
 
     @PostMapping("/users")
@@ -49,6 +49,15 @@ public class UserController {
             return ResponseEntity.notFound().build();
         user.setId(id);
         userDao.save(user);
+        return ResponseEntity.noContent().build();
+    }
+
+    @PutMapping("/users/changepassword/{id}")
+    public ResponseEntity<?> update(@RequestBody String newPassword, @PathVariable Long id) {
+        Optional<User> packageOptional = userDao.findById(id);
+        if (!packageOptional.isPresent())
+            return ResponseEntity.notFound().build();
+        userDao.updatePasswordByUserId(newPassword, id);
         return ResponseEntity.noContent().build();
     }
 
@@ -84,4 +93,5 @@ public class UserController {
             throw new UserNotFoundException("User not found with id -" + id);
         return aUser.get();
     }
+
 }
