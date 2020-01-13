@@ -33,10 +33,14 @@ public class JwtAuthenticationController {
 	private JwtUserDetailsService userDetailsService;
 
 	@RequestMapping(value = "/authenticate", method = RequestMethod.POST)
-	public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtRequest authenticationRequest) throws Exception {
-
-		authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());
-
+	public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtRequest authenticationRequest) {
+		try {
+			authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());
+		} catch(DisabledException e) {
+			return ResponseEntity.ok(new JwtResponse("用户已禁用"));
+		} catch(BadCredentialsException e) {
+			return ResponseEntity.ok(new JwtResponse("用户名或密码错误"));
+		}
 		final UserDetails userDetails = userDetailsService
 				.loadUserByUsername(authenticationRequest.getUsername());
 
@@ -44,13 +48,7 @@ public class JwtAuthenticationController {
 
 		return ResponseEntity.ok(new JwtResponse(
 				token,
-				userDetails.getPassword(),
 				userDetails.getUsername(),
-				userDetails.getAuthorities(),
-				userDetails.isAccountNonExpired(),
-				userDetails.isAccountNonLocked(),
-				userDetails.isCredentialsNonExpired(),
-				userDetails.isEnabled(),
 				new Date()));
 	}
 	
@@ -59,13 +57,7 @@ public class JwtAuthenticationController {
 		return ResponseEntity.ok(userDetailsService.save(user));
 	}
 
-	private void authenticate(String username, String password) throws Exception {
-		try {
-			authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
-		} catch (DisabledException e) {
-			throw new Exception("USER_DISABLED", e);
-		} catch (BadCredentialsException e) {
-			throw new Exception("INVALID_CREDENTIALS", e);
-		}
+	private void authenticate(String username, String password) throws DisabledException, BadCredentialsException {
+		authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
 	}
 }
