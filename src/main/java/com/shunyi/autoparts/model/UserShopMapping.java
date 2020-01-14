@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Objects;
 
 /** 用户和店铺映射关系 */
 @Entity
@@ -43,6 +44,20 @@ public class UserShopMapping {
 
         public void setShopId(Long shopId) {
             this.shopId = shopId;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+            Id id = (Id) o;
+            return Objects.equals(userId, id.userId) &&
+                    Objects.equals(shopId, id.shopId);
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(userId, shopId);
         }
 
         @Override

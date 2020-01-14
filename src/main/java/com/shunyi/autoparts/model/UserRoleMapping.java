@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Objects;
 
 /** 用户和角色映射关系 */
 @Entity
@@ -48,6 +49,20 @@ public class UserRoleMapping {
 
         public void setRoleId(Long roleId) {
             this.roleId = roleId;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+            Id id = (Id) o;
+            return Objects.equals(userId, id.userId) &&
+                    Objects.equals(roleId, id.roleId);
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(userId, roleId);
         }
 
         @Override

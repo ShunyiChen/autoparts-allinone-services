@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Objects;
 
 /** 角色和权限映射关系 */
 @Entity
@@ -48,6 +49,20 @@ public class RolePermissionMapping {
 
         public void setPermissionId(Long permissionId) {
             this.permissionId = permissionId;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+            Id id = (Id) o;
+            return Objects.equals(roleId, id.roleId) &&
+                    Objects.equals(permissionId, id.permissionId);
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(roleId, permissionId);
         }
 
         @Override

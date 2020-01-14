@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Objects;
 
 /** SKU与货位映射关系表 */
 @Entity
@@ -38,6 +39,20 @@ public class SKUCargoSpaceMapping {
 
         public void setCargoSpaceId(Long cargoSpaceId) {
             this.cargoSpaceId = cargoSpaceId;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+            Id id = (Id) o;
+            return Objects.equals(skuId, id.skuId) &&
+                    Objects.equals(cargoSpaceId, id.cargoSpaceId);
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(skuId, cargoSpaceId);
         }
     }
     /** 内嵌ID */
