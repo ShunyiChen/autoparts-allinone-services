@@ -18,8 +18,10 @@ import java.util.Optional;
 @RestController
 @CrossOrigin
 public class PermissionController {
+
     /** 日志 */
     private static final Logger logger = LoggerFactory.getLogger(PermissionController.class);
+
     @Autowired
     private PermissionDao permissionDao;
 

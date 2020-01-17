@@ -13,15 +13,22 @@ public class Permission {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private long id;
+
     /** 权限名称 */
     @Column(name = "name")
     private String name;
+
     /** 描述 */
     @Column(name = "description")
     private String description;
+
     /** 角色与权限映射关系 */
     @OneToMany(mappedBy = "permission")
     protected Set<RolePermissionMapping> rolePermissionMappingSet = new HashSet<>();
+
+    /** 权限编码 */
+    @Column(name = "code")
+    private String code;
 
     public long getId() {
         return id;
@@ -55,6 +62,14 @@ public class Permission {
         this.rolePermissionMappingSet = rolePermissionMappingSet;
     }
 
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
     @Override
     public String toString() {
         return "Permission{" +
@@ -62,6 +77,7 @@ public class Permission {
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", rolePermissionMappingSet=" + rolePermissionMappingSet +
+                ", code='" + code + '\'' +
                 '}';
     }
 }
