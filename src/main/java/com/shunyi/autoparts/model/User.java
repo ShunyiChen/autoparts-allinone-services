@@ -11,7 +11,7 @@ public class User {
 	/** ID */
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
+	private Long id;
 
 	/** 用户名 */
 	private String username;
@@ -40,11 +40,11 @@ public class User {
 		this.userRoleMappingSet = userRoleMappingSet;
 	}
 
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

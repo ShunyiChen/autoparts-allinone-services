@@ -11,16 +11,20 @@ public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private long id;
+    private Long id;
+
     /** 角色名称 */
     @Column(name = "name")
     private String name;
+
     /** 描述 */
     @Column(name = "description")
     private String description;
+
     /** 用户与角色映射关系 */
     @OneToMany(mappedBy = "role")
     protected Set<UserRoleMapping> userRoleMappingSet = new HashSet<>();
+
     /** 角色与权限映射关系 */
     @OneToMany(mappedBy = "role")
     protected Set<RolePermissionMapping> rolePermissionMappingSet = new HashSet<>();
@@ -35,11 +39,11 @@ public class Role {
         this.rolePermissionMappingSet = rolePermissionMappingSet;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
