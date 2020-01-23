@@ -39,6 +39,15 @@ public class VFSController {
         return ResponseEntity.noContent().build();
     }
 
+    @PutMapping("/vfs/acquiescent/{vid}")
+    public ResponseEntity<?> updateAcquiescent(@PathVariable Long vid) {
+        //restore every acquiescent to false
+        vfsDao.restoreAcquiescent();
+        //update acquiescent to true on specified vfs
+        vfsDao.updateAcquiescentByVFSId(vid);
+        return ResponseEntity.noContent().build();
+    }
+
     @DeleteMapping("/vfs/{id}")
     public void delete(@PathVariable Long id) {
         vfsDao.deleteById(id);

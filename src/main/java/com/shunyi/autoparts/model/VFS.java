@@ -30,6 +30,8 @@ public class VFS {
     private Boolean canWrite;
     /** VFS类目ID */
     private Long categoryId;
+    /** 默认的 */
+    private Boolean acquiescent;
 
     public VFS() {
     }
@@ -133,6 +135,14 @@ public class VFS {
 
     public void setCategoryId(Long categoryId) {
         this.categoryId = categoryId;
+    }
+
+    public Boolean getAcquiescent() {
+        return acquiescent;
+    }
+
+    public void setAcquiescent(Boolean acquiescent) {
+        this.acquiescent = acquiescent;
     }
 
     @Override
