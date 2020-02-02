@@ -26,8 +26,8 @@ public class PermissionController {
     private PermissionDao permissionDao;
 
     @PostMapping("/permissions")
-    public ResponseEntity<?> create(@RequestBody Permission department) {
-        Permission savedPermission = permissionDao.save(department);
+    public ResponseEntity<?> create(@RequestBody Permission permission) {
+        Permission savedPermission = permissionDao.save(permission);
         return new ResponseEntity<>(savedPermission.getId(), HttpStatus.OK);
     }
 
