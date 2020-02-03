@@ -70,4 +70,9 @@ public class VFSController {
             throw new VFSNotFoundException("VFS not found with id -" + id);
         return vfs.get();
     }
+
+    @GetMapping("/vfs/default")
+    public VFS retrieveDefault() {
+        return vfsDao.findByAcquiescent(true);
+    }
 }
