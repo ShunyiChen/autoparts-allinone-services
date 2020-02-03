@@ -1,4 +1,4 @@
-Postgres：
+===============Postgres：
 
 //拉镜像
 docker pull postgres
@@ -19,7 +19,7 @@ set search_path to public
 3.列出数据表 \dt
 
 
-MySQL:
+===================MySQL:
 //拉镜像
 docker pull mysql
 //启动容器
@@ -27,9 +27,24 @@ docker run -d -e MYSQL_ROOT_PASSWORD=cDe3@wsx -p 33061:3306 --privileged=true --
 //进入容器
 docker exec -it mysql bash
 //连接mysql
-mysql -uroot -p
-//密码
-cDe3@wsx
+mysql -uroot -pcDe3@wsx
+
 //常用sql
 CREATE DATABASE autoparts;
 CREATE DATABASE IF NOT EXISTS autoparts default charset utf8 COLLATE utf8_general_ci;
+
+
+
+===============在docker容器执行sql脚本文件
+//拷贝本地文件到docker容器内
+docker cp J:\workspace\autoparts\autoparts-services-allinone\sql\insert_permissions_script.sql  35f16ef13dda:/
+//进入容器
+docker exec -it mysql bash
+//连接mysql
+mysql -uroot -pcDe3@wsx
+//选择数据库
+user autoparts;
+//需要的编码)
+set names utf8;
+//执行sql脚本
+source insert_permissions_script.sql
