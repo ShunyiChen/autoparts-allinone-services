@@ -28,7 +28,8 @@ docker run -d -e MYSQL_ROOT_PASSWORD=cDe3@wsx -p 33061:3306 --privileged=true --
 docker exec -it mysql bash
 //连接mysql
 mysql -uroot -p
-
+//密码
+cDe3@wsx
 //常用sql
 CREATE DATABASE autoparts;
 CREATE DATABASE IF NOT EXISTS autoparts default charset utf8 COLLATE utf8_general_ci;
