@@ -6,6 +6,7 @@ import com.shunyi.autoparts.model.Logo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -45,7 +46,7 @@ public class LogoController {
 
     @GetMapping("/logos")
     public List<Logo> retrieveAll() {
-        return logoDao.findAll();
+        return logoDao.findAll(Sort.by(Sort.Direction.ASC,"id"));
     }
 
     @GetMapping("/logos/{id}")
