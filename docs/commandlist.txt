@@ -43,7 +43,7 @@ docker exec -it mysql bash
 //连接mysql
 mysql -uroot -pcDe3@wsx
 //选择数据库
-user autoparts;
+use autoparts;
 //需要的编码)
 set names utf8;
 //执行sql脚本

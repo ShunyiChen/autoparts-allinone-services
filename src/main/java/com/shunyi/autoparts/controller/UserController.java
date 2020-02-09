@@ -94,4 +94,12 @@ public class UserController {
         return aUser.get();
     }
 
+    @GetMapping("/users/username/{username}")
+    public User retrieveByUserName(@PathVariable String username) {
+        User user = userDao.findByUsername(username);
+        if (user == null)
+            throw new UserNotFoundException("User not found with id -" + user.getId());
+        return user;
+    }
+
 }
