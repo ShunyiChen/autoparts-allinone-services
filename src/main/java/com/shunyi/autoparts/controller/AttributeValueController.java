@@ -56,7 +56,7 @@ public class AttributeValueController {
     public AttributeValue retrieve(@PathVariable Long id) {
         Optional<AttributeValue> attribute = attributeValueDao.findById(id);
         if (!attribute.isPresent())
-            throw new AttributeValueNotFoundException("Attribute value not found with id -" + id);
+            throw new AttributeValueNotFoundException("BasicAttributes value not found with id -" + id);
         return attribute.get();
     }
 

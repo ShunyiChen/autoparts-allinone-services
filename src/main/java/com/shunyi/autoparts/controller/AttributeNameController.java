@@ -25,10 +25,13 @@ import java.util.*;
 @RestController
 @CrossOrigin
 public class AttributeNameController {
+
     /** 日志 */
     private static final Logger logger = LoggerFactory.getLogger(AttributeNameController.class);
+
     @Autowired
     private AttributeNameDao attributeNameDao;
+
     @Autowired
     private AttributeValueDao attributeValueDao;
 
@@ -73,7 +76,7 @@ public class AttributeNameController {
     public AttributeName retrieve(@PathVariable Long id) {
         Optional<AttributeName> attribute = attributeNameDao.findById(id);
         if (!attribute.isPresent())
-            throw new AttributeNameNotFoundException("Attribute name not found with id -" + id);
+            throw new AttributeNameNotFoundException("BasicAttributes name not found with id -" + id);
         return attribute.get();
     }
 

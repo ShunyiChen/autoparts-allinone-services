@@ -1,8 +1,8 @@
 package com.shunyi.autoparts.controller;
 
-import com.shunyi.autoparts.dao.AttributeDao;
-import com.shunyi.autoparts.exception.AttributeNotFoundException;
-import com.shunyi.autoparts.model.BasicAttribute;
+import com.shunyi.autoparts.dao.BasicAttributeDao;
+import com.shunyi.autoparts.exception.BasicAttributeNotFoundException;
+import com.shunyi.autoparts.model.BasicAttributes;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,57 +17,59 @@ import java.util.Optional;
 /** 产品基本属性控制器 */
 @RestController
 @CrossOrigin
-public class AttributeController {
-    /** 日志 */
-    private static final Logger logger = LoggerFactory.getLogger(AttributeController.class);
-    @Autowired
-    private AttributeDao attributeDao;
+public class BasicAttributeController {
 
-    @PostMapping("/attributes")
-    public ResponseEntity<?> create(@RequestBody BasicAttribute attribute) {
+    /** 日志 */
+    private static final Logger logger = LoggerFactory.getLogger(BasicAttributeController.class);
+    
+    @Autowired
+    private BasicAttributeDao basicAttributeDao;
+
+    @PostMapping("/basic/attributes")
+    public ResponseEntity<?> create(@RequestBody BasicAttributes attribute) {
         attribute.setDateCreated(new Date());
-        BasicAttribute savedAttribute = attributeDao.save(attribute);
+        BasicAttributes savedAttribute = basicAttributeDao.save(attribute);
         return new ResponseEntity<>(savedAttribute.getId(), HttpStatus.OK);
     }
 
-    @PutMapping("/attributes/{id}")
-    public ResponseEntity<?> update(@RequestBody BasicAttribute attribute, @PathVariable Long id) {
-        Optional<BasicAttribute> attributeOptional = attributeDao.findById(id);
+    @PutMapping("/basic/attributes/{id}")
+    public ResponseEntity<?> update(@RequestBody BasicAttributes attribute, @PathVariable Long id) {
+        Optional<BasicAttributes> attributeOptional = basicAttributeDao.findById(id);
         if (!attributeOptional.isPresent())
             return ResponseEntity.notFound().build();
         attribute.setId(id);
-        attributeDao.save(attribute);
+        basicAttributeDao.save(attribute);
         return ResponseEntity.noContent().build();
     }
 
-    @DeleteMapping("/attributes/{id}")
+    @DeleteMapping("/basic/attributes/{id}")
     public void delete(@PathVariable Long id) {
-        attributeDao.deleteById(id);
+        basicAttributeDao.deleteById(id);
     }
 
-    @DeleteMapping("/attributes/{pid}/{aid}")
-    public void delete(@PathVariable Long pid, @PathVariable Long aid) {
-        List<BasicAttribute> attributes = attributeDao.findByProduct_idAndAttributeValueId(pid, aid);
-        attributeDao.deleteAll(attributes);
+    @DeleteMapping("/basic/attributes/{productId}/{attributeNameId}")
+    public void delete(@PathVariable Long productId, @PathVariable Long attributeNameId) {
+        List<BasicAttributes> attributes = basicAttributeDao.findByProduct_idAndAttributeNameId(productId, attributeNameId);
+        basicAttributeDao.deleteAll(attributes);
     }
 
-    @GetMapping("/attributes")
-    public List<BasicAttribute> retrieveAll() {
-        return attributeDao.findAll();
+    @GetMapping("/basic/attributes")
+    public List<BasicAttributes> retrieveAll() {
+        return basicAttributeDao.findAll();
     }
 
-    @GetMapping("/attributes/{id}")
-    public BasicAttribute retrieve(@PathVariable Long id) {
-        Optional<BasicAttribute> attribute = attributeDao.findById(id);
+    @GetMapping("/basic/attributes/{id}")
+    public BasicAttributes retrieve(@PathVariable Long id) {
+        Optional<BasicAttributes> attribute = basicAttributeDao.findById(id);
         if (!attribute.isPresent()) {
-            logger.error("BasicAttribute not found with id " + id);
-            throw new AttributeNotFoundException("BasicAttribute not found with id " + id);
+            logger.error("BasicAttributes not found with id " + id);
+            throw new BasicAttributeNotFoundException("BasicAttributes not found with id " + id);
         }
         return attribute.get();
     }
 
-    @GetMapping("/attributes/products/{pid}")
-    public List<BasicAttribute> retrieveAllByProductId(@PathVariable Long pid) {
-        return attributeDao.findByProduct_id(pid);
+    @GetMapping("/basic/attributes/products/{pid}")
+    public List<BasicAttributes> retrieveAllByProductId(@PathVariable Long pid) {
+        return basicAttributeDao.findByProduct_id(pid);
     }
 }

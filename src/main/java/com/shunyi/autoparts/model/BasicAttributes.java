@@ -6,20 +6,28 @@ import java.util.Date;
 /** 产品基本属性 */
 @Entity
 @Table(name = "basic_attributes")
-public class BasicAttribute {
+public class BasicAttributes {
     /** 自增ID */
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
 
     /** 产品ID */
-    private Long productId;
+    @ManyToOne
+    @JoinColumn(name = "basic_attribute_product_id",
+        foreignKey = @ForeignKey(name = "BASIC_ATTRIBUTE_PRODUCT_ID_FK")
+    )
+    private Product product;
 
-    /** 属性名ID */
+    /** 基本属性名ID */
     private Long attributeNameId;
 
-    /** 属性值ID */
-    private Long attributeValueId;
+    /** 基本属性值ID */
+    @ManyToOne
+    @JoinColumn(name = "basic_attribute_value_id",
+              foreignKey = @ForeignKey(name = "BASIC_ATTRIBUTE_VALUE_ID_FK")
+    )
+    private AttributeValue attributeValue;
 
     /** 是否SKU */
     private Boolean isSKU;
@@ -30,12 +38,12 @@ public class BasicAttribute {
     /** 创建时间 */
     private Date dateCreated;
 
-    public BasicAttribute() {}
+    public BasicAttributes() {}
 
-    public BasicAttribute(Long productId, Long attributeNameId, Long attributeValueId, Boolean isSKU, Long skuId, Date dateCreated) {
-        this.productId = productId;
+    public BasicAttributes(Product product, Long attributeNameId, AttributeValue attributeValue, Boolean isSKU, Long skuId, Date dateCreated) {
+        this.product = product;
         this.attributeNameId = attributeNameId;
-        this.attributeValueId = attributeValueId;
+        this.attributeValue = attributeValue;
         this.isSKU = isSKU;
         this.skuId = skuId;
         this.dateCreated = dateCreated;
@@ -49,12 +57,12 @@ public class BasicAttribute {
         this.id = id;
     }
 
-    public Long getProductId() {
-        return productId;
+    public Product getProduct() {
+        return product;
     }
 
-    public void setProductId(Long productId) {
-        this.productId = productId;
+    public void setProduct(Product product) {
+        this.product = product;
     }
 
     public Long getAttributeNameId() {
@@ -65,20 +73,20 @@ public class BasicAttribute {
         this.attributeNameId = attributeNameId;
     }
 
-    public Long getAttributeValueId() {
-        return attributeValueId;
+    public AttributeValue getAttributeValue() {
+        return attributeValue;
     }
 
-    public void setAttributeValueId(Long attributeValueId) {
-        this.attributeValueId = attributeValueId;
+    public void setAttributeValue(AttributeValue attributeValue) {
+        this.attributeValue = attributeValue;
     }
 
-    public Boolean isSKU() {
+    public Boolean getIsSKU() {
         return isSKU;
     }
 
-    public void setIsSKU(Boolean isSKU) {
-        isSKU = isSKU;
+    public void setIsSKU(Boolean SKU) {
+        isSKU = SKU;
     }
 
     public Long getSkuId() {
