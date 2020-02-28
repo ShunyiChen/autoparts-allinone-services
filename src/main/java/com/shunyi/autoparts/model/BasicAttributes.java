@@ -3,38 +3,40 @@ package com.shunyi.autoparts.model;
 import javax.persistence.*;
 import java.util.Date;
 
-/** 产品属性 */
+/** 产品基本属性 */
 @Entity
-@Table(name = "attributes")
-public class Attribute {
+@Table(name = "basic_attributes")
+public class BasicAttribute {
     /** 自增ID */
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
-    /** 产品 */
-    @ManyToOne
-    @JoinColumn(name = "attribute_product_id",
-            foreignKey = @ForeignKey(name = "ATTRIBUTE_PRODUCT_ID_FK")
-    )
-    private Product product;
+
+    /** 产品ID */
+    private Long productId;
+
     /** 属性名ID */
     private Long attributeNameId;
+
     /** 属性值ID */
     private Long attributeValueId;
+
     /** 是否SKU */
-    private Boolean sku;
+    private Boolean isSKU;
+
     /** SKU ID */
     private Long skuId;
+
     /** 创建时间 */
     private Date dateCreated;
 
-    public Attribute() {}
+    public BasicAttribute() {}
 
-    public Attribute(Product product, Long attributeNameId, Long attributeValueId, Boolean sku, Long skuId, Date dateCreated) {
-        this.product = product;
+    public BasicAttribute(Long productId, Long attributeNameId, Long attributeValueId, Boolean isSKU, Long skuId, Date dateCreated) {
+        this.productId = productId;
         this.attributeNameId = attributeNameId;
         this.attributeValueId = attributeValueId;
-        this.sku = sku;
+        this.isSKU = isSKU;
         this.skuId = skuId;
         this.dateCreated = dateCreated;
     }
@@ -47,12 +49,12 @@ public class Attribute {
         this.id = id;
     }
 
-    public Product getProduct() {
-        return product;
+    public Long getProductId() {
+        return productId;
     }
 
-    public void setProduct(Product product) {
-        this.product = product;
+    public void setProductId(Long productId) {
+        this.productId = productId;
     }
 
     public Long getAttributeNameId() {
@@ -71,12 +73,12 @@ public class Attribute {
         this.attributeValueId = attributeValueId;
     }
 
-    public Boolean getSku() {
-        return sku;
+    public Boolean isSKU() {
+        return isSKU;
     }
 
-    public void setSku(Boolean sku) {
-        this.sku = sku;
+    public void setIsSKU(Boolean isSKU) {
+        isSKU = isSKU;
     }
 
     public Long getSkuId() {

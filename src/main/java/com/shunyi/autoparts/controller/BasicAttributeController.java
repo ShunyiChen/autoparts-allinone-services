@@ -2,7 +2,7 @@ package com.shunyi.autoparts.controller;
 
 import com.shunyi.autoparts.dao.AttributeDao;
 import com.shunyi.autoparts.exception.AttributeNotFoundException;
-import com.shunyi.autoparts.model.Attribute;
+import com.shunyi.autoparts.model.BasicAttribute;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,15 +24,15 @@ public class AttributeController {
     private AttributeDao attributeDao;
 
     @PostMapping("/attributes")
-    public ResponseEntity<?> create(@RequestBody Attribute attribute) {
+    public ResponseEntity<?> create(@RequestBody BasicAttribute attribute) {
         attribute.setDateCreated(new Date());
-        Attribute savedAttribute = attributeDao.save(attribute);
+        BasicAttribute savedAttribute = attributeDao.save(attribute);
         return new ResponseEntity<>(savedAttribute.getId(), HttpStatus.OK);
     }
 
     @PutMapping("/attributes/{id}")
-    public ResponseEntity<?> update(@RequestBody Attribute attribute, @PathVariable Long id) {
-        Optional<Attribute> attributeOptional = attributeDao.findById(id);
+    public ResponseEntity<?> update(@RequestBody BasicAttribute attribute, @PathVariable Long id) {
+        Optional<BasicAttribute> attributeOptional = attributeDao.findById(id);
         if (!attributeOptional.isPresent())
             return ResponseEntity.notFound().build();
         attribute.setId(id);
@@ -47,27 +47,27 @@ public class AttributeController {
 
     @DeleteMapping("/attributes/{pid}/{aid}")
     public void delete(@PathVariable Long pid, @PathVariable Long aid) {
-        List<Attribute> attributes = attributeDao.findByProduct_idAndAttributeValueId(pid, aid);
+        List<BasicAttribute> attributes = attributeDao.findByProduct_idAndAttributeValueId(pid, aid);
         attributeDao.deleteAll(attributes);
     }
 
     @GetMapping("/attributes")
-    public List<Attribute> retrieveAll() {
+    public List<BasicAttribute> retrieveAll() {
         return attributeDao.findAll();
     }
 
     @GetMapping("/attributes/{id}")
-    public Attribute retrieve(@PathVariable Long id) {
-        Optional<Attribute> attribute = attributeDao.findById(id);
+    public BasicAttribute retrieve(@PathVariable Long id) {
+        Optional<BasicAttribute> attribute = attributeDao.findById(id);
         if (!attribute.isPresent()) {
-            logger.error("Attribute not found with id " + id);
-            throw new AttributeNotFoundException("Attribute not found with id " + id);
+            logger.error("BasicAttribute not found with id " + id);
+            throw new AttributeNotFoundException("BasicAttribute not found with id " + id);
         }
         return attribute.get();
     }
 
     @GetMapping("/attributes/products/{pid}")
-    public List<Attribute> retrieveAllByProductId(@PathVariable Long pid) {
+    public List<BasicAttribute> retrieveAllByProductId(@PathVariable Long pid) {
         return attributeDao.findByProduct_id(pid);
     }
 }
