@@ -9,7 +9,11 @@ import org.springframework.data.repository.query.Param;
 import javax.transaction.Transactional;
 import java.util.List;
 
-/** VFS(虚拟文件系统)Dao */
+/**
+ * @description VFS文件系统Dao
+ * @author Shunyi Chen
+ * @date 2020/3/23
+ */
 public interface VFSDao extends JpaRepository<VFS, Long> {
 
     List<VFS> findAllByCategoryIdOrderById(Long categoryId);

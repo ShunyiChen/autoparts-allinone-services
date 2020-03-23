@@ -1,16 +1,20 @@
 package com.shunyi.autoparts.dao;
 
-import com.shunyi.autoparts.model.UserShopMapping;
+import com.shunyi.autoparts.model.UserStoreMapping;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-/** 用户店铺映射关系Dao */
+/**
+ * @description 用户与店铺关系Dao
+ * @author Shunyi Chen
+ * @date 2020/3/23
+ */
 @Repository
-public interface UserShopMappingDao extends JpaRepository<UserShopMapping, UserShopMapping.Id> {
+public interface UserStoreMappingDao extends JpaRepository<UserStoreMapping, UserStoreMapping.Id> {
 
-    List<UserShopMapping> findAllByUserIdOrderByShopIdAsc(Long userId);
+    List<UserStoreMapping> findAllByUserIdOrderByShopIdAsc(Long userId);
 
-    List<UserShopMapping> findAllByShopIdOrderByUserIdAsc(Long shopId);
+    List<UserStoreMapping> findAllByShopIdOrderByUserIdAsc(Long shopId);
 }

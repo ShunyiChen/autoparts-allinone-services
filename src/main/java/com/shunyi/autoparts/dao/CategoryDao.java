@@ -5,7 +5,11 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-/** 产品类目Dao */
+/**
+ * @description 产品类目Dao
+ * @author Shunyi Chen
+ * @date 2020/3/23
+ */
 public interface CategoryDao extends JpaRepository<Category, Long> {
 
     List<Category> findAllByOrderByIdAsc();

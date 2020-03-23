@@ -1,9 +1,13 @@
 package com.shunyi.autoparts.exception;
 
-/** SKU与货位映射关系找不到异常 */
-public class SKUCargoSpaceNotFoundException extends RuntimeException {
+/**
+ * @description SKU与货位关系找不到异常
+ * @author Shunyi Chen
+ * @date 2020/3/23
+ */
+public class SKUSlotNotFoundException extends RuntimeException {
 
-    public SKUCargoSpaceNotFoundException(String exception) {
+    public SKUSlotNotFoundException(String exception) {
         super(exception);
     }
 }

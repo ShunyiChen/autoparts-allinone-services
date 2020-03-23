@@ -9,13 +9,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 
-/** 进货单控制器 */
+/**
+ * @description 进货单控制器
+ * @author Shunyi Chen
+ * @date 2020/3/23
+ */
 @RestController
 @CrossOrigin
 public class PurchaseOrderController {
@@ -33,8 +35,9 @@ public class PurchaseOrderController {
     @PutMapping("/purchaseOrders/{id}")
     public ResponseEntity<?> update(@RequestBody PurchaseOrder purchaseOrder, @PathVariable Long id) {
         Optional<PurchaseOrder> purchaseOrderOptional = purchaseOrderDao.findById(id);
-        if (!purchaseOrderOptional.isPresent())
+        if (!purchaseOrderOptional.isPresent()) {
             return ResponseEntity.notFound().build();
+        }
         purchaseOrder.setId(id);
         purchaseOrderDao.save(purchaseOrder);
         return ResponseEntity.noContent().build();
@@ -53,8 +56,9 @@ public class PurchaseOrderController {
     @GetMapping("/purchaseOrders/{id}")
     public PurchaseOrder retrieve(@PathVariable Long id) {
         Optional<PurchaseOrder> purchaseOrder = purchaseOrderDao.findById(id);
-        if (!purchaseOrder.isPresent())
+        if (!purchaseOrder.isPresent()) {
             throw new PurchaseOrderNotFoundException("PurchaseOrder not found with id -" + id);
+        }
         return purchaseOrder.get();
     }
 }

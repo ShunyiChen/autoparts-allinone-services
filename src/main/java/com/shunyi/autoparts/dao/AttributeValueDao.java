@@ -6,7 +6,11 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
 import java.util.List;
 
-/** 属性值Dao */
+/**
+ * @description 属性值Dao
+ * @author Shunyi Chen
+ * @date 2020/3/23
+ */
 public interface AttributeValueDao extends JpaRepository<AttributeValue, Long>, JpaSpecificationExecutor<AttributeValue> {
 
     /** 正序查询属性值列表按照产品类目ID */

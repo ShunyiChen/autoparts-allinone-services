@@ -1,10 +1,24 @@
 package com.shunyi.autoparts.model;
 
-import javax.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 
-/** 供应商 */
+import javax.persistence.*;
+import java.util.Date;
+
+/**
+ * @description 供应商
+ * @author Shunyi Chen
+ * @date 2020/3/23
+ */
 @Entity
 @Table(name = "suppliers")
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
+@ToString
 public class Supplier {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
@@ -15,94 +29,42 @@ public class Supplier {
     private String name;
     /** 联系人 */
     private String contact;
-    /** 电话 */
-    private String phone;
-    /** 其他 */
-    private String other;
+    /** 电话1 */
+    private String phone1;
+    /** 电话2 */
+    private String phone2;
+    /** 电子邮件 */
+    private String email;
+    /** 地址 */
+    private String address;
+    /** 邮编 */
+    private String postCode;
+    /** 等级 */
+    private String grade;
+    /** 付款方式 */
+    private String payment;
+    /** 备注 */
+    private String notes;
     /** 供应商类目 */
     @ManyToOne
     @JoinColumn(name = "supplier_category_id",
             foreignKey = @ForeignKey(name = "SUPPLIER_CATEGORY_ID_FK")
     )
     private SupplierCategory category;
-
-    public Supplier() {}
-
-    public Supplier(String code, String name, String contact, String phone, String other, SupplierCategory category) {
-        this.code = code;
-        this.name = name;
-        this.contact = contact;
-        this.phone = phone;
-        this.other = other;
-        this.category = category;
-    }
-
-    public String getOther() {
-        return other;
-    }
-
-    public void setOther(String other) {
-        this.other = other;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getCode() {
-        return code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getContact() {
-        return contact;
-    }
-
-    public void setContact(String contact) {
-        this.contact = contact;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
-    public SupplierCategory getCategory() {
-        return category;
-    }
-
-    public void setCategory(SupplierCategory category) {
-        this.category = category;
-    }
-
-    @Override
-    public String toString() {
-        return "Supplier{" +
-                "id=" + id +
-                ", code='" + code + '\'' +
-                ", name='" + name + '\'' +
-                ", contact='" + contact + '\'' +
-                ", phone='" + phone + '\'' +
-                ", other='" + other + '\'' +
-                ", category=" + category +
-                '}';
-    }
+    /** 创建时间 */
+    private Date dateCreated;
+    /** 创建者 */
+    private String creator;
+    /** 更新时间 */
+    private Date dateUpdated;
+    /** 更新者 */
+    private String updater;
+    /** 更新次数 */
+    private Integer updatedCount;
+    /** 删除时间 */
+    private Date dateDeleted;
+    /** 删除标记 */
+    private Boolean deleteFlag;
+    /** 删除者 */
+    private String deleter;
 }

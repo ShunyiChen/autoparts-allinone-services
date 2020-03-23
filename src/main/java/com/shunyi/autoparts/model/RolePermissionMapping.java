@@ -6,7 +6,11 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
 
-/** 角色和权限映射关系 */
+/**
+ * @description 角色和权限映射关系
+ * @author Shunyi Chen
+ * @date 2020/3/23
+ */
 @Entity
 @Table(name="role_permission_mappings")
 @org.hibernate.annotations.Immutable

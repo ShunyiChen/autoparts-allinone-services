@@ -16,7 +16,11 @@ import javax.persistence.criteria.*;
 import java.net.URI;
 import java.util.*;
 
-/** 属性值控制器 */
+/**
+ * @description 属性值控制器
+ * @author Shunyi Chen
+ * @date 2020/3/23
+ */
 @RestController
 @CrossOrigin
 public class AttributeValueController {
@@ -35,8 +39,9 @@ public class AttributeValueController {
     @PutMapping("/attributes/value/{id}")
     public ResponseEntity<?> update(@RequestBody AttributeValue attributeValue, @PathVariable Long id) {
         Optional<AttributeValue> attributeOptional = attributeValueDao.findById(id);
-        if (!attributeOptional.isPresent())
+        if (!attributeOptional.isPresent()) {
             return ResponseEntity.notFound().build();
+        }
         attributeValue.setId(id);
         attributeValueDao.save(attributeValue);
         return ResponseEntity.noContent().build();
@@ -55,8 +60,9 @@ public class AttributeValueController {
     @GetMapping("/attributes/value/{id}")
     public AttributeValue retrieve(@PathVariable Long id) {
         Optional<AttributeValue> attribute = attributeValueDao.findById(id);
-        if (!attribute.isPresent())
+        if (!attribute.isPresent()) {
             throw new AttributeValueNotFoundException("BasicAttributes value not found with id -" + id);
+        }
         return attribute.get();
     }
 

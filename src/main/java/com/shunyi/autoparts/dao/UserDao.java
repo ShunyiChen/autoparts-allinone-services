@@ -9,7 +9,11 @@ import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;
 
-/** 登录用户Dao */
+/**
+ * @description 系统用户Dao
+ * @author Shunyi Chen
+ * @date 2020/3/23
+ */
 @Repository
 public interface UserDao extends JpaRepository<User, Long> {
 	

@@ -13,7 +13,11 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
-/** 产品图片控制器 */
+/**
+ * @description 产品图片控制器
+ * @author Shunyi Chen
+ * @date 2020/3/23
+ */
 @RestController
 @CrossOrigin
 public class PictureController {
@@ -31,8 +35,9 @@ public class PictureController {
     @PutMapping("/pictures/{id}")
     public ResponseEntity<?> update(@RequestBody Picture picture, @PathVariable Long id) {
         Optional<Picture> pictureOptional = pictureDao.findById(id);
-        if (!pictureOptional.isPresent())
+        if (!pictureOptional.isPresent()) {
             return ResponseEntity.notFound().build();
+        }
         picture.setId(id);
         pictureDao.save(picture);
         return ResponseEntity.noContent().build();
@@ -51,8 +56,9 @@ public class PictureController {
     @GetMapping("/pictures/{id}")
     public Picture retrieve(@PathVariable Long id) {
         Optional<Picture> picture = pictureDao.findById(id);
-        if (!picture.isPresent())
+        if (!picture.isPresent()) {
             throw new PictureNotFoundException("Picture not found with id -" + id);
+        }
         return picture.get();
     }
 }

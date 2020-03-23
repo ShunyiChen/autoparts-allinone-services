@@ -2,10 +2,10 @@ package com.shunyi.autoparts.controller;
 
 import com.shunyi.autoparts.config.JwtTokenUtil;
 import com.shunyi.autoparts.dao.UserDao;
-import com.shunyi.autoparts.dao.UserShopMappingDao;
+import com.shunyi.autoparts.dao.UserStoreMappingDao;
 import com.shunyi.autoparts.exception.UserNotFoundException;
 import com.shunyi.autoparts.model.User;
-import com.shunyi.autoparts.model.UserShopMapping;
+import com.shunyi.autoparts.model.UserStoreMapping;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +19,11 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-/** 用户控制器 */
+/**
+ * @description 系统用户控制器
+ * @author Shunyi Chen
+ * @date 2020/3/23
+ */
 @RestController
 @CrossOrigin
 public class UserController {
@@ -30,11 +34,10 @@ public class UserController {
     private UserDao userDao;
     /** 用户与店铺关系Dao */
     @Autowired
-    private UserShopMappingDao userShopMappingDao;
+    private UserStoreMappingDao userShopMappingDao;
     /** JWTToken工具 */
     @Autowired
     private JwtTokenUtil jwtTokenUtil;
-
 
     @PostMapping("/users")
     public ResponseEntity<?> create(@RequestBody User user) {
@@ -45,8 +48,9 @@ public class UserController {
     @PutMapping("/users/{id}")
     public ResponseEntity<?> update(@RequestBody User user, @PathVariable Long id) {
         Optional<User> packageOptional = userDao.findById(id);
-        if (!packageOptional.isPresent())
+        if (!packageOptional.isPresent()) {
             return ResponseEntity.notFound().build();
+        }
         user.setId(id);
         userDao.save(user);
         return ResponseEntity.noContent().build();
@@ -55,8 +59,9 @@ public class UserController {
     @PutMapping("/users/changepassword/{id}")
     public ResponseEntity<?> update(@RequestBody String newPassword, @PathVariable Long id) {
         Optional<User> packageOptional = userDao.findById(id);
-        if (!packageOptional.isPresent())
+        if (!packageOptional.isPresent()) {
             return ResponseEntity.notFound().build();
+        }
         userDao.updatePasswordByUserId(newPassword, id);
         return ResponseEntity.noContent().build();
     }
@@ -75,7 +80,7 @@ public class UserController {
 
     @GetMapping("/users/shop/{sid}")
     public List<User> retrieveAllByShopId(@PathVariable Long sid) {
-        List<UserShopMapping> list = userShopMappingDao.findAllByShopIdOrderByUserIdAsc(sid);
+        List<UserStoreMapping> list = userShopMappingDao.findAllByShopIdOrderByUserIdAsc(sid);
         List<User> lstUser = new ArrayList<>();
         list.forEach(e -> {
             Optional<User> opt = userDao.findById(e.getId().getUserId());
@@ -89,16 +94,18 @@ public class UserController {
     @GetMapping("/users/{id}")
     public User retrieve(@PathVariable Long id) {
         Optional<User> aUser = userDao.findById(id);
-        if (!aUser.isPresent())
+        if (!aUser.isPresent()) {
             throw new UserNotFoundException("User not found with id -" + id);
+        }
         return aUser.get();
     }
 
     @GetMapping("/users/username/{username}")
     public User retrieveByUserName(@PathVariable String username) {
         User user = userDao.findByUsername(username);
-        if (user == null)
+        if (user == null) {
             throw new UserNotFoundException("User not found with id -" + user.getId());
+        }
         return user;
     }
 

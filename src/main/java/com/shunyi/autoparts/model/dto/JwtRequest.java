@@ -2,6 +2,11 @@ package com.shunyi.autoparts.model.dto;
 
 import java.io.Serializable;
 
+/**
+ * @description JWT请求
+ * @author Shunyi Chen
+ * @date 2020/3/23
+ */
 public class JwtRequest implements Serializable {
 
 	private static final long serialVersionUID = 5926468583005150707L;

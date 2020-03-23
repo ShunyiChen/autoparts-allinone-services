@@ -1,12 +1,23 @@
 package com.shunyi.autoparts.model;
 
-import javax.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-/** VFS类目 */
+import javax.persistence.*;
+import java.util.Date;
+
+/**
+ * @description VFS类目
+ * @author Shunyi Chen
+ * @date 2020/3/23
+ */
 @Entity
 @Table(name = "vfs_categories")
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
 public class VFSCategory {
-
     /** 自增ID */
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
@@ -17,46 +28,22 @@ public class VFSCategory {
     private Long parentId;
     /** 是否父节点 */
     private Boolean parent;
-
-    public VFSCategory() {}
-
-    public VFSCategory(String name, Long parentId, Boolean parent) {
-        this.name = name;
-        this.parentId = parentId;
-        this.parent = parent;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Long getParentId() {
-        return parentId;
-    }
-
-    public void setParentId(Long parentId) {
-        this.parentId = parentId;
-    }
-
-    public Boolean getParent() {
-        return parent;
-    }
-
-    public void setParent(Boolean parent) {
-        this.parent = parent;
-    }
+    /** 创建时间 */
+    private Date dateCreated;
+    /** 创建者 */
+    private String creator;
+    /** 更新时间 */
+    private Date dateUpdated;
+    /** 更新者 */
+    private String updater;
+    /** 更新次数 */
+    private Integer updatedCount;
+    /** 删除时间 */
+    private Date dateDeleted;
+    /** 删除标记 */
+    private Boolean deleteFlag;
+    /** 删除者 */
+    private String deleter;
 
     @Override
     public String toString() {

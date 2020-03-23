@@ -15,7 +15,11 @@ import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 
-/** 产品类目控制器 */
+/**
+ * @description 产品类目控制器
+ * @author Shunyi Chen
+ * @date 2020/3/23
+ */
 @RestController
 @CrossOrigin
 public class CategoryController {
@@ -33,8 +37,9 @@ public class CategoryController {
     @PutMapping("/categories/{id}")
     public ResponseEntity<?> update(@RequestBody Category category, @PathVariable Long id) {
         Optional<Category> categoryOptional = categoryDao.findById(id);
-        if (!categoryOptional.isPresent())
+        if (!categoryOptional.isPresent()) {
             return ResponseEntity.notFound().build();
+        }
         category.setId(id);
         categoryDao.save(category);
         return ResponseEntity.noContent().build();
@@ -53,8 +58,9 @@ public class CategoryController {
     @GetMapping("/categories/{id}")
     public Category retrieve(@PathVariable Long id) {
         Optional<Category> category = categoryDao.findById(id);
-        if (!category.isPresent())
+        if (!category.isPresent()) {
             throw new CategoryNotFoundException("Category not found with id -" + id);
+        }
         return category.get();
     }
 

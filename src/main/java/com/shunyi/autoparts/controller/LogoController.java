@@ -14,7 +14,11 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
-/** 产品Logo控制器 */
+/**
+ * @description 产品Logo控制器
+ * @author Shunyi Chen
+ * @date 2020/3/23
+ */
 @RestController
 @CrossOrigin
 public class LogoController {
@@ -32,8 +36,9 @@ public class LogoController {
     @PutMapping("/logos/{id}")
     public ResponseEntity<?> update(@RequestBody Logo logo, @PathVariable Long id) {
         Optional<Logo> logoOptional = logoDao.findById(id);
-        if (!logoOptional.isPresent())
+        if (!logoOptional.isPresent()) {
             return ResponseEntity.notFound().build();
+        }
         logo.setId(id);
         logoDao.save(logo);
         return ResponseEntity.noContent().build();
@@ -52,8 +57,9 @@ public class LogoController {
     @GetMapping("/logos/{id}")
     public Logo retrieve(@PathVariable Long id) {
         Optional<Logo> logo = logoDao.findById(id);
-        if (!logo.isPresent())
+        if (!logo.isPresent()) {
             throw new LogoNotFoundException("Logo not found with id -" + id);
+        }
         return logo.get();
     }
 }

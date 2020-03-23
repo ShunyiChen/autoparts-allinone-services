@@ -1,7 +1,7 @@
 package com.shunyi.autoparts.controller;
 
-import com.shunyi.autoparts.dao.SKUCargoSpaceDao;
-import com.shunyi.autoparts.exception.SKUCargoSpaceNotFoundException;
+import com.shunyi.autoparts.dao.SKUSlotDao;
+import com.shunyi.autoparts.exception.SKUSlotNotFoundException;
 import com.shunyi.autoparts.model.SKUCargoSpaceMapping;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,14 +13,18 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
-/** 产品类目控制器 */
+/**
+ * @description SKU与货位关系控制器
+ * @author Shunyi Chen
+ * @date 2020/3/23
+ */
 @RestController
 @CrossOrigin
-public class SKUCargoSpaceMappingController {
+public class SKUSlotMappingController {
     /** 日志 */
-    private static final Logger logger = LoggerFactory.getLogger(SKUCargoSpaceMappingController.class);
+    private static final Logger logger = LoggerFactory.getLogger(SKUSlotMappingController.class);
     @Autowired
-    private SKUCargoSpaceDao skuCargoSpaceDao;
+    private SKUSlotDao skuCargoSpaceDao;
 
     @PostMapping("/skuCargoSpaceMappings")
     public ResponseEntity<?> create(@RequestBody SKUCargoSpaceMapping skuCargoSpace) {
@@ -52,7 +56,7 @@ public class SKUCargoSpaceMappingController {
     public SKUCargoSpaceMapping retrieve(@PathVariable SKUCargoSpaceMapping.Id id) {
         Optional<SKUCargoSpaceMapping> skuCargoSpace = skuCargoSpaceDao.findById(id);
         if (!skuCargoSpace.isPresent())
-            throw new SKUCargoSpaceNotFoundException("SKUCargoSpaceMapping not found with id - " + id);
+            throw new SKUSlotNotFoundException("SKUCargoSpaceMapping not found with id - " + id);
         return skuCargoSpace.get();
     }
 }

@@ -5,23 +5,22 @@ import com.shunyi.autoparts.dao.AttributeValueDao;
 import com.shunyi.autoparts.exception.AttributeNameNotFoundException;
 import com.shunyi.autoparts.model.AttributeName;
 import com.shunyi.autoparts.model.AttributeValue;
-import com.shunyi.autoparts.model.Supplier;
-import com.shunyi.autoparts.model.SupplierCategory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import javax.persistence.criteria.*;
-import java.net.URI;
-import java.util.*;
+import java.util.Date;
+import java.util.List;
+import java.util.Optional;
 
-/** 属性名控制器 */
+/**
+ * @description 属性名控制器
+ * @author Shunyi Chen
+ * @date 2020/3/23
+ */
 @RestController
 @CrossOrigin
 public class AttributeNameController {
@@ -45,8 +44,9 @@ public class AttributeNameController {
     @PutMapping("/attributes/name/{id}")
     public ResponseEntity<?> update(@RequestBody AttributeName attributeName, @PathVariable Long id) {
         Optional<AttributeName> attributeOptional = attributeNameDao.findById(id);
-        if (!attributeOptional.isPresent())
+        if (!attributeOptional.isPresent()) {
             return ResponseEntity.notFound().build();
+        }
         attributeName.setId(id);
         attributeNameDao.save(attributeName);
         return ResponseEntity.noContent().build();
@@ -75,8 +75,9 @@ public class AttributeNameController {
     @GetMapping("/attributes/name/{id}")
     public AttributeName retrieve(@PathVariable Long id) {
         Optional<AttributeName> attribute = attributeNameDao.findById(id);
-        if (!attribute.isPresent())
+        if (!attribute.isPresent()) {
             throw new AttributeNameNotFoundException("BasicAttributes name not found with id -" + id);
+        }
         return attribute.get();
     }
 

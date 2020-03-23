@@ -8,7 +8,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Random;
 
-/** 生成条形码controller */
+/**
+ * @description 生成条形码控制器
+ * @author Shunyi Chen
+ * @date 2020/3/23
+ */
 @RestController
 @CrossOrigin
 public class BarcodeController {

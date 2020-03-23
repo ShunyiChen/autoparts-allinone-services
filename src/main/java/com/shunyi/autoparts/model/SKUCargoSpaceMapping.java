@@ -6,7 +6,11 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
 
-/** SKU与货位映射关系表 */
+/**
+ * @description SKU与货位映射关系
+ * @author Shunyi Chen
+ * @date 2020/3/23
+ */
 @Entity
 @Table(name = "sku_cargospace_mappings")
 public class SKUCargoSpaceMapping {
@@ -73,7 +77,7 @@ public class SKUCargoSpaceMapping {
             insertable = false, updatable = false
     )
     @JsonIgnore
-    protected CargoSpace cargoSpace;
+    protected Slot cargoSpace;
 
     public Id getId() {
         return id;
@@ -91,11 +95,11 @@ public class SKUCargoSpaceMapping {
         this.sku = sku;
     }
 
-    public CargoSpace getCargoSpace() {
+    public Slot getCargoSpace() {
         return cargoSpace;
     }
 
-    public void setCargoSpace(CargoSpace cargoSpace) {
+    public void setCargoSpace(Slot cargoSpace) {
         this.cargoSpace = cargoSpace;
     }
 }

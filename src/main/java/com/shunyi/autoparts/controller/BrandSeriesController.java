@@ -15,7 +15,11 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
-/** 品牌系列控制器 */
+/**
+ * @description 品牌系列控制器
+ * @author Shunyi Chen
+ * @date 2020/3/23
+ */
 @RestController
 @CrossOrigin
 public class BrandSeriesController {
@@ -34,8 +38,9 @@ public class BrandSeriesController {
     @PutMapping("/brandSeries/{id}")
     public ResponseEntity<?> update(@RequestBody BrandSeries brandSeries, @PathVariable Long id) {
         Optional<BrandSeries> brandSeriesOptional = brandSeriesDao.findById(id);
-        if (!brandSeriesOptional.isPresent())
+        if (!brandSeriesOptional.isPresent()) {
             return ResponseEntity.notFound().build();
+        }
         brandSeries.setId(id);
         brandSeriesDao.save(brandSeries);
         return ResponseEntity.noContent().build();
@@ -59,8 +64,9 @@ public class BrandSeriesController {
     @GetMapping("/brandSeries/{id}")
     public BrandSeries retrieve(@PathVariable Long id) {
         Optional<BrandSeries> brandSeries = brandSeriesDao.findById(id);
-        if (!brandSeries.isPresent())
+        if (!brandSeries.isPresent()) {
             throw new BrandSeriesNotFoundException("BrandSeries not found with id -" + id);
+        }
         return brandSeries.get();
     }
 }

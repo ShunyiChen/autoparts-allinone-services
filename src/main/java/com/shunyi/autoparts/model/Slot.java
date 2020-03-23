@@ -21,14 +21,14 @@ import java.util.Set;
 @AllArgsConstructor
 @Data
 @ToString
-public class CargoSpace {
+public class Slot {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
     /** 仓库（仓库编号） */
     @ManyToOne
-    @JoinColumn(name = "cargo_warehouse_id",
-            foreignKey = @ForeignKey(name = "CARGO_WAREHOUSE_ID_FK")
+    @JoinColumn(name = "slot_warehouse_id",
+            foreignKey = @ForeignKey(name = "SLOT_WAREHOUSE_ID_FK")
     )
     private Warehouse warehouse;
     /** 货位名称 */

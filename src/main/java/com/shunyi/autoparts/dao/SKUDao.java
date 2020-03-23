@@ -6,7 +6,11 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
 import java.util.List;
 
-/** 产品SKU Dao */
+/**
+ * @description 产品SKU Dao
+ * @author Shunyi Chen
+ * @date 2020/3/23
+ */
 public interface SKUDao extends JpaRepository<SKU, Long>, JpaSpecificationExecutor<SKU> {
 
     List<SKU> findAllByProduct_idOrderByIdAsc(Long Product_id);

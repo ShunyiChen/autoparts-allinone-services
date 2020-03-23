@@ -10,13 +10,15 @@ import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 
-/** 车型类目控制器 */
+/**
+ * @description 车型控制器
+ * @author Shunyi Chen
+ * @date 2020/3/23
+ */
 @RestController
 @CrossOrigin
 public class CarController {
@@ -34,8 +36,9 @@ public class CarController {
     @PutMapping("/cars/{id}")
     public ResponseEntity<?> update(@RequestBody Car car, @PathVariable Long id) {
         Optional<Car> carOptional = carDao.findById(id);
-        if (!carOptional.isPresent())
+        if (!carOptional.isPresent()) {
             return ResponseEntity.notFound().build();
+        }
         car.setId(id);
         carDao.save(car);
         return ResponseEntity.noContent().build();
@@ -54,8 +57,9 @@ public class CarController {
     @GetMapping("/cars/{id}")
     public Car retrieve(@PathVariable Long id) {
         Optional<Car> car = carDao.findById(id);
-        if (!car.isPresent())
+        if (!car.isPresent()) {
             throw new CarNotFoundException("Car not found with id -" + id);
+        }
         return car.get();
     }
 }

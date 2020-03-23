@@ -19,7 +19,7 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class Shop {
+public class Store {
     /** ID */
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
@@ -34,7 +34,7 @@ public class Shop {
     private Boolean parent;
     /** 用户店铺映射关系 */
     @OneToMany(mappedBy = "shop")
-    protected Set<UserShopMapping> userShopMappingSet = new HashSet<>();
+    protected Set<UserStoreMapping> userShopMappingSet = new HashSet<>();
     /** 创建时间 */
     private Date dateCreated;
     /** 创建者 */

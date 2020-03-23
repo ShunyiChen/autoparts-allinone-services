@@ -1,8 +1,8 @@
 package com.shunyi.autoparts.controller;
 
-import com.shunyi.autoparts.dao.CargoSpaceDao;
+import com.shunyi.autoparts.dao.SlotDao;
 import com.shunyi.autoparts.dao.WarehouseDao;
-import com.shunyi.autoparts.exception.CargoSpaceNotFoundException;
+import com.shunyi.autoparts.exception.SlotFoundException;
 import com.shunyi.autoparts.model.Slot;
 import com.shunyi.autoparts.model.Warehouse;
 import org.slf4j.Logger;
@@ -17,52 +17,58 @@ import org.springframework.web.bind.annotation.*;
 import javax.persistence.criteria.*;
 import java.util.*;
 
-/** 货位控制器 */
+/**
+ * @description 货位控制器
+ * @author Shunyi Chen
+ * @date 2020/3/23
+ */
 @RestController
 @CrossOrigin
-public class CargoSpaceController {
+public class SlotController {
     /** 日志 */
-    private static final Logger logger = LoggerFactory.getLogger(CargoSpaceController.class);
+    private static final Logger logger = LoggerFactory.getLogger(SlotController.class);
     @Autowired
-    private CargoSpaceDao cargoSpaceDao;
+    private SlotDao slotDao;
     @Autowired
     private WarehouseDao warehouseDao;
 
-    @PostMapping("/cargoSpaces")
-    public ResponseEntity<?> create(@RequestBody Slot cargoSpace) {
-        Slot savedCargoSpace = cargoSpaceDao.save(cargoSpace);
+    @PostMapping("/slot")
+    public ResponseEntity<?> create(@RequestBody Slot slot) {
+        Slot savedCargoSpace = slotDao.save(slot);
         return new ResponseEntity<>(savedCargoSpace.getId(), HttpStatus.OK);
     }
 
-    @PutMapping("/cargoSpaces/{id}")
-    public ResponseEntity<?> update(@RequestBody Slot cargoSpace, @PathVariable Long id) {
-        Optional<Slot> cargoSpaceOptional = cargoSpaceDao.findById(id);
-        if (!cargoSpaceOptional.isPresent())
+    @PutMapping("/slot/{id}")
+    public ResponseEntity<?> update(@RequestBody Slot slot, @PathVariable Long id) {
+        Optional<Slot> slotOptional = slotDao.findById(id);
+        if (!slotOptional.isPresent()) {
             return ResponseEntity.notFound().build();
-        cargoSpace.setId(id);
-        cargoSpaceDao.save(cargoSpace);
+        }
+        slot.setId(id);
+        slotDao.save(slot);
         return ResponseEntity.noContent().build();
     }
 
-    @DeleteMapping("/cargoSpaces/{id}")
+    @DeleteMapping("/slot/{id}")
     public void delete(@PathVariable Long id) {
-        cargoSpaceDao.deleteById(id);
+        slotDao.deleteById(id);
     }
 
-    @GetMapping("/cargoSpaces")
+    @GetMapping("/slot")
     public List<Slot> retrieveAll() {
-        return cargoSpaceDao.findAll();
+        return slotDao.findAll();
     }
 
-    @GetMapping("/cargoSpaces/{id}")
+    @GetMapping("/slot/{id}")
     public Slot retrieve(@PathVariable Long id) {
-        Optional<Slot> cargoSpace = cargoSpaceDao.findById(id);
-        if (!cargoSpace.isPresent())
-            throw new CargoSpaceNotFoundException("Slot not found with id -" + id);
-        return cargoSpace.get();
+        Optional<Slot> slot = slotDao.findById(id);
+        if(!slot.isPresent()) {
+            throw new SlotFoundException("Slot not found with id -" + id);
+        }
+        return slot.get();
     }
 
-    @GetMapping("/cargoSpaces/warehouse/{pid}")
+    @GetMapping("/slot/warehouse/{pid}")
     public List<Slot> retrieveAll(@PathVariable Long pid) {
         List<Warehouse> allCategories = warehouseDao.findAllByOrderByIdAsc();
         Set<Long> idSet = new HashSet<>();
@@ -82,7 +88,7 @@ public class CargoSpaceController {
             }
         };
         Sort sort = Sort.by(Sort.Direction.ASC,"id");
-        return cargoSpaceDao.findAll(specification, sort);
+        return slotDao.findAll(specification, sort);
     }
 
     /**
@@ -93,14 +99,14 @@ public class CargoSpaceController {
      */
     private void getNodes(Long pid, List<Warehouse> all, Set<Long> idSet) {
         for(Warehouse sc : all) {
-            if(sc.getParentId() == pid) {
+            if(sc.getParentId().equals(pid)) {
                 idSet.add(sc.getId());
                 getNodes(sc.getId(), all, idSet);
             }
         }
     }
 
-    @PostMapping("/cargoSpaces/search")
+    @PostMapping("/slot/search")
     public List<Slot> search(@RequestBody Slot condition) {
         Specification<Slot> specification = new Specification<Slot>() {
             @Override
@@ -145,6 +151,6 @@ public class CargoSpaceController {
             }
         };
         Sort sort = Sort.by(Sort.Direction.ASC,"id");
-        return cargoSpaceDao.findAll(specification, sort);
+        return slotDao.findAll(specification, sort);
     }
 }

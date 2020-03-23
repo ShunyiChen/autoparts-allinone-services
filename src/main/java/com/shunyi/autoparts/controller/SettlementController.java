@@ -13,7 +13,11 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
-/** 结算方式控制器 */
+/**
+ * @description 结算方式控制器
+ * @author Shunyi Chen
+ * @date 2020/3/23
+ */
 @RestController
 @CrossOrigin
 public class SettlementController {
@@ -31,8 +35,9 @@ public class SettlementController {
     @PutMapping("/settlements/{id}")
     public ResponseEntity<?> update(@RequestBody Settlement settlement, @PathVariable Long id) {
         Optional<Settlement> settlementOptional = settlementDao.findById(id);
-        if (!settlementOptional.isPresent())
+        if (!settlementOptional.isPresent()) {
             return ResponseEntity.notFound().build();
+        }
         settlement.setId(id);
         settlementDao.save(settlement);
         return ResponseEntity.noContent().build();
@@ -51,8 +56,9 @@ public class SettlementController {
     @GetMapping("/settlements/{id}")
     public Settlement retrieve(@PathVariable Long id) {
         Optional<Settlement> settlement = settlementDao.findById(id);
-        if (!settlement.isPresent())
+        if (!settlement.isPresent()) {
             throw new SettlementNotFoundException("Settlement not found with id -" + id);
+        }
         return settlement.get();
     }
 }

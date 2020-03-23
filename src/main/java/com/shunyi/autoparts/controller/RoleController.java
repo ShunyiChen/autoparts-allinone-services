@@ -14,7 +14,11 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
-/** 角色控制器 */
+/**
+ * @description 角色控制器
+ * @author Shunyi Chen
+ * @date 2020/3/23
+ */
 @RestController
 @CrossOrigin
 public class RoleController {
@@ -32,8 +36,9 @@ public class RoleController {
     @PutMapping("/roles/{id}")
     public ResponseEntity<?> update(@RequestBody Role department, @PathVariable Long id) {
         Optional<Role> departmentOptional = roleDao.findById(id);
-        if (!departmentOptional.isPresent())
+        if (!departmentOptional.isPresent()) {
             return ResponseEntity.notFound().build();
+        }
         department.setId(id);
         roleDao.save(department);
         return ResponseEntity.noContent().build();
@@ -52,8 +57,9 @@ public class RoleController {
     @GetMapping("/roles/{id}")
     public Role retrieve(@PathVariable Long id) {
         Optional<Role> department = roleDao.findById(id);
-        if (!department.isPresent())
+        if (!department.isPresent()) {
             throw new RoleNotFoundException("Role not found with id -" + id);
+        }
         return department.get();
     }
 }

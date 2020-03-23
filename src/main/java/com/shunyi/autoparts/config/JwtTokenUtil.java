@@ -13,6 +13,11 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
+/**
+ * @description Jwt token工具类
+ * @author Shunyi Chen
+ * @date 2020/3/23
+ */
 @Component
 public class JwtTokenUtil implements Serializable {
 

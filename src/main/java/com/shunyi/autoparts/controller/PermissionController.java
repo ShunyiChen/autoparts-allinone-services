@@ -14,7 +14,11 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
-/** 权限控制器 */
+/**
+ * @description 权限控制器
+ * @author Shunyi Chen
+ * @date 2020/3/23
+ */
 @RestController
 @CrossOrigin
 public class PermissionController {
@@ -34,8 +38,9 @@ public class PermissionController {
     @PutMapping("/permissions/{id}")
     public ResponseEntity<?> update(@RequestBody Permission department, @PathVariable Long id) {
         Optional<Permission> departmentOptional = permissionDao.findById(id);
-        if (!departmentOptional.isPresent())
+        if (!departmentOptional.isPresent()) {
             return ResponseEntity.notFound().build();
+        }
         department.setId(id);
         permissionDao.save(department);
         return ResponseEntity.noContent().build();
@@ -54,8 +59,9 @@ public class PermissionController {
     @GetMapping("/permissions/{id}")
     public Permission retrieve(@PathVariable Long id) {
         Optional<Permission> department = permissionDao.findById(id);
-        if (!department.isPresent())
+        if (!department.isPresent()) {
             throw new PermissionNotFoundException("Permission not found with id -" + id);
+        }
         return department.get();
     }
 }

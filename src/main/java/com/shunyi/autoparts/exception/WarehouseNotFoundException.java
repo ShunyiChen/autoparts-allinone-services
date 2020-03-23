@@ -1,6 +1,10 @@
 package com.shunyi.autoparts.exception;
 
-/** 仓库找不到异常 */
+/**
+ * @description 仓库找不到异常
+ * @author Shunyi Chen
+ * @date 2020/3/23
+ */
 public class WarehouseNotFoundException extends RuntimeException {
 
     public WarehouseNotFoundException(String exception) {

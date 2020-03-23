@@ -1,10 +1,12 @@
 package com.shunyi.autoparts.dao;
 
-import com.shunyi.autoparts.model.Shop;
+import com.shunyi.autoparts.model.Store;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.util.List;
-
-/** 店铺Dao */
-public interface ShopDao extends JpaRepository<Shop, Long> {
+/**
+ * @description 店铺Dao
+ * @author Shunyi Chen
+ * @date 2020/3/23
+ */
+public interface StoreDao extends JpaRepository<Store, Long> {
 }

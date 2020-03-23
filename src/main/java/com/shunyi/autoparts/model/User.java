@@ -1,101 +1,67 @@
 package com.shunyi.autoparts.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
+
 import javax.persistence.*;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
-/** 用户 */
+/**
+ * @description 系统用户
+ * @author Shunyi Chen
+ * @date 2020/3/23
+ */
 @Entity
 @Table(name = "users")
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
+@ToString
 public class User {
 	/** ID */
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-
 	/** 用户名 */
 	private String username;
-
+	/** 姓名 */
+	private String chineseName;
+	/** 英文名 */
+	private String EnglishName;
+	/** 性别 */
+	private String sex;
+	/** 电话 */
+	private String phone;
+	/** 电子邮件 */
+	private String email;
 	/** 加密的密码 */
 	private String password;
-
 	/** 是否激活 */
 	private Boolean enabled;
-
 	/** 用户和店铺映射关系 */
 	@OneToMany(mappedBy = "user")
-	protected Set<UserShopMapping> userShopMappingSet = new HashSet<>();
-
+	protected Set<UserStoreMapping> userShopMappingSet = new HashSet<>();
 	/** 用户和角色映射关系 */
 	@OneToMany(mappedBy = "user")
 	protected Set<UserRoleMapping> userRoleMappingSet = new HashSet<>();
-
-	public User() {}
-
-	public User(String username, String password, Boolean enabled, Set<UserShopMapping> userShopMappingSet, Set<UserRoleMapping> userRoleMappingSet) {
-		this.username = username;
-		this.password = password;
-		this.enabled = enabled;
-		this.userShopMappingSet = userShopMappingSet;
-		this.userRoleMappingSet = userRoleMappingSet;
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public String getUsername() {
-		return username;
-	}
-
-	public void setUsername(String username) {
-		this.username = username;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-	public Set<UserShopMapping> getUserShopMappingSet() {
-		return userShopMappingSet;
-	}
-
-	public void setUserShopMappingSet(Set<UserShopMapping> userShopMappingSet) {
-		this.userShopMappingSet = userShopMappingSet;
-	}
-
-	public Set<UserRoleMapping> getUserRoleMappingSet() {
-		return userRoleMappingSet;
-	}
-
-	public void setUserRoleMappingSet(Set<UserRoleMapping> userRoleMappingSet) {
-		this.userRoleMappingSet = userRoleMappingSet;
-	}
-
-	public Boolean isEnabled() {
-		return enabled;
-	}
-
-	public void setEnabled(Boolean enabled) {
-		this.enabled = enabled;
-	}
-
-	@Override
-	public String toString() {
-		return "User{" +
-				"id=" + id +
-				", username='" + username + '\'' +
-				", password='" + password + '\'' +
-				", enabled=" + enabled +
-				", userShopMappingSet=" + userShopMappingSet +
-				'}';
-	}
+	/** 创建时间 */
+	private Date dateCreated;
+	/** 创建者 */
+	private String creator;
+	/** 更新时间 */
+	private Date dateUpdated;
+	/** 更新者 */
+	private String updater;
+	/** 更新次数 */
+	private Integer updatedCount;
+	/** 删除时间 */
+	private Date dateDeleted;
+	/** 删除标记 */
+	private Boolean deleteFlag;
+	/** 删除者 */
+	private String deleter;
 }

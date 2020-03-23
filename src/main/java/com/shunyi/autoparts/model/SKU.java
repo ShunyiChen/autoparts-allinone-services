@@ -1,14 +1,27 @@
 package com.shunyi.autoparts.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
-/** 产品SKU */
+/**
+ * @description 产品SKU实体类
+ * @author Shunyi Chen
+ * @date 2020/3/23
+ */
 @Entity
 @Table(name = "sku")
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
+@ToString
 public class SKU {
     /** 自增ID */
     @Id
@@ -20,155 +33,43 @@ public class SKU {
             foreignKey = @ForeignKey(name = "SKU_PRODUCT_ID_FK")
     )
     private Product product;
+    /** SKU编码 */
+    private String skuCode;
     /** SKU名称 */
     private String skuName;
+    /** 规格 */
+    private String specification;
     /** 单位 */
     private String unit;
-    /** 数量 */
+    /** 库存数量 */
     private Integer quantity;
-    /** 单价 */
+    /** 销售价 */
     private BigDecimal price;
-    /** 外部编辑单价 */
-    private BigDecimal externalEdit;
+    /** 折扣价 */
+    private BigDecimal discountedPrice;
     /** 状态 */
     private String status;
     /** 属性字符串 */
     private String properties;
     /** 条形码 */
     private String barCode;
-    /** 创建时间 */
-    private Date dateCreated;
     /** SKU与货位映射集合 */
     @OneToMany(mappedBy = "sku")
     private Set<SKUCargoSpaceMapping> SKUCargoSpaceMappings = new HashSet<>();
-
-    public SKU() {}
-
-    public SKU(Product product, String skuName, String unit, Integer quantity, BigDecimal price, BigDecimal externalEdit, String status, String properties, String barCode, Date dateCreated, Set<SKUCargoSpaceMapping> SKUCargoSpaceMappings) {
-        this.product = product;
-        this.skuName = skuName;
-        this.unit = unit;
-        this.quantity = quantity;
-        this.price = price;
-        this.externalEdit = externalEdit;
-        this.status = status;
-        this.properties = properties;
-        this.barCode = barCode;
-        this.dateCreated = dateCreated;
-        this.SKUCargoSpaceMappings = SKUCargoSpaceMappings;
-    }
-
-    public Product getProduct() {
-        return product;
-    }
-
-    public void setProduct(Product product) {
-        this.product = product;
-    }
-
-    public Set<SKUCargoSpaceMapping> getSKUCargoSpaceMappings() {
-        return SKUCargoSpaceMappings;
-    }
-
-    public void setSKUCargoSpaceMappings(Set<SKUCargoSpaceMapping> SKUCargoSpaceMappings) {
-        this.SKUCargoSpaceMappings = SKUCargoSpaceMappings;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getSkuName() {
-        return skuName;
-    }
-
-    public void setSkuName(String skuName) {
-        this.skuName = skuName;
-    }
-
-    public String getUnit() {
-        return unit;
-    }
-
-    public void setUnit(String unit) {
-        this.unit = unit;
-    }
-
-    public Integer getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(Integer quantity) {
-        this.quantity = quantity;
-    }
-
-    public BigDecimal getPrice() {
-        return price;
-    }
-
-    public void setPrice(BigDecimal price) {
-        this.price = price;
-    }
-
-    public BigDecimal getExternalEdit() {
-        return externalEdit;
-    }
-
-    public void setExternalEdit(BigDecimal externalEdit) {
-        this.externalEdit = externalEdit;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public String getProperties() {
-        return properties;
-    }
-
-    public void setProperties(String properties) {
-        this.properties = properties;
-    }
-
-    public String getBarCode() {
-        return barCode;
-    }
-
-    public void setBarCode(String barCode) {
-        this.barCode = barCode;
-    }
-
-    public Date getDateCreated() {
-        return dateCreated;
-    }
-
-    public void setDateCreated(Date dateCreated) {
-        this.dateCreated = dateCreated;
-    }
-
-    @Override
-    public String toString() {
-        return "SKU{" +
-                "id=" + id +
-                ", product=" + product +
-                ", skuName='" + skuName + '\'' +
-                ", unit='" + unit + '\'' +
-                ", quantity=" + quantity +
-                ", price=" + price +
-                ", externalEdit=" + externalEdit +
-                ", status='" + status + '\'' +
-                ", properties='" + properties + '\'' +
-                ", barCode='" + barCode + '\'' +
-                ", dateCreated=" + dateCreated +
-                ", SKUCargoSpaceMappings=" + SKUCargoSpaceMappings +
-                '}';
-    }
+    /** 创建时间 */
+    private Date dateCreated;
+    /** 创建者 */
+    private String creator;
+    /** 更新时间 */
+    private Date dateUpdated;
+    /** 更新者 */
+    private String updater;
+    /** 更新次数 */
+    private Integer updatedCount;
+    /** 删除时间 */
+    private Date dateDeleted;
+    /** 删除标记 */
+    private Boolean deleteFlag;
+    /** 删除者 */
+    private String deleter;
 }

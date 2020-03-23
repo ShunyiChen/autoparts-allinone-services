@@ -14,7 +14,11 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
-/** VFS类目控制器 */
+/**
+ * @description VFS类目文件系统控制器
+ * @author Shunyi Chen
+ * @date 2020/3/23
+ */
 @RestController
 @CrossOrigin
 public class VFSCategoryController {
@@ -32,8 +36,9 @@ public class VFSCategoryController {
     @PutMapping("/vfs/categories/{id}")
     public ResponseEntity<?> update(@RequestBody VFSCategory vfsCategory, @PathVariable Long id) {
         Optional<VFSCategory> categoryOptional = vfsCategoryDao.findById(id);
-        if (!categoryOptional.isPresent())
+        if (!categoryOptional.isPresent()) {
             return ResponseEntity.notFound().build();
+        }
         vfsCategory.setId(id);
         vfsCategoryDao.save(vfsCategory);
         return ResponseEntity.noContent().build();
@@ -52,8 +57,9 @@ public class VFSCategoryController {
     @GetMapping("/vfs/categories/{id}")
     public VFSCategory retrieve(@PathVariable Long id) {
         Optional<VFSCategory> vfsCategory = vfsCategoryDao.findById(id);
-        if (!vfsCategory.isPresent())
+        if (!vfsCategory.isPresent()) {
             throw new VFSCategoryNotFoundException("Supplier category not found with id -" + id);
+        }
         return vfsCategory.get();
     }
 

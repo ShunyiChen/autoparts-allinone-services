@@ -1,9 +1,13 @@
 package com.shunyi.autoparts.exception;
 
-/** 货位找不到异常 */
-public class CargoSpaceNotFoundException extends RuntimeException {
+/**
+ * @description 货位找不到异常
+ * @author Shunyi Chen
+ * @date 2020/3/23
+ */
+public class SlotFoundException extends RuntimeException {
 
-    public CargoSpaceNotFoundException(String exception) {
+    public SlotFoundException(String exception) {
         super(exception);
     }
 }

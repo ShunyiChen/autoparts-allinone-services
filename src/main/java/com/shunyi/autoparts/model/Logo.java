@@ -1,10 +1,24 @@
 package com.shunyi.autoparts.model;
 
-import javax.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 
-/** 品牌Logo表 */
+import javax.persistence.*;
+import java.util.Date;
+
+/**
+ * @description 品牌Logo
+ * @author Shunyi Chen
+ * @date 2020/3/23
+ */
 @Entity
 @Table(name = "logos")
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
+@ToString
 public class Logo {
     /** 自增长ID */
     @Id
@@ -18,44 +32,20 @@ public class Logo {
             foreignKey = @ForeignKey(name = "LOGO_VFS_ID_FK")
     )
     private VFS vfs;
-
-    public Logo() {}
-
-    public Logo(String path, VFS vfs) {
-        this.path = path;
-        this.vfs = vfs;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getPath() {
-        return path;
-    }
-
-    public void setPath(String path) {
-        this.path = path;
-    }
-
-    public VFS getVfs() {
-        return vfs;
-    }
-
-    public void setVfs(VFS vfs) {
-        this.vfs = vfs;
-    }
-
-    @Override
-    public String toString() {
-        return "Logo{" +
-                "id=" + id +
-                ", path='" + path + '\'' +
-                ", vfs=" + vfs +
-                '}';
-    }
+    /** 创建时间 */
+    private Date dateCreated;
+    /** 创建者 */
+    private String creator;
+    /** 更新时间 */
+    private Date dateUpdated;
+    /** 更新者 */
+    private String updater;
+    /** 更新次数 */
+    private Integer updatedCount;
+    /** 删除时间 */
+    private Date dateDeleted;
+    /** 删除标记 */
+    private Boolean deleteFlag;
+    /** 删除者 */
+    private String deleter;
 }

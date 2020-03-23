@@ -1,11 +1,22 @@
 package com.shunyi.autoparts.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
 import java.util.Date;
 
-/** 产品属性值表 */
+/**
+ * @description 产品属性值
+ * @author Shunyi Chen
+ * @date 2020/3/23
+ */
 @Entity
 @Table(name = "attribute_values")
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
 public class AttributeValue {
     /** 自增ID*/
     @Id
@@ -33,82 +44,20 @@ public class AttributeValue {
     private Integer sort;
     /** 创建时间 */
     private Date dateCreated;
-
-    public AttributeValue() {}
-
-    public AttributeValue(String name, String rgb, Category category, AttributeName attributeName, String status, Integer sort, Date dateCreated) {
-        this.name = name;
-        this.rgb = rgb;
-        this.category = category;
-        this.attributeName = attributeName;
-        this.status = status;
-        this.sort = sort;
-        this.dateCreated = dateCreated;
-    }
-
-    public String getRgb() {
-        return rgb;
-    }
-
-    public void setRgb(String rgb) {
-        this.rgb = rgb;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Category getCategory() {
-        return category;
-    }
-
-    public void setCategory(Category category) {
-        this.category = category;
-    }
-
-    public AttributeName getAttributeName() {
-        return attributeName;
-    }
-
-    public void setAttributeName(AttributeName attributeName) {
-        this.attributeName = attributeName;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public Integer getSort() {
-        return sort;
-    }
-
-    public void setSort(Integer sort) {
-        this.sort = sort;
-    }
-
-    public Date getDateCreated() {
-        return dateCreated;
-    }
-
-    public void setDateCreated(Date dateCreated) {
-        this.dateCreated = dateCreated;
-    }
+    /** 创建者 */
+    private String creator;
+    /** 更新时间 */
+    private Date dateUpdated;
+    /** 更新者 */
+    private String updater;
+    /** 更新次数 */
+    private Integer updatedCount;
+    /** 删除时间 */
+    private Date dateDeleted;
+    /** 删除标记 */
+    private Boolean deleteFlag;
+    /** 删除者 */
+    private String deleter;
 
     @Override
     public String toString() {

@@ -11,7 +11,11 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-/** 角色和权限映射关系Controller */
+/**
+ * @description 角色和权限映射关系控制器
+ * @author Shunyi Chen
+ * @date 2020/3/23
+ */
 @RestController
 @CrossOrigin
 public class RolePermissionMappingController {

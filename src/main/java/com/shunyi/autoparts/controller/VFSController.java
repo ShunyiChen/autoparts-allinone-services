@@ -14,7 +14,11 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
-/** VFS控制器 */
+/**
+ * @description VFS文件系统控制器
+ * @author Shunyi Chen
+ * @date 2020/3/23
+ */
 @RestController
 @CrossOrigin
 public class VFSController {
@@ -32,8 +36,9 @@ public class VFSController {
     @PutMapping("/vfs/{id}")
     public ResponseEntity<?> update(@RequestBody VFS vfs, @PathVariable Long id) {
         Optional<VFS> vfsOptional = vfsDao.findById(id);
-        if (!vfsOptional.isPresent())
+        if (!vfsOptional.isPresent()) {
             return ResponseEntity.notFound().build();
+        }
         vfs.setId(id);
         vfsDao.save(vfs);
         return ResponseEntity.noContent().build();
@@ -66,8 +71,9 @@ public class VFSController {
     @GetMapping("/vfs/{id}")
     public VFS retrieve(@PathVariable Long id) {
         Optional<VFS> vfs = vfsDao.findById(id);
-        if (!vfs.isPresent())
+        if (!vfs.isPresent()) {
             throw new VFSNotFoundException("VFS not found with id -" + id);
+        }
         return vfs.get();
     }
 

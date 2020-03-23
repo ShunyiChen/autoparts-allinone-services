@@ -1,10 +1,24 @@
 package com.shunyi.autoparts.model;
 
-import javax.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 
-/** 产品库存 */
+import javax.persistence.*;
+import java.util.Date;
+
+/**
+ * @description 库存
+ * @author Shunyi Chen
+ * @date 2020/3/23
+ */
 @Entity
 @Table(name = "stock")
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
+@ToString
 public class Stock {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
@@ -15,54 +29,20 @@ public class Stock {
     private Long productId;
     /** SKU ID */
     private Long skuId;
-
-    public Stock() {}
-
-    public Stock(Long warehouseId, Long productId, Long skuId) {
-        this.warehouseId = warehouseId;
-        this.productId = productId;
-        this.skuId = skuId;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Long getWarehouseId() {
-        return warehouseId;
-    }
-
-    public void setWarehouseId(Long warehouseId) {
-        this.warehouseId = warehouseId;
-    }
-
-    public Long getproductId() {
-        return productId;
-    }
-
-    public void setproductId(Long productId) {
-        this.productId = productId;
-    }
-
-    public Long getSkuId() {
-        return skuId;
-    }
-
-    public void setSkuId(Long skuId) {
-        this.skuId = skuId;
-    }
-
-    @Override
-    public String toString() {
-        return "Stock{" +
-                "id=" + id +
-                ", warehouseId=" + warehouseId +
-                ", productId=" + productId +
-                ", skuId=" + skuId +
-                '}';
-    }
+    /** 创建时间 */
+    private Date dateCreated;
+    /** 创建者 */
+    private String creator;
+    /** 更新时间 */
+    private Date dateUpdated;
+    /** 更新者 */
+    private String updater;
+    /** 更新次数 */
+    private Integer updatedCount;
+    /** 删除时间 */
+    private Date dateDeleted;
+    /** 删除标记 */
+    private Boolean deleteFlag;
+    /** 删除者 */
+    private String deleter;
 }

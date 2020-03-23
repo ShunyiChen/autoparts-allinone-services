@@ -16,6 +16,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * @description Jwt请求过滤器
+ * @author Shunyi Chen
+ * @date 2020/3/23
+ */
 @Component
 public class JwtRequestFilter extends OncePerRequestFilter {
 

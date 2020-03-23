@@ -6,7 +6,11 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-/** 用户和角色映射关系Dao */
+/**
+ * @description 用户和角色关系Dao
+ * @author Shunyi Chen
+ * @date 2020/3/23
+ */
 @Repository
 public interface UserRoleMappingDao extends JpaRepository<UserRoleMapping, UserRoleMapping.Id> {
 

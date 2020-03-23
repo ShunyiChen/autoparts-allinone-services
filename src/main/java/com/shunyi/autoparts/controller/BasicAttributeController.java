@@ -14,7 +14,11 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
-/** 产品基本属性控制器 */
+/**
+ * @description 基本属性控制器
+ * @author Shunyi Chen
+ * @date 2020/3/23
+ */
 @RestController
 @CrossOrigin
 public class BasicAttributeController {
@@ -35,8 +39,9 @@ public class BasicAttributeController {
     @PutMapping("/basic/attributes/{id}")
     public ResponseEntity<?> update(@RequestBody BasicAttributes attribute, @PathVariable Long id) {
         Optional<BasicAttributes> attributeOptional = basicAttributeDao.findById(id);
-        if (!attributeOptional.isPresent())
+        if (!attributeOptional.isPresent()) {
             return ResponseEntity.notFound().build();
+        }
         attribute.setId(id);
         basicAttributeDao.save(attribute);
         return ResponseEntity.noContent().build();

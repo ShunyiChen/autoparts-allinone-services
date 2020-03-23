@@ -15,7 +15,11 @@ import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 
-/** 供应商类目控制器 */
+/**
+ * @description 供应商类目控制器
+ * @author Shunyi Chen
+ * @date 2020/3/23
+ */
 @RestController
 @CrossOrigin
 public class SupplierCategoryController {
@@ -33,8 +37,9 @@ public class SupplierCategoryController {
     @PutMapping("/supplier/categories/{id}")
     public ResponseEntity<?> update(@RequestBody SupplierCategory supplierCategory, @PathVariable Long id) {
         Optional<SupplierCategory> categoryOptional = supplierCategoryDao.findById(id);
-        if (!categoryOptional.isPresent())
+        if (!categoryOptional.isPresent()) {
             return ResponseEntity.notFound().build();
+        }
         supplierCategory.setId(id);
         supplierCategoryDao.save(supplierCategory);
         return ResponseEntity.noContent().build();
@@ -53,8 +58,9 @@ public class SupplierCategoryController {
     @GetMapping("/supplier/categories/{id}")
     public SupplierCategory retrieve(@PathVariable Long id) {
         Optional<SupplierCategory> supplierCategory = supplierCategoryDao.findById(id);
-        if (!supplierCategory.isPresent())
+        if (!supplierCategory.isPresent()) {
             throw new SupplierCategoryNotFoundException("Supplier category not found with id -" + id);
+        }
         return supplierCategory.get();
     }
 

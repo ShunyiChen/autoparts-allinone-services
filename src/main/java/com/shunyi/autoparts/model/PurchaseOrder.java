@@ -1,12 +1,25 @@
 package com.shunyi.autoparts.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Date;
 
-/** 进货单实体类 */
-@Entity
+/**
+ * @description 进货单实体类
+ * @author Shunyi Chen
+ * @date 2020/3/23
+ */
+//@Entity
 @Table(name = "purchase_orders")
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
+@ToString
 public class PurchaseOrder {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
@@ -71,212 +84,20 @@ public class PurchaseOrder {
     private String account;
     /** 订单状态 */
     private String status;
-
-    public PurchaseOrder() {}
-
-    public PurchaseOrder(String orderId, Date orderDate, Warehouse warehouse, Supplier supplier, String invoiceType, String invoiceNo, BigDecimal freight, String notes, User operator, User verifier, Settlement settlement, BigDecimal amountA, BigDecimal amountB, BigDecimal amountC, BigDecimal amountD, BigDecimal amountE, String account, String status) {
-        this.orderId = orderId;
-        this.orderDate = orderDate;
-        this.warehouse = warehouse;
-        this.supplier = supplier;
-        this.invoiceType = invoiceType;
-        this.invoiceNo = invoiceNo;
-        this.freight = freight;
-        this.notes = notes;
-        this.operator = operator;
-        this.verifier = verifier;
-        this.settlement = settlement;
-        this.amountA = amountA;
-        this.amountB = amountB;
-        this.amountC = amountC;
-        this.amountD = amountD;
-        this.amountE = amountE;
-        this.account = account;
-        this.status = status;
-    }
-
-    public Package getPackage() {
-        return aPackage;
-    }
-
-    public void setPackage(Package aPackage) {
-        this.aPackage = aPackage;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getOrderId() {
-        return orderId;
-    }
-
-    public void setOrderId(String orderId) {
-        this.orderId = orderId;
-    }
-
-    public Date getOrderDate() {
-        return orderDate;
-    }
-
-    public void setOrderDate(Date orderDate) {
-        this.orderDate = orderDate;
-    }
-
-    public Warehouse getWarehouse() {
-        return warehouse;
-    }
-
-    public void setWarehouse(Warehouse warehouse) {
-        this.warehouse = warehouse;
-    }
-
-    public Supplier getSupplier() {
-        return supplier;
-    }
-
-    public void setSupplier(Supplier supplier) {
-        this.supplier = supplier;
-    }
-
-    public String getInvoiceType() {
-        return invoiceType;
-    }
-
-    public void setInvoiceType(String invoiceType) {
-        this.invoiceType = invoiceType;
-    }
-
-    public String getInvoiceNo() {
-        return invoiceNo;
-    }
-
-    public void setInvoiceNo(String invoiceNo) {
-        this.invoiceNo = invoiceNo;
-    }
-
-    public BigDecimal getFreight() {
-        return freight;
-    }
-
-    public void setFreight(BigDecimal freight) {
-        this.freight = freight;
-    }
-
-    public String getNotes() {
-        return notes;
-    }
-
-    public void setNotes(String notes) {
-        this.notes = notes;
-    }
-
-    public User getOperator() {
-        return operator;
-    }
-
-    public void setOperator(User operator) {
-        this.operator = operator;
-    }
-
-    public User getVerifier() {
-        return verifier;
-    }
-
-    public void setVerifier(User verifier) {
-        this.verifier = verifier;
-    }
-
-    public Settlement getSettlement() {
-        return settlement;
-    }
-
-    public void setSettlement(Settlement settlement) {
-        this.settlement = settlement;
-    }
-
-    public BigDecimal getAmountA() {
-        return amountA;
-    }
-
-    public void setAmountA(BigDecimal amountA) {
-        this.amountA = amountA;
-    }
-
-    public BigDecimal getAmountB() {
-        return amountB;
-    }
-
-    public void setAmountB(BigDecimal amountB) {
-        this.amountB = amountB;
-    }
-
-    public BigDecimal getAmountC() {
-        return amountC;
-    }
-
-    public void setAmountC(BigDecimal amountC) {
-        this.amountC = amountC;
-    }
-
-    public BigDecimal getAmountD() {
-        return amountD;
-    }
-
-    public void setAmountD(BigDecimal amountD) {
-        this.amountD = amountD;
-    }
-
-    public BigDecimal getAmountE() {
-        return amountE;
-    }
-
-    public void setAmountE(BigDecimal amountE) {
-        this.amountE = amountE;
-    }
-
-    public String getAccount() {
-        return account;
-    }
-
-    public void setAccount(String account) {
-        this.account = account;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    @Override
-    public String toString() {
-        return "Purchaseorder{" +
-                "id=" + id +
-                ", orderId='" + orderId + '\'' +
-                ", orderDate=" + orderDate +
-                ", warehouse=" + warehouse +
-                ", supplier=" + supplier +
-                ", invoiceType='" + invoiceType + '\'' +
-                ", invoiceNo='" + invoiceNo + '\'' +
-                ", freight=" + freight +
-                ", notes='" + notes + '\'' +
-                ", operator=" + operator +
-                ", verifier=" + verifier +
-                ", settlement=" + settlement +
-                ", amountA=" + amountA +
-                ", amountB=" + amountB +
-                ", amountC=" + amountC +
-                ", amountD=" + amountD +
-                ", amountE=" + amountE +
-                ", account='" + account + '\'' +
-                ", status='" + status + '\'' +
-                '}';
-    }
+    /** 创建时间 */
+    private Date dateCreated;
+    /** 创建者 */
+    private String creator;
+    /** 更新时间 */
+    private Date dateUpdated;
+    /** 更新者 */
+    private String updater;
+    /** 更新次数 */
+    private Integer updatedCount;
+    /** 删除时间 */
+    private Date dateDeleted;
+    /** 删除标记 */
+    private Boolean deleteFlag;
+    /** 删除者 */
+    private String deleter;
 }

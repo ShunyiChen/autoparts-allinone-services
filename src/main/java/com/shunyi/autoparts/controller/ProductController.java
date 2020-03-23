@@ -21,7 +21,11 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
-/** 产品控制器 */
+/**
+ * @description 产品控制器
+ * @author Shunyi Chen
+ * @date 2020/3/23
+ */
 @RestController
 @CrossOrigin
 public class ProductController {
@@ -40,8 +44,9 @@ public class ProductController {
     @PutMapping("/products/{id}")
     public ResponseEntity<?> update(@RequestBody Product product, @PathVariable Long id) {
         Optional<Product> productOptional = productDao.findById(id);
-        if (!productOptional.isPresent())
+        if (!productOptional.isPresent()) {
             return ResponseEntity.notFound().build();
+        }
         product.setId(id);
         productDao.save(product);
         return ResponseEntity.noContent().build();
@@ -65,8 +70,9 @@ public class ProductController {
     @GetMapping("/products/{id}")
     public Product retrieve(@PathVariable Long id) {
         Optional<Product> product = productDao.findById(id);
-        if (!product.isPresent())
+        if (!product.isPresent()) {
             throw new ProductNotFoundException("Product not found with id -" + id);
+        }
         return product.get();
     }
 
@@ -91,9 +97,9 @@ public class ProductController {
                     Predicate predicate = cb.like(path.get("chineseName"), "%"+product.getBrandSeries().getChineseName()+"%");
                     predicates.add(predicate);
                 }
-                if(product.getPriceExcludingTax() != null && !product.getPriceExcludingTax().equals("")) {
+                if(product.getListPrice() != null && !product.getListPrice().equals("")) {
                     Path<BigDecimal> path = root.get("priceExcludingTax");
-                    Predicate predicate = cb.equal(path,product.getPriceExcludingTax());
+                    Predicate predicate = cb.equal(path, product.getListPrice());
                     predicates.add(predicate);
                 }
                 if(!product.getUnit().equals("")) {
@@ -106,9 +112,9 @@ public class ProductController {
                     Predicate predicate = cb.like(path, "%"+product.getImported()+"%");
                     predicates.add(predicate);
                 }
-                if(!product.getPlaceOfOrigin().equals("")) {
+                if(!product.getOrigin().equals("")) {
                     Path<String> path = root.get("placeOfOrigin");
-                    Predicate predicate = cb.like(path, "%"+product.getPlaceOfOrigin()+"%");
+                    Predicate predicate = cb.like(path, "%"+product.getOrigin()+"%");
                     predicates.add(predicate);
                 }
                 if(!product.getCar().equals("")) {

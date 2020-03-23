@@ -12,9 +12,9 @@ import java.util.Objects;
  * @date 2020/3/23
  */
 @Entity
-@Table(name="user_shop_mappings")
+@Table(name="user_store_mappings")
 @org.hibernate.annotations.Immutable
-public class UserShopMapping {
+public class UserStoreMapping {
 
     @Embeddable
     public static class Id implements Serializable {
@@ -51,8 +51,12 @@ public class UserShopMapping {
 
         @Override
         public boolean equals(Object o) {
-            if (this == o) return true;
-            if (o == null || getClass() != o.getClass()) return false;
+            if (this == o) {
+                return true;
+            }
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
             Id id = (Id) o;
             return Objects.equals(userId, id.userId) &&
                     Objects.equals(shopId, id.shopId);
@@ -73,7 +77,7 @@ public class UserShopMapping {
     }
 
     @EmbeddedId
-    protected UserShopMapping.Id id = new UserShopMapping.Id();
+    protected UserStoreMapping.Id id = new UserStoreMapping.Id();
 
     @ManyToOne
     @JoinColumn(

@@ -9,13 +9,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 
-/** 仓库控制器 */
+/**
+ * @description 仓库控制器
+ * @author Shunyi Chen
+ * @date 2020/3/23
+ */
 @RestController
 @CrossOrigin
 public class WarehouseController {
@@ -33,8 +35,9 @@ public class WarehouseController {
     @PutMapping("/warehouses/{id}")
     public ResponseEntity<?> update(@RequestBody Warehouse warehouse, @PathVariable Long id) {
         Optional<Warehouse> warehouseOptional = warehouseDao.findById(id);
-        if (!warehouseOptional.isPresent())
+        if (!warehouseOptional.isPresent()) {
             return ResponseEntity.notFound().build();
+        }
         warehouse.setId(id);
         warehouseDao.save(warehouse);
         return ResponseEntity.noContent().build();
@@ -53,8 +56,9 @@ public class WarehouseController {
     @GetMapping("/warehouses/{id}")
     public Warehouse retrieve(@PathVariable Long id) {
         Optional<Warehouse> warehouse = warehouseDao.findById(id);
-        if (!warehouse.isPresent())
+        if (!warehouse.isPresent()) {
             throw new WarehouseNotFoundException("Warehouse not found with id -" + id);
+        }
         return warehouse.get();
     }
 }

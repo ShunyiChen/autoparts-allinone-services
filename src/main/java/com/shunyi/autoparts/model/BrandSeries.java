@@ -1,13 +1,22 @@
 package com.shunyi.autoparts.model;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.Date;
 
-/** 品牌系列表 */
+/**
+ * @description 品牌
+ * @author Shunyi Chen
+ * @date 2020/3/23
+ */
 @Entity
 @Table(name = "brand_series")
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
 public class BrandSeries {
     /** 自增ID */
     @Id
@@ -36,94 +45,21 @@ public class BrandSeries {
     /** 品牌官方网站 */
     private String officialSite;
     /** 创建时间 */
-    @JsonFormat(pattern="yyyy-MM-dd'T'HH:mm:ss.SSSZ")
     private Date dateCreated;
-
-    public BrandSeries() {
-    }
-
-    public BrandSeries(Category category, String chineseName, String englishName, String description, Logo logo, String status, String officialSite, Date dateCreated) {
-        this.category = category;
-        this.chineseName = chineseName;
-        this.englishName = englishName;
-        this.description = description;
-        this.logo = logo;
-        this.status = status;
-        this.officialSite = officialSite;
-        this.dateCreated = dateCreated;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Category getCategory() {
-        return category;
-    }
-
-    public void setCategory(Category category) {
-        this.category = category;
-    }
-
-    public String getChineseName() {
-        return chineseName;
-    }
-
-    public void setChineseName(String chineseName) {
-        this.chineseName = chineseName;
-    }
-
-    public String getEnglishName() {
-        return englishName;
-    }
-
-    public void setEnglishName(String englishName) {
-        this.englishName = englishName;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public Logo getLogo() {
-        return logo;
-    }
-
-    public void setLogo(Logo logo) {
-        this.logo = logo;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public String getOfficialSite() {
-        return officialSite;
-    }
-
-    public void setOfficialSite(String officialSite) {
-        this.officialSite = officialSite;
-    }
-
-    public Date getDateCreated() {
-        return dateCreated;
-    }
-
-    public void setDateCreated(Date dateCreated) {
-        this.dateCreated = dateCreated;
-    }
+    /** 创建者 */
+    private String creator;
+    /** 更新时间 */
+    private Date dateUpdated;
+    /** 更新者 */
+    private String updater;
+    /** 更新次数 */
+    private Integer updatedCount;
+    /** 删除时间 */
+    private Date dateDeleted;
+    /** 删除标记 */
+    private Boolean deleteFlag;
+    /** 删除者 */
+    private String deleter;
 
     @Override
     public String toString() {

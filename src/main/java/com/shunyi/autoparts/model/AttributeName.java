@@ -1,11 +1,22 @@
 package com.shunyi.autoparts.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
 import java.util.Date;
 
-/** 产品属性名表 */
+/**
+ * @description 产品属性名
+ * @author Shunyi Chen
+ * @date 2020/3/23
+ */
 @Entity
 @Table(name = "attribute_names")
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
 public class AttributeName {
     /** 自增ID */
     @Id
@@ -43,145 +54,20 @@ public class AttributeName {
     private Integer sort;
     /** 创建时间 */
     private Date dateCreated;
-
-    public AttributeName() {}
-
-    public AttributeName(String name, Category category, Boolean aliasAllowed, Boolean colorProperty, Boolean enumProperty, Boolean inputProperty, Boolean keyProperty, Boolean saleProperty, Boolean searchField, Boolean required, Boolean multiple, String status, Integer sort, Date dateCreated) {
-        this.name = name;
-        this.category = category;
-        this.aliasAllowed = aliasAllowed;
-        this.colorProperty = colorProperty;
-        this.enumProperty = enumProperty;
-        this.inputProperty = inputProperty;
-        this.keyProperty = keyProperty;
-        this.saleProperty = saleProperty;
-        this.searchField = searchField;
-        this.required = required;
-        this.multiple = multiple;
-        this.status = status;
-        this.sort = sort;
-        this.dateCreated = dateCreated;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Category getCategory() {
-        return category;
-    }
-
-    public void setCategory(Category category) {
-        this.category = category;
-    }
-
-    public Boolean isAliasAllowed() {
-        return aliasAllowed;
-    }
-
-    public void setAliasAllowed(Boolean aliasAllowed) {
-        this.aliasAllowed = aliasAllowed;
-    }
-
-    public Boolean isColorProperty() {
-        return colorProperty;
-    }
-
-    public void setColorProperty(Boolean colorProperty) {
-        this.colorProperty = colorProperty;
-    }
-
-    public Boolean isEnumProperty() {
-        return enumProperty;
-    }
-
-    public void setEnumProperty(Boolean enumProperty) {
-        this.enumProperty = enumProperty;
-    }
-
-    public Boolean isInputProperty() {
-        return inputProperty;
-    }
-
-    public void setInputProperty(Boolean inputProperty) {
-        this.inputProperty = inputProperty;
-    }
-
-    public Boolean isKeyProperty() {
-        return keyProperty;
-    }
-
-    public void setKeyProperty(Boolean keyProperty) {
-        this.keyProperty = keyProperty;
-    }
-
-    public Boolean isSaleProperty() {
-        return saleProperty;
-    }
-
-    public void setSaleProperty(Boolean saleProperty) {
-        this.saleProperty = saleProperty;
-    }
-
-    public Boolean isSearchField() {
-        return searchField;
-    }
-
-    public void setSearchField(Boolean searchField) {
-        this.searchField = searchField;
-    }
-
-    public Boolean getRequired() {
-        return required;
-    }
-
-    public void setRequired(Boolean required) {
-        this.required = required;
-    }
-
-    public Boolean isMultiple() {
-        return multiple;
-    }
-
-    public void setMultiple(Boolean multiple) {
-        this.multiple = multiple;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public Integer getSort() {
-        return sort;
-    }
-
-    public void setSort(Integer sort) {
-        this.sort = sort;
-    }
-
-    public Date getDateCreated() {
-        return dateCreated;
-    }
-
-    public void setDateCreated(Date dateCreated) {
-        this.dateCreated = dateCreated;
-    }
+    /** 创建者 */
+    private String creator;
+    /** 更新时间 */
+    private Date dateUpdated;
+    /** 更新者 */
+    private String updater;
+    /** 更新次数 */
+    private Integer updatedCount;
+    /** 删除时间 */
+    private Date dateDeleted;
+    /** 删除标记 */
+    private Boolean deleteFlag;
+    /** 删除者 */
+    private String deleter;
 
     @Override
     public String toString() {
