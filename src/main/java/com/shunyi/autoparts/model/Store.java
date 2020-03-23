@@ -15,7 +15,7 @@ import java.util.Set;
  * @date 2020/3/23
  */
 @Entity
-@Table(name = "shops")
+@Table(name = "stores")
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
@@ -33,8 +33,8 @@ public class Store {
     /** 是否父节点 */
     private Boolean parent;
     /** 用户店铺映射关系 */
-    @OneToMany(mappedBy = "shop")
-    protected Set<UserStoreMapping> userShopMappingSet = new HashSet<>();
+    @OneToMany(mappedBy = "store")
+    protected Set<UserStoreMapping> userStoreMappingSet = new HashSet<>();
     /** 创建时间 */
     private Date dateCreated;
     /** 创建者 */

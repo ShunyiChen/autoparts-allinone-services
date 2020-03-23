@@ -30,21 +30,21 @@ public class UserStoreMappingController {
     @PostMapping("/userstoremappings")
     public ResponseEntity<?> create(@RequestBody UserStoreMapping.Id[] ids) {
         for(UserStoreMapping.Id id : ids) {
-            UserStoreMapping userShopMapping = new UserStoreMapping();
-            userShopMapping.setId(id);
-            userStoreMappingDao.save(userShopMapping);
+            UserStoreMapping userStoreMapping = new UserStoreMapping();
+            userStoreMapping.setId(id);
+            userStoreMappingDao.save(userStoreMapping);
         }
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @GetMapping("/userstoremappings/user/{uid}")
     public List<UserStoreMapping> retrieveAllByUserId(@PathVariable Long uid) {
-        return userStoreMappingDao.findAllByUserIdOrderByShopIdAsc(uid);
+        return userStoreMappingDao.findAllByUserIdOrderByStoreIdAsc(uid);
     }
 
-    @GetMapping("/userstoremappings/shop/{sid}")
-    public List<UserStoreMapping> retrieveAllByShopId(@PathVariable Long sid) {
-        return userStoreMappingDao.findAllByShopIdOrderByUserIdAsc(sid);
+    @GetMapping("/userstoremappings/store/{sid}")
+    public List<UserStoreMapping> retrieveAllByStoreId(@PathVariable Long sid) {
+        return userStoreMappingDao.findAllByStoreIdOrderByUserIdAsc(sid);
     }
 
     @DeleteMapping("/userstoremappings")

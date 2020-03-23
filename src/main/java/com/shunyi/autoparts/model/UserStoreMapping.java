@@ -23,14 +23,14 @@ public class UserStoreMapping {
         @Column(name="user_id")
         protected Long userId;
         /** 店铺ID */
-        @Column(name="shop_id")
-        protected Long shopId;
+        @Column(name="store_id")
+        protected Long storeId;
 
         public Id() {}
 
-        public Id(Long userId, Long shopId) {
+        public Id(Long userId, Long storeId) {
             this.userId = userId;
-            this.shopId = shopId;
+            this.storeId = storeId;
         }
 
         public Long getUserId() {
@@ -41,12 +41,12 @@ public class UserStoreMapping {
             this.userId = userId;
         }
 
-        public Long getShopId() {
-            return shopId;
+        public Long getStoreId() {
+            return storeId;
         }
 
-        public void setShopId(Long shopId) {
-            this.shopId = shopId;
+        public void setStoreId(Long storeId) {
+            this.storeId = storeId;
         }
 
         @Override
@@ -59,19 +59,19 @@ public class UserStoreMapping {
             }
             Id id = (Id) o;
             return Objects.equals(userId, id.userId) &&
-                    Objects.equals(shopId, id.shopId);
+                    Objects.equals(storeId, id.storeId);
         }
 
         @Override
         public int hashCode() {
-            return Objects.hash(userId, shopId);
+            return Objects.hash(userId, storeId);
         }
 
         @Override
         public String toString() {
             return "Id{" +
                     "userId=" + userId +
-                    ", shopId=" + shopId +
+                    ", storeId=" + storeId +
                     '}';
         }
     }
@@ -90,12 +90,12 @@ public class UserStoreMapping {
 
     @ManyToOne
     @JoinColumn(
-            name = "shop_id",
+            name = "store_id",
             insertable = false,
             updatable = false
     )
     @JsonIgnore
-    protected Store shop;
+    protected Store store;
 
     public Id getId() {
         return id;
@@ -113,11 +113,11 @@ public class UserStoreMapping {
         this.user = user;
     }
 
-    public Store getShop() {
-        return shop;
+    public Store getStore() {
+        return store;
     }
 
-    public void setShop(Store shop) {
-        this.shop = shop;
+    public void setStore(Store store) {
+        this.store = store;
     }
 }

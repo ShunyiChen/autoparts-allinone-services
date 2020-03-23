@@ -1,6 +1,6 @@
 package com.shunyi.autoparts.dao;
 
-import com.shunyi.autoparts.model.SKUCargoSpaceMapping;
+import com.shunyi.autoparts.model.SKUSlotMapping;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
@@ -8,5 +8,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * @author Shunyi Chen
  * @date 2020/3/23
  */
-public interface SKUSlotDao extends JpaRepository<SKUCargoSpaceMapping, SKUCargoSpaceMapping.Id> {
+public interface SKUSlotDao extends JpaRepository<SKUSlotMapping, SKUSlotMapping.Id> {
 }

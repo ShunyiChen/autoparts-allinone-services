@@ -28,55 +28,57 @@ public class StoreController {
     /** 日志 */
     private static final Logger logger = LoggerFactory.getLogger(StoreController.class);
     @Autowired
-    private StoreDao shopDao;
+    private StoreDao storeDao;
     /** 用户与店铺关系Dao */
     @Autowired
-    private UserStoreMappingDao userShopMappingDao;
+    private UserStoreMappingDao userStoreMappingDao;
 
-    @PostMapping("/shops")
+    @PostMapping("/stores")
     public ResponseEntity<?> create(@RequestBody Store department) {
-        Store savedShop = shopDao.save(department);
-        return new ResponseEntity<>(savedShop.getId(), HttpStatus.OK);
+        Store savedStore = storeDao.save(department);
+        return new ResponseEntity<>(savedStore.getId(), HttpStatus.OK);
     }
 
-    @PutMapping("/shops/{id}")
+    @PutMapping("/stores/{id}")
     public ResponseEntity<?> update(@RequestBody Store department, @PathVariable Long id) {
-        Optional<Store> departmentOptional = shopDao.findById(id);
-        if (!departmentOptional.isPresent())
+        Optional<Store> departmentOptional = storeDao.findById(id);
+        if (!departmentOptional.isPresent()) {
             return ResponseEntity.notFound().build();
+        }
         department.setId(id);
-        shopDao.save(department);
+        storeDao.save(department);
         return ResponseEntity.noContent().build();
     }
 
-    @DeleteMapping("/shops/{id}")
+    @DeleteMapping("/stores/{id}")
     public void delete(@PathVariable Long id) {
-        shopDao.deleteById(id);
+        storeDao.deleteById(id);
     }
 
-    @GetMapping("/shops")
+    @GetMapping("/stores")
     public List<Store> retrieveAll() {
-        return shopDao.findAll(Sort.by(Sort.Direction.ASC, "id"));
+        return storeDao.findAll(Sort.by(Sort.Direction.ASC, "id"));
     }
 
-    @GetMapping("/shops/user/{uid}")
+    @GetMapping("/stores/user/{uid}")
     public List<Store> retrieveAllByUserId(@PathVariable Long uid) {
-        List<UserStoreMapping> list = userShopMappingDao.findAllByUserIdOrderByShopIdAsc(uid);
-        List<Store> lstShops = new ArrayList<>();
+        List<UserStoreMapping> list = userStoreMappingDao.findAllByUserIdOrderByStoreIdAsc(uid);
+        List<Store> lstStores = new ArrayList<>();
         list.forEach(e -> {
-            Optional<Store> opt = shopDao.findById(e.getId().getShopId());
+            Optional<Store> opt = storeDao.findById(e.getId().getStoreId());
             if(opt.isPresent()) {
-                lstShops.add(opt.get());
+                lstStores.add(opt.get());
             }
         });
-        return lstShops;
+        return lstStores;
     }
 
-    @GetMapping("/shops/{id}")
+    @GetMapping("/stores/{id}")
     public Store retrieve(@PathVariable Long id) {
-        Optional<Store> department = shopDao.findById(id);
-        if (!department.isPresent())
+        Optional<Store> department = storeDao.findById(id);
+        if (!department.isPresent()) {
             throw new StoreNotFoundException("Store not found with id -" + id);
+        }
         return department.get();
     }
 }

@@ -2,7 +2,7 @@ package com.shunyi.autoparts.controller;
 
 import com.shunyi.autoparts.dao.SKUSlotDao;
 import com.shunyi.autoparts.exception.SKUSlotNotFoundException;
-import com.shunyi.autoparts.model.SKUCargoSpaceMapping;
+import com.shunyi.autoparts.model.SKUSlotMapping;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,39 +24,41 @@ public class SKUSlotMappingController {
     /** 日志 */
     private static final Logger logger = LoggerFactory.getLogger(SKUSlotMappingController.class);
     @Autowired
-    private SKUSlotDao skuCargoSpaceDao;
+    private SKUSlotDao skuSlotDao;
 
-    @PostMapping("/skuCargoSpaceMappings")
-    public ResponseEntity<?> create(@RequestBody SKUCargoSpaceMapping skuCargoSpace) {
-        SKUCargoSpaceMapping savedSKUCargoSpace = skuCargoSpaceDao.save(skuCargoSpace);
-        return new ResponseEntity<>(savedSKUCargoSpace.getId(), HttpStatus.OK);
+    @PostMapping("/skuSlotMappings")
+    public ResponseEntity<?> create(@RequestBody SKUSlotMapping skuSlot) {
+        SKUSlotMapping savedSKUSlot = skuSlotDao.save(skuSlot);
+        return new ResponseEntity<>(savedSKUSlot.getId(), HttpStatus.OK);
     }
 
-    @PutMapping("/skuCargoSpaceMappings/{id}")
-    public ResponseEntity<?> update(@RequestBody SKUCargoSpaceMapping skuCargoSpace, @PathVariable SKUCargoSpaceMapping.Id id) {
-        Optional<SKUCargoSpaceMapping> skuCargoSpaceOptional = skuCargoSpaceDao.findById(id);
-        if (!skuCargoSpaceOptional.isPresent())
+    @PutMapping("/skuSlotMappings/{id}")
+    public ResponseEntity<?> update(@RequestBody SKUSlotMapping skuSlot, @PathVariable SKUSlotMapping.Id id) {
+        Optional<SKUSlotMapping> skuSlotOptional = skuSlotDao.findById(id);
+        if (!skuSlotOptional.isPresent()) {
             return ResponseEntity.notFound().build();
-        skuCargoSpace.setId(id);
-        skuCargoSpaceDao.save(skuCargoSpace);
+        }
+        skuSlot.setId(id);
+        skuSlotDao.save(skuSlot);
         return ResponseEntity.noContent().build();
     }
 
-    @DeleteMapping("/skuCargoSpaceMappings/{id}")
-    public void delete(@PathVariable SKUCargoSpaceMapping.Id id) {
-        skuCargoSpaceDao.deleteById(id);
+    @DeleteMapping("/skuSlotMappings/{id}")
+    public void delete(@PathVariable SKUSlotMapping.Id id) {
+        skuSlotDao.deleteById(id);
     }
 
-    @GetMapping("/skuCargoSpaceMappings")
-    public List<SKUCargoSpaceMapping> retrieveAll() {
-        return skuCargoSpaceDao.findAll();
+    @GetMapping("/skuSlotMappings")
+    public List<SKUSlotMapping> retrieveAll() {
+        return skuSlotDao.findAll();
     }
 
-    @GetMapping("/skuCargoSpaceMappings/{id}")
-    public SKUCargoSpaceMapping retrieve(@PathVariable SKUCargoSpaceMapping.Id id) {
-        Optional<SKUCargoSpaceMapping> skuCargoSpace = skuCargoSpaceDao.findById(id);
-        if (!skuCargoSpace.isPresent())
-            throw new SKUSlotNotFoundException("SKUCargoSpaceMapping not found with id - " + id);
-        return skuCargoSpace.get();
+    @GetMapping("/skuSlotMappings/{id}")
+    public SKUSlotMapping retrieve(@PathVariable SKUSlotMapping.Id id) {
+        Optional<SKUSlotMapping> skuSlot = skuSlotDao.findById(id);
+        if (!skuSlot.isPresent()) {
+            throw new SKUSlotNotFoundException("SKUSlotMapping not found with id - " + id);
+        }
+        return skuSlot.get();
     }
 }

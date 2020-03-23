@@ -16,7 +16,7 @@ import java.util.Set;
  * @date 2020/3/23
  */
 @Entity
-@Table(name = "cargo_spaces")
+@Table(name = "slots")
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
@@ -46,8 +46,8 @@ public class Slot {
     /** 第几个存放盒位/货架层中库位 */
     private String level_5;
     /** SKU与货位映射集合 */
-    @OneToMany(mappedBy = "cargoSpace")
-    private Set<SKUCargoSpaceMapping> SKUCargoSpaceMappings = new HashSet<>();
+    @OneToMany(mappedBy = "slot")
+    private Set<SKUSlotMapping> SKUSlotMappings = new HashSet<>();
     /** 创建时间 */
     private Date dateCreated;
     /** 创建者 */

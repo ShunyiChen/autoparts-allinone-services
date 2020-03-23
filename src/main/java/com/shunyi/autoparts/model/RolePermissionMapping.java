@@ -7,7 +7,7 @@ import java.io.Serializable;
 import java.util.Objects;
 
 /**
- * @description 角色和权限映射关系
+ * @description 角色和权限关系
  * @author Shunyi Chen
  * @date 2020/3/23
  */

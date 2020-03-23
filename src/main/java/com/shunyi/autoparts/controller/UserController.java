@@ -34,7 +34,7 @@ public class UserController {
     private UserDao userDao;
     /** 用户与店铺关系Dao */
     @Autowired
-    private UserStoreMappingDao userShopMappingDao;
+    private UserStoreMappingDao userStoreMappingDao;
     /** JWTToken工具 */
     @Autowired
     private JwtTokenUtil jwtTokenUtil;
@@ -78,9 +78,9 @@ public class UserController {
                 .collect(Collectors.toList());
     }
 
-    @GetMapping("/users/shop/{sid}")
-    public List<User> retrieveAllByShopId(@PathVariable Long sid) {
-        List<UserStoreMapping> list = userShopMappingDao.findAllByShopIdOrderByUserIdAsc(sid);
+    @GetMapping("/users/store/{sid}")
+    public List<User> retrieveAllByStoreId(@PathVariable Long sid) {
+        List<UserStoreMapping> list = userStoreMappingDao.findAllByStoreIdOrderByUserIdAsc(sid);
         List<User> lstUser = new ArrayList<>();
         list.forEach(e -> {
             Optional<User> opt = userDao.findById(e.getId().getUserId());

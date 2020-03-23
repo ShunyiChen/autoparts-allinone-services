@@ -34,8 +34,8 @@ public class SlotController {
 
     @PostMapping("/slot")
     public ResponseEntity<?> create(@RequestBody Slot slot) {
-        Slot savedCargoSpace = slotDao.save(slot);
-        return new ResponseEntity<>(savedCargoSpace.getId(), HttpStatus.OK);
+        Slot savedSlot = slotDao.save(slot);
+        return new ResponseEntity<>(savedSlot.getId(), HttpStatus.OK);
     }
 
     @PutMapping("/slot/{id}")

@@ -44,7 +44,7 @@ public class User {
 	private Boolean enabled;
 	/** 用户和店铺映射关系 */
 	@OneToMany(mappedBy = "user")
-	protected Set<UserStoreMapping> userShopMappingSet = new HashSet<>();
+	protected Set<UserStoreMapping> userStoreMappingSet = new HashSet<>();
 	/** 用户和角色映射关系 */
 	@OneToMany(mappedBy = "user")
 	protected Set<UserRoleMapping> userRoleMappingSet = new HashSet<>();

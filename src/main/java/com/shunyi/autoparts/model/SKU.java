@@ -55,7 +55,7 @@ public class SKU {
     private String barCode;
     /** SKU与货位映射集合 */
     @OneToMany(mappedBy = "sku")
-    private Set<SKUCargoSpaceMapping> SKUCargoSpaceMappings = new HashSet<>();
+    private Set<SKUSlotMapping> skuSlotMappings = new HashSet<>();
     /** 创建时间 */
     private Date dateCreated;
     /** 创建者 */

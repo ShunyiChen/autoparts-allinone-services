@@ -14,7 +14,7 @@ import java.util.List;
 @Repository
 public interface UserStoreMappingDao extends JpaRepository<UserStoreMapping, UserStoreMapping.Id> {
 
-    List<UserStoreMapping> findAllByUserIdOrderByShopIdAsc(Long userId);
+    List<UserStoreMapping> findAllByUserIdOrderByStoreIdAsc(Long userId);
 
-    List<UserStoreMapping> findAllByShopIdOrderByUserIdAsc(Long shopId);
+    List<UserStoreMapping> findAllByStoreIdOrderByUserIdAsc(Long storeId);
 }
