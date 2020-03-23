@@ -3,7 +3,7 @@ package com.shunyi.autoparts.controller;
 import com.shunyi.autoparts.dao.CargoSpaceDao;
 import com.shunyi.autoparts.dao.WarehouseDao;
 import com.shunyi.autoparts.exception.CargoSpaceNotFoundException;
-import com.shunyi.autoparts.model.CargoSpace;
+import com.shunyi.autoparts.model.Slot;
 import com.shunyi.autoparts.model.Warehouse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,10 +13,8 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.persistence.criteria.*;
-import java.net.URI;
 import java.util.*;
 
 /** 货位控制器 */
@@ -31,14 +29,14 @@ public class CargoSpaceController {
     private WarehouseDao warehouseDao;
 
     @PostMapping("/cargoSpaces")
-    public ResponseEntity<?> create(@RequestBody CargoSpace cargoSpace) {
-        CargoSpace savedCargoSpace = cargoSpaceDao.save(cargoSpace);
+    public ResponseEntity<?> create(@RequestBody Slot cargoSpace) {
+        Slot savedCargoSpace = cargoSpaceDao.save(cargoSpace);
         return new ResponseEntity<>(savedCargoSpace.getId(), HttpStatus.OK);
     }
 
     @PutMapping("/cargoSpaces/{id}")
-    public ResponseEntity<?> update(@RequestBody CargoSpace cargoSpace, @PathVariable Long id) {
-        Optional<CargoSpace> cargoSpaceOptional = cargoSpaceDao.findById(id);
+    public ResponseEntity<?> update(@RequestBody Slot cargoSpace, @PathVariable Long id) {
+        Optional<Slot> cargoSpaceOptional = cargoSpaceDao.findById(id);
         if (!cargoSpaceOptional.isPresent())
             return ResponseEntity.notFound().build();
         cargoSpace.setId(id);
@@ -52,27 +50,27 @@ public class CargoSpaceController {
     }
 
     @GetMapping("/cargoSpaces")
-    public List<CargoSpace> retrieveAll() {
+    public List<Slot> retrieveAll() {
         return cargoSpaceDao.findAll();
     }
 
     @GetMapping("/cargoSpaces/{id}")
-    public CargoSpace retrieve(@PathVariable Long id) {
-        Optional<CargoSpace> cargoSpace = cargoSpaceDao.findById(id);
+    public Slot retrieve(@PathVariable Long id) {
+        Optional<Slot> cargoSpace = cargoSpaceDao.findById(id);
         if (!cargoSpace.isPresent())
-            throw new CargoSpaceNotFoundException("CargoSpace not found with id -" + id);
+            throw new CargoSpaceNotFoundException("Slot not found with id -" + id);
         return cargoSpace.get();
     }
 
     @GetMapping("/cargoSpaces/warehouse/{pid}")
-    public List<CargoSpace> retrieveAll(@PathVariable Long pid) {
+    public List<Slot> retrieveAll(@PathVariable Long pid) {
         List<Warehouse> allCategories = warehouseDao.findAllByOrderByIdAsc();
         Set<Long> idSet = new HashSet<>();
         idSet.add(pid);
         getNodes(pid, allCategories, idSet);
-        Specification<CargoSpace> specification = new Specification<CargoSpace>() {
+        Specification<Slot> specification = new Specification<Slot>() {
             @Override
-            public Predicate toPredicate(Root<CargoSpace> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
+            public Predicate toPredicate(Root<Slot> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
                 List<Predicate> predicates = new ArrayList<>();
                 Path<Long> path = root.get("warehouse");
                 CriteriaBuilder.In<Long> in = cb.in(path);
@@ -103,10 +101,10 @@ public class CargoSpaceController {
     }
 
     @PostMapping("/cargoSpaces/search")
-    public List<CargoSpace> search(@RequestBody CargoSpace condition) {
-        Specification<CargoSpace> specification = new Specification<CargoSpace>() {
+    public List<Slot> search(@RequestBody Slot condition) {
+        Specification<Slot> specification = new Specification<Slot>() {
             @Override
-            public Predicate toPredicate(Root<CargoSpace> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
+            public Predicate toPredicate(Root<Slot> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
                 List<Predicate> predicates = new ArrayList<>();
                 if(!condition.getBarCode().equals("")) {
                     Path<String> path = root.get("barCode");

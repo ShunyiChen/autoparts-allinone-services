@@ -18,7 +18,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-/** 店铺控制器 */
+/**
+ * @description 店铺控制器
+ * @author Shunyi Chen
+ * @date 2020/3/23
+ */
 @RestController
 @CrossOrigin
 public class ShopController {

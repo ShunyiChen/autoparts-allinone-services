@@ -6,7 +6,11 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
 
-/** 用户和店铺映射关系 */
+/**
+ * @description 用户和店铺映射关系
+ * @author Shunyi Chen
+ * @date 2020/3/23
+ */
 @Entity
 @Table(name="user_shop_mappings")
 @org.hibernate.annotations.Immutable
@@ -18,7 +22,6 @@ public class UserShopMapping {
         /** 用户ID */
         @Column(name="user_id")
         protected Long userId;
-
         /** 店铺ID */
         @Column(name="shop_id")
         protected Long shopId;
@@ -88,7 +91,7 @@ public class UserShopMapping {
             updatable = false
     )
     @JsonIgnore
-    protected Shop shop;
+    protected Store shop;
 
     public Id getId() {
         return id;
@@ -106,11 +109,11 @@ public class UserShopMapping {
         this.user = user;
     }
 
-    public Shop getShop() {
+    public Store getShop() {
         return shop;
     }
 
-    public void setShop(Shop shop) {
+    public void setShop(Store shop) {
         this.shop = shop;
     }
 }
