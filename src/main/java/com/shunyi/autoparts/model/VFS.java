@@ -39,13 +39,13 @@ public class VFS {
     /** 连接密码 */
     private String password;
     /** 可读 */
-    private Boolean canRead;
+    private Boolean readable;
     /** 可写 */
-    private Boolean canWrite;
+    private Boolean writable;
     /** VFS类目ID */
     private Long categoryId;
     /** 默认的 */
-    private Boolean acquiescent;
+    private Boolean master;
     /** 创建时间 */
     private Date dateCreated;
     /** 创建者 */

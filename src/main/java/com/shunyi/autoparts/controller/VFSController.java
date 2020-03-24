@@ -47,9 +47,9 @@ public class VFSController {
     @PutMapping("/vfs/acquiescent/{vid}")
     public ResponseEntity<?> updateAcquiescent(@PathVariable Long vid) {
         //restore every acquiescent to false
-        vfsDao.restoreAcquiescent();
+        vfsDao.restoreMaster();
         //update acquiescent to true on specified vfs
-        vfsDao.updateAcquiescentByVFSId(vid);
+        vfsDao.updateMasterByVFSId(vid);
         return ResponseEntity.noContent().build();
     }
 
@@ -79,6 +79,6 @@ public class VFSController {
 
     @GetMapping("/vfs/default")
     public VFS retrieveDefault() {
-        return vfsDao.findByAcquiescent(true);
+        return vfsDao.findByMaster(true);
     }
 }

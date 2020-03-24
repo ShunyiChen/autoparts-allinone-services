@@ -20,19 +20,19 @@ public interface VFSDao extends JpaRepository<VFS, Long> {
 
     @Modifying
     @Transactional
-    @Query("update VFS v set v.acquiescent=false")
-    void restoreAcquiescent();
+    @Query("update VFS v set v.master=false")
+    void restoreMaster();
 
     @Modifying
     @Transactional
-    @Query("update VFS v set v.acquiescent=true where v.id=:vfsId")
-    void updateAcquiescentByVFSId(@Param(value = "vfsId") Long vfsId);
+    @Query("update VFS v set v.master=true where v.id=:vfsId")
+    void updateMasterByVFSId(@Param(value = "vfsId") Long vfsId);
 
     /**
      * 查找默认VFS
      *
-     * @param acquiescent
+     * @param master
      * @return 如果查不到返回null
      */
-    VFS findByAcquiescent(Boolean acquiescent);
+    VFS findByMaster(Boolean master);
 }
