@@ -14,7 +14,7 @@ import java.util.Date;
  * @author Shunyi Chen
  * @date 2020/3/23
  */
-//@Entity
+@Entity
 @Table(name = "purchase_orders")
 @NoArgsConstructor
 @AllArgsConstructor
@@ -34,12 +34,12 @@ public class PurchaseOrder {
             foreignKey = @ForeignKey(name = "ORDER_WAREHOUSE_ID_FK")
     )
     private Warehouse warehouse;
-    /** 打包及其明细 */
-    @OneToOne
-    @JoinColumn(name = "package_id",
-            foreignKey = @ForeignKey(name = "PACKAGE_ID_FK")
-    )
-    private Package aPackage;
+//    /** 打包及其明细 */
+//    @OneToOne
+//    @JoinColumn(name = "package_id",
+//            foreignKey = @ForeignKey(name = "PACKAGE_ID_FK")
+//    )
+//    private Package aPackage;
     /** 供应商 */
     @ManyToOne
     @JoinColumn(name = "supplier_id",
