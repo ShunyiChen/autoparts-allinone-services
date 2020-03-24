@@ -31,7 +31,7 @@ public class User {
 	/** 姓名 */
 	private String chineseName;
 	/** 英文名 */
-	private String EnglishName;
+	private String englishName;
 	/** 性别 */
 	private String sex;
 	/** 电话 */
