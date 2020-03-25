@@ -27,6 +27,8 @@ public class Product {
     private Long id;
     /** 产品编码 */
     private String code;
+    /** 条形码 */
+    private String barCode;
     /** 产品名称 */
     private String name;
     /** 品牌 */
@@ -35,12 +37,18 @@ public class Product {
             foreignKey = @ForeignKey(name = "BRANDSERIES_ID_FK")
     )
     private BrandSeries brandSeries;
-    /** 适合车型 */
+    /** 通用车型 */
     @ManyToOne
     @JoinColumn(name = "car_id",
             foreignKey = @ForeignKey(name = "CAR_ID_FK")
     )
     private Car car;
+    /** 供应商 */
+    @ManyToOne
+    @JoinColumn(name = "supplier_id",
+            foreignKey = @ForeignKey(name = "SUPPLIER_ID_FK")
+    )
+    private Supplier supplier;
     /** 单位 */
     private String unit;
     /** 列表价 */
