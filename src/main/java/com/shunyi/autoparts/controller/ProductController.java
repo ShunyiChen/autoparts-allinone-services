@@ -92,32 +92,37 @@ public class ProductController {
                     Predicate predicate = cb.like(path, "%"+product.getName()+"%");
                     predicates.add(predicate);
                 }
-                if(!product.getBrandSeries().equals("")) {
+                if(product.getBarCode() != null && !product.getBarCode().equals("")) {
+                    Path<String> path = root.get("barCode");
+                    Predicate predicate = cb.like(path, "%"+product.getBarCode()+"%");
+                    predicates.add(predicate);
+                }
+                if(product.getBrandSeries() != null && !product.getBrandSeries().equals("")) {
                     Path<BrandSeries> path = root.get("brandSeries");
                     Predicate predicate = cb.like(path.get("chineseName"), "%"+product.getBrandSeries().getChineseName()+"%");
                     predicates.add(predicate);
                 }
                 if(product.getListPrice() != null && !product.getListPrice().equals("")) {
-                    Path<BigDecimal> path = root.get("priceExcludingTax");
+                    Path<BigDecimal> path = root.get("listPrice");
                     Predicate predicate = cb.equal(path, product.getListPrice());
                     predicates.add(predicate);
                 }
-                if(!product.getUnit().equals("")) {
-                    Path<String> path = root.get("unit");
-                    Predicate predicate = cb.like(path, "%"+product.getUnit()+"%");
+                if(product.getSupplier() != null && !product.getSupplier().equals("")) {
+                    Path<String> path = root.get("supplier");
+                    Predicate predicate = cb.like(path.get("name"), "%"+product.getSupplier().getName()+"%");
                     predicates.add(predicate);
                 }
-                if(!product.getImported().equals("")) {
+                if(product.getImported() != null && !product.getImported().equals("")) {
                     Path<String> path = root.get("imported");
                     Predicate predicate = cb.like(path, "%"+product.getImported()+"%");
                     predicates.add(predicate);
                 }
                 if(!product.getOrigin().equals("")) {
-                    Path<String> path = root.get("placeOfOrigin");
+                    Path<String> path = root.get("origin");
                     Predicate predicate = cb.like(path, "%"+product.getOrigin()+"%");
                     predicates.add(predicate);
                 }
-                if(!product.getCar().equals("")) {
+                if(product.getCar() != null && !product.getCar().equals("")) {
                     Path<Car> path = root.get("car");
                     Predicate predicate = cb.like(path.get("model"), "%"+product.getCar().getModel()+"%");
                     predicates.add(predicate);

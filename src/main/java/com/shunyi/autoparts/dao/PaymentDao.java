@@ -1,6 +1,6 @@
 package com.shunyi.autoparts.dao;
 
-import com.shunyi.autoparts.model.Settlement;
+import com.shunyi.autoparts.model.Payment;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
@@ -8,5 +8,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * @author Shunyi Chen
  * @date 2020/3/23
  */
-public interface SettlementDao extends JpaRepository<Settlement, Long> {
+public interface PaymentDao extends JpaRepository<Payment, Long> {
 }

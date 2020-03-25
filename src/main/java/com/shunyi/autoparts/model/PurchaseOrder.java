@@ -40,12 +40,12 @@ public class PurchaseOrder {
 //            foreignKey = @ForeignKey(name = "PACKAGE_ID_FK")
 //    )
 //    private Package aPackage;
-    /** 供应商 */
-    @ManyToOne
-    @JoinColumn(name = "supplier_id",
-            foreignKey = @ForeignKey(name = "SUPPLIER_ID_FK")
-    )
-    private Supplier supplier;
+//    /** 供应商 */
+//    @ManyToOne
+//    @JoinColumn(name = "supplier_id",
+//            foreignKey = @ForeignKey(name = "SUPPLIER_ID_FK")
+//    )
+//    private Supplier supplier;
     /** 发票类型 */
     private String invoiceType;
     /** 发票号 */
@@ -66,10 +66,10 @@ public class PurchaseOrder {
             foreignKey = @ForeignKey(name = "VERIFIER_ID_FK")
     )
     private User verifier;
-    /** 结算方式 */
-    @OneToOne
-    @JoinColumn(name = "settlement_id")
-    private Settlement settlement;
+//    /** 结算方式 */
+//    @OneToOne
+//    @JoinColumn(name = "settlement_id")
+//    private Payment settlement;
     /** 货款金额 */
     private BigDecimal amountA;
     /** 代垫费用 */

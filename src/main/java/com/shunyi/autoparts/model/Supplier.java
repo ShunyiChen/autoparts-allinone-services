@@ -39,10 +39,18 @@ public class Supplier {
     private String address;
     /** 邮编 */
     private String postCode;
-    /** 等级 */
-    private String grade;
+    /** 信誉等级 */
+    @ManyToOne
+    @JoinColumn(name = "supplier_grade_id",
+            foreignKey = @ForeignKey(name = "SUPPLIER_GRADE_ID_FK")
+    )
+    private Grade grade;
     /** 付款方式 */
-    private String payment;
+    @ManyToOne
+    @JoinColumn(name = "supplier_payment_id",
+            foreignKey = @ForeignKey(name = "SUPPLIER_PAYMENT_ID_FK")
+    )
+    private Payment payment;
     /** 备注 */
     private String notes;
     /** 供应商类目 */

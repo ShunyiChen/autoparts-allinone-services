@@ -5,9 +5,9 @@ package com.shunyi.autoparts.exception;
  * @author Shunyi Chen
  * @date 2020/3/23
  */
-public class SettlementNotFoundException extends RuntimeException {
+public class PaymentNotFoundException extends RuntimeException {
 
-    public SettlementNotFoundException(String exception) {
+    public PaymentNotFoundException(String exception) {
         super(exception);
     }
 }

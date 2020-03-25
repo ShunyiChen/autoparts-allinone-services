@@ -8,20 +8,23 @@ import javax.persistence.*;
 import java.util.Date;
 
 /**
- * @description 结算方式
+ * @description 支付方式
  * @author Shunyi Chen
  * @date 2020/3/23
  */
 @Entity
-@Table(name = "settlements")
+@Table(name = "payments")
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class Settlement {
+public class Payment {
+    /** 自增ID */
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
-    /** 结算方式 */
+    /** 支付编码 */
+    private String code;
+    /** 支付方式 */
     private String name;
     /** 创建时间 */
     private Date dateCreated;
