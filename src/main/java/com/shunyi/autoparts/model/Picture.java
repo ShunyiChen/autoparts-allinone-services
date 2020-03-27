@@ -9,7 +9,7 @@ import javax.persistence.*;
 import java.util.Date;
 
 /**
- * @description 产品图片表
+ * @description SKU图片
  * @author Shunyi Chen
  * @date 2020/3/23
  */
@@ -24,11 +24,9 @@ public class Picture {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
-    /** 产品ID */
-    private Long projectId;
     /** 图片路径 */
     private String path;
-    /** VFS文件系统 */
+    /** 图片所在VFS文件系统 */
     @ManyToOne
     @JoinColumn(name = "picture_vfs_id",
             foreignKey = @ForeignKey(name = "PICTURE_VFS_ID_FK")

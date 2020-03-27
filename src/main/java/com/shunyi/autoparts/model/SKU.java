@@ -7,9 +7,7 @@ import lombok.ToString;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 /**
  * @description 产品SKU实体类
@@ -54,8 +52,14 @@ public class SKU {
     /** 条形码 */
     private String barCode;
     /** SKU与货位映射集合 */
-    @OneToMany(mappedBy = "sku")
+    @OneToMany
     private Set<SKUSlotMapping> skuSlotMappings = new HashSet<>();
+    /** SKU图片列表 */
+    @OneToMany
+    @JoinColumn(name = "sku_picture_id",
+            foreignKey = @ForeignKey(name = "SKU_PICTURE_ID_FK")
+    )
+    private Set<Picture> pictures = new HashSet<>();
     /** 创建时间 */
     private Date dateCreated;
     /** 创建者 */
