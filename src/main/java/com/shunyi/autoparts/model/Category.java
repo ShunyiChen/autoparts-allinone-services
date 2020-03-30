@@ -30,6 +30,12 @@ public class Category {
     private Long parentId;
     /** 是否父节点 */
     private Boolean parent;
+    /** 店铺 */
+    @ManyToOne
+    @JoinColumn(name = "category_store_id",
+            foreignKey = @ForeignKey(name = "CATEGORY_STORE_ID_FK")
+    )
+    private Store store;
     /** 创建时间 */
     private Date dateCreated;
     /** 创建者 */

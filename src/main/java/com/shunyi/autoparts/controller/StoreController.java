@@ -34,19 +34,19 @@ public class StoreController {
     private UserStoreMappingDao userStoreMappingDao;
 
     @PostMapping("/stores")
-    public ResponseEntity<?> create(@RequestBody Store department) {
-        Store savedStore = storeDao.save(department);
+    public ResponseEntity<?> create(@RequestBody Store store) {
+        Store savedStore = storeDao.save(store);
         return new ResponseEntity<>(savedStore.getId(), HttpStatus.OK);
     }
 
     @PutMapping("/stores/{id}")
-    public ResponseEntity<?> update(@RequestBody Store department, @PathVariable Long id) {
-        Optional<Store> departmentOptional = storeDao.findById(id);
-        if (!departmentOptional.isPresent()) {
+    public ResponseEntity<?> update(@RequestBody Store store, @PathVariable Long id) {
+        Optional<Store> storeOptional = storeDao.findById(id);
+        if (!storeOptional.isPresent()) {
             return ResponseEntity.notFound().build();
         }
-        department.setId(id);
-        storeDao.save(department);
+        store.setId(id);
+        storeDao.save(store);
         return ResponseEntity.noContent().build();
     }
 
@@ -75,10 +75,10 @@ public class StoreController {
 
     @GetMapping("/stores/{id}")
     public Store retrieve(@PathVariable Long id) {
-        Optional<Store> department = storeDao.findById(id);
-        if (!department.isPresent()) {
+        Optional<Store> store = storeDao.findById(id);
+        if (!store.isPresent()) {
             throw new StoreNotFoundException("Store not found with id -" + id);
         }
-        return department.get();
+        return store.get();
     }
 }
