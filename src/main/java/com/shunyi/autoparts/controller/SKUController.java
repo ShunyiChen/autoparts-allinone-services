@@ -41,6 +41,8 @@ public class SKUController {
             return ResponseEntity.notFound().build();
         }
         sku.setId(id);
+        sku.setDateUpdated(new Date());
+        sku.setUpdatedCount(sku.getUpdatedCount() == null? 1 : sku.getUpdatedCount() + 1);
         skuDao.save(sku);
         return ResponseEntity.noContent().build();
     }
