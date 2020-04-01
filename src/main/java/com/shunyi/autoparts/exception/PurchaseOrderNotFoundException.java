@@ -1,7 +1,7 @@
 package com.shunyi.autoparts.exception;
 
 /**
- * @description 进货单找不到异常
+ * @description 采购订单找不到异常
  * @author Shunyi Chen
  * @date 2020/3/23
  */

@@ -102,27 +102,27 @@ public class SupplierController {
             @Override
             public Predicate toPredicate(Root<Supplier> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
                 List<Predicate> predicates = new ArrayList<>();
-                if(!supplier.getCode().equals("")) {
+                if(supplier.getCode() != null && !supplier.getCode().equals("")) {
                     Path<String> path = root.get("code");
                     Predicate predicate = cb.like(path, "%"+supplier.getCode()+"%");
                     predicates.add(predicate);
                 }
-                if(!supplier.getName().equals("")) {
+                if(supplier.getName() != null && !supplier.getName().equals("")) {
                     Path<String> path = root.get("name");
                     Predicate predicate = cb.like(path, "%"+supplier.getName()+"%");
                     predicates.add(predicate);
                 }
-                if(!supplier.getContact().equals("")) {
+                if(supplier.getContact() != null && !supplier.getContact().equals("")) {
                     Path<String> path = root.get("contact");
                     Predicate predicate = cb.like(path, "%"+supplier.getContact()+"%");
                     predicates.add(predicate);
                 }
-                if(!supplier.getPhone1().equals("")) {
+                if(supplier.getPhone1() != null && !supplier.getPhone1().equals("")) {
                     Path<String> path = root.get("phone1");
                     Predicate predicate = cb.like(path, "%"+supplier.getPhone1()+"%");
                     predicates.add(predicate);
                 }
-                if(!supplier.getPhone2().equals("")) {
+                if(supplier.getPhone2() != null && !supplier.getPhone2().equals("")) {
                     Path<String> path = root.get("phone2");
                     Predicate predicate = cb.like(path, "%"+supplier.getPhone2()+"%");
                     predicates.add(predicate);

@@ -10,7 +10,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 /**
- * @description 进货单实体类
+ * @description 采购订单
  * @author Shunyi Chen
  * @date 2020/3/23
  */
@@ -25,27 +25,20 @@ public class PurchaseOrder {
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
     /** 单号 */
-    private String orderId;
+    private String orderNo;
     /** 单据日期 */
     private Date orderDate;
     /** 仓库 */
     @ManyToOne
-    @JoinColumn(name = "order_warehouse_id",
-            foreignKey = @ForeignKey(name = "ORDER_WAREHOUSE_ID_FK")
+    @JoinColumn(name = "purchase_warehouse_id",
+            foreignKey = @ForeignKey(name = "PURCHASE_WAREHOUSE_ID_FK")
     )
     private Warehouse warehouse;
-//    /** 打包及其明细 */
-//    @OneToOne
-//    @JoinColumn(name = "package_id",
-//            foreignKey = @ForeignKey(name = "PACKAGE_ID_FK")
-//    )
-//    private Package aPackage;
-//    /** 供应商 */
-//    @ManyToOne
-//    @JoinColumn(name = "supplier_id",
-//            foreignKey = @ForeignKey(name = "SUPPLIER_ID_FK")
-//    )
-//    private Supplier supplier;
+    @ManyToOne
+    @JoinColumn(name = "purchase_supplier_id",
+            foreignKey = @ForeignKey(name = "PURCHASE_SUPPLIER_ID_FK")
+    )
+    private Supplier supplier;
     /** 发票类型 */
     private String invoiceType;
     /** 发票号 */
@@ -54,34 +47,28 @@ public class PurchaseOrder {
     private BigDecimal freight;
     /** 备注 */
     private String notes;
-    /** 操作用户 */
-    @ManyToOne
-    @JoinColumn(name = "operator_id",
-            foreignKey = @ForeignKey(name = "OPERATOR_ID_FK")
-    )
-    private User operator;
-    /** 经办人 */
-    @ManyToOne
-    @JoinColumn(name = "verifier_id",
-            foreignKey = @ForeignKey(name = "VERIFIER_ID_FK")
-    )
-    private User verifier;
-//    /** 结算方式 */
-//    @OneToOne
-//    @JoinColumn(name = "settlement_id")
-//    private Payment settlement;
-    /** 货款金额 */
-    private BigDecimal amountA;
-    /** 代垫费用 */
-    private BigDecimal amountB;
-    /** 本次优惠 */
-    private BigDecimal amountC;
-    /** 应付总额 */
-    private BigDecimal amountD;
-    /** 本次付款 */
-    private BigDecimal amountE;
-    /** 账号 */
+    /** 结算方式 */
+    private String payment;
+    /** 应付账号 */
     private String account;
+    /** 合计数量 */
+    private Integer totalQty;
+    /** 折后金额 */
+    private BigDecimal discountedAmount;
+    /** 合计金额 */
+    private BigDecimal totalAmount;
+    /** 付款金额 */
+    private BigDecimal paidAmount;
+    /** 含税金额 */
+    private BigDecimal taxIncludedAmount;
+    /** 优惠 */
+    private BigDecimal discount;
+    /** 优惠后金额 */
+    private BigDecimal discountedAmount2;
+    /** 应付款 */
+    private BigDecimal due;
+    /** 经办人 */
+    private String operator;
     /** 订单状态 */
     private String status;
     /** 创建时间 */

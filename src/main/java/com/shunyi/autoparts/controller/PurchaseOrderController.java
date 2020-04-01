@@ -3,6 +3,7 @@ package com.shunyi.autoparts.controller;
 import com.shunyi.autoparts.dao.PurchaseOrderDao;
 import com.shunyi.autoparts.exception.PurchaseOrderNotFoundException;
 import com.shunyi.autoparts.model.PurchaseOrder;
+import com.shunyi.autoparts.service.OrderCodeFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +15,7 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * @description 进货单控制器
+ * @description 采购订单控制器
  * @author Shunyi Chen
  * @date 2020/3/23
  */
@@ -60,5 +61,10 @@ public class PurchaseOrderController {
             throw new PurchaseOrderNotFoundException("PurchaseOrder not found with id -" + id);
         }
         return purchaseOrder.get();
+    }
+
+    @GetMapping("/purchaseOrders/orderNo/{userId}")
+    public String retrieveOrderNo(@PathVariable Long userId) {
+        return OrderCodeFactory.getPurchaseOrderCode(userId);
     }
 }
