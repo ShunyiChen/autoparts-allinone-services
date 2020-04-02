@@ -13,4 +13,6 @@ import java.util.List;
 public interface WarehouseDao extends JpaRepository<Warehouse, Long> {
 
     List<Warehouse> findAllByOrderByIdAsc();
+
+    List<Warehouse> findAllByNameOrderByIdAsc(String name);
 }

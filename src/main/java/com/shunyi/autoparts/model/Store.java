@@ -5,12 +5,11 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
 /**
- * @description 店铺
+ * @description 门店实体类
  * @author Shunyi Chen
  * @date 2020/3/23
  */
@@ -35,4 +34,10 @@ public class Store {
     /** 用户店铺映射关系 */
     @OneToMany(mappedBy = "store")
     protected Set<UserStoreMapping> userStoreMappingSet = new HashSet<>();
+    /** 仓库 */
+    @ManyToOne
+    @JoinColumn(name = "store_warehouse_id",
+            foreignKey = @ForeignKey(name = "STORE_WAREHOUSE_ID_FK")
+    )
+    private Warehouse warehouse;
 }

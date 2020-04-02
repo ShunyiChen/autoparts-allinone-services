@@ -61,4 +61,13 @@ public class WarehouseController {
         }
         return warehouse.get();
     }
+
+    @GetMapping("/warehouses/name/{name}")
+    public Warehouse retrieve(@PathVariable String name) {
+        List<Warehouse> warehouses = warehouseDao.findAllByNameOrderByIdAsc(name);
+        if (warehouses.size() == 0) {
+            throw new WarehouseNotFoundException("Warehouse not found with name -" + name);
+        }
+        return warehouses.get(0);
+    }
 }

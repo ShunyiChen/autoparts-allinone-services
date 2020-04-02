@@ -28,10 +28,4 @@ public class Warehouse {
     private String name;
     /** 备注 */
     private String notes;
-    /** 所属店铺 */
-    @ManyToOne
-    @JoinColumn(name = "warehouse_store_id",
-            foreignKey = @ForeignKey(name = "WAREHOUSE_STORE_ID_FK")
-    )
-    private Store store;
 }
