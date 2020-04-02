@@ -66,7 +66,7 @@ public class WarehouseController {
     public Warehouse retrieve(@PathVariable String name) {
         List<Warehouse> warehouses = warehouseDao.findAllByNameOrderByIdAsc(name);
         if (warehouses.size() == 0) {
-            throw new WarehouseNotFoundException("Warehouse not found with name -" + name);
+            return new Warehouse();
         }
         return warehouses.get(0);
     }
