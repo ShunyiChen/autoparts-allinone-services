@@ -26,10 +26,8 @@ public class Warehouse {
     private String code;
     /** 名称 */
     private String name;
-    /** 父节点ID */
-    private Long parentId;
-    /** 是否是父节点 */
-    private Boolean parent;
+    /** 备注 */
+    private String notes;
     /** 所属店铺 */
     @ManyToOne
     @JoinColumn(name = "warehouse_store_id",

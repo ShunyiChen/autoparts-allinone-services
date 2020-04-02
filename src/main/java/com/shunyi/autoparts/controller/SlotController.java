@@ -4,7 +4,6 @@ import com.shunyi.autoparts.dao.SlotDao;
 import com.shunyi.autoparts.dao.WarehouseDao;
 import com.shunyi.autoparts.exception.SlotFoundException;
 import com.shunyi.autoparts.model.Slot;
-import com.shunyi.autoparts.model.Warehouse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -70,20 +69,14 @@ public class SlotController {
 
     @GetMapping("/slot/warehouse/{pid}")
     public List<Slot> retrieveAll(@PathVariable Long pid) {
-        List<Warehouse> allCategories = warehouseDao.findAllByOrderByIdAsc();
-        Set<Long> idSet = new HashSet<>();
-        idSet.add(pid);
-        getNodes(pid, allCategories, idSet);
+
         Specification<Slot> specification = new Specification<Slot>() {
             @Override
             public Predicate toPredicate(Root<Slot> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
                 List<Predicate> predicates = new ArrayList<>();
-                Path<Long> path = root.get("warehouse");
-                CriteriaBuilder.In<Long> in = cb.in(path);
-                idSet.stream().forEach(e -> {
-                    in.value(e.longValue());
-                });
-                predicates.add(in);
+                Path<Long> path = root.get("warehouse").get("id");
+                Predicate predicate = cb.equal(path, pid);
+                predicates.add(predicate);
                 return query.where(predicates.toArray(new Predicate[predicates.size()])).getRestriction();
             }
         };
@@ -91,20 +84,43 @@ public class SlotController {
         return slotDao.findAll(specification, sort);
     }
 
-    /**
-     *
-     * @param pid
-     * @param all
-     * @param idSet
-     */
-    private void getNodes(Long pid, List<Warehouse> all, Set<Long> idSet) {
-        for(Warehouse sc : all) {
-            if(sc.getParentId().equals(pid)) {
-                idSet.add(sc.getId());
-                getNodes(sc.getId(), all, idSet);
-            }
-        }
-    }
+//    @GetMapping("/slot/warehouse/{pid}")
+//    public List<Slot> retrieveAll(@PathVariable Long pid) {
+//        List<Warehouse> allCategories = warehouseDao.findAllByOrderByIdAsc();
+//        Set<Long> idSet = new HashSet<>();
+//        idSet.add(pid);
+//        getNodes(pid, allCategories, idSet);
+//        Specification<Slot> specification = new Specification<Slot>() {
+//            @Override
+//            public Predicate toPredicate(Root<Slot> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
+//                List<Predicate> predicates = new ArrayList<>();
+//                Path<Long> path = root.get("warehouse");
+//                CriteriaBuilder.In<Long> in = cb.in(path);
+//                idSet.stream().forEach(e -> {
+//                    in.value(e.longValue());
+//                });
+//                predicates.add(in);
+//                return query.where(predicates.toArray(new Predicate[predicates.size()])).getRestriction();
+//            }
+//        };
+//        Sort sort = Sort.by(Sort.Direction.ASC,"id");
+//        return slotDao.findAll(specification, sort);
+//    }
+//
+//    /**
+//     *
+//     * @param pid
+//     * @param all
+//     * @param idSet
+//     */
+//    private void getNodes(Long pid, List<Warehouse> all, Set<Long> idSet) {
+//        for(Warehouse sc : all) {
+//            if(sc.getParentId().equals(pid)) {
+//                idSet.add(sc.getId());
+//                getNodes(sc.getId(), all, idSet);
+//            }
+//        }
+//    }
 
     @PostMapping("/slot/search")
     public List<Slot> search(@RequestBody Slot condition) {
