@@ -39,20 +39,4 @@ public class Role {
     /** 角色与权限映射关系 */
     @OneToMany(mappedBy = "role")
     private Set<RolePermissionMapping> rolePermissionMappingSet = new HashSet<>();
-    /** 创建时间 */
-    private Date dateCreated;
-    /** 创建者 */
-    private String creator;
-    /** 更新时间 */
-    private Date dateUpdated;
-    /** 更新者 */
-    private String updater;
-    /** 更新次数 */
-    private Integer updatedCount;
-    /** 删除时间 */
-    private Date dateDeleted;
-    /** 删除标记 */
-    private Boolean deleteFlag;
-    /** 删除者 */
-    private String deleter;
 }

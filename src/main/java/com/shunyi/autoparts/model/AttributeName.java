@@ -52,23 +52,6 @@ public class AttributeName {
     private String status;
     /** 排序 */
     private Integer sort;
-    /** 创建时间 */
-    private Date dateCreated;
-    /** 创建者 */
-    private String creator;
-    /** 更新时间 */
-    private Date dateUpdated;
-    /** 更新者 */
-    private String updater;
-    /** 更新次数 */
-    private Integer updatedCount;
-    /** 删除时间 */
-    private Date dateDeleted;
-    /** 删除标记 */
-    private Boolean deleteFlag;
-    /** 删除者 */
-    private String deleter;
-
     @Override
     public String toString() {
         return name;

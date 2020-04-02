@@ -6,10 +6,9 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import javax.persistence.*;
-import java.util.Date;
 
 /**
- * @description 仓库
+ * @description 仓库实体类
  * @author Shunyi Chen
  * @date 2020/3/23
  */
@@ -31,20 +30,10 @@ public class Warehouse {
     private Long parentId;
     /** 是否是父节点 */
     private Boolean parent;
-    /** 创建时间 */
-    private Date dateCreated;
-    /** 创建者 */
-    private String creator;
-    /** 更新时间 */
-    private Date dateUpdated;
-    /** 更新者 */
-    private String updater;
-    /** 更新次数 */
-    private Integer updatedCount;
-    /** 删除时间 */
-    private Date dateDeleted;
-    /** 删除标记 */
-    private Boolean deleteFlag;
-    /** 删除者 */
-    private String deleter;
+    /** 所属店铺 */
+    @ManyToOne
+    @JoinColumn(name = "warehouse_store_id",
+            foreignKey = @ForeignKey(name = "WAREHOUSE_STORE_ID_FK")
+    )
+    private Store store;
 }
