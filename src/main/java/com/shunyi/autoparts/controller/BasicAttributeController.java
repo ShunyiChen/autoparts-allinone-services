@@ -10,7 +10,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -31,7 +30,6 @@ public class BasicAttributeController {
 
     @PostMapping("/basic/attributes")
     public ResponseEntity<?> create(@RequestBody BasicAttributes attribute) {
-        attribute.setDateCreated(new Date());
         BasicAttributes savedAttribute = basicAttributeDao.save(attribute);
         return new ResponseEntity<>(savedAttribute.getId(), HttpStatus.OK);
     }

@@ -12,7 +12,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -36,7 +35,6 @@ public class AttributeNameController {
 
     @PostMapping("/attributes/name")
     public ResponseEntity<?> create(@RequestBody AttributeName attributeName) {
-        attributeName.setDateCreated(new Date());
         AttributeName savedAttributeName = attributeNameDao.save(attributeName);
         return new ResponseEntity<>(savedAttributeName.getId(), HttpStatus.OK);
     }

@@ -6,15 +6,12 @@ import com.shunyi.autoparts.model.AttributeValue;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.persistence.criteria.*;
-import java.net.URI;
-import java.util.*;
+import java.util.List;
+import java.util.Optional;
 
 /**
  * @description 属性值控制器
@@ -31,7 +28,6 @@ public class AttributeValueController {
 
     @PostMapping("/attributes/value")
     public ResponseEntity<?> create(@RequestBody AttributeValue attributeValue) {
-        attributeValue.setDateCreated(new Date());
         AttributeValue savedAttributeValue = attributeValueDao.save(attributeValue);
         return new ResponseEntity<>(savedAttributeValue.getId(), HttpStatus.OK);
     }

@@ -12,7 +12,7 @@ import java.util.*;
 /**
  * @description 产品SKU实体类
  * @author Shunyi Chen
- * @date 2020/3/23
+ * @date 2020/4/2
  */
 @Entity
 @Table(name = "sku")
@@ -39,18 +39,54 @@ public class SKU {
     private String specification;
     /** 单位 */
     private String unit;
-    /** 库存数量 */
-    private Integer quantity;
-    /** 销售价 */
-    private BigDecimal price;
-    /** 折扣价 */
-    private BigDecimal discountedPrice;
-    /** 状态 */
-    private String status;
-    /** 属性字符串 */
-    private String properties;
     /** 条形码 */
     private String barCode;
+    /** 库存数量 */
+    private Integer stockQty;
+    /** 属性字符串 */
+    private String properties;
+    /** 英文名 */
+    private String englishName;
+    /** 进口 */
+    private String imported;
+    /** 折扣% */
+    private String discountPercentage;
+    /** 可用状态 */
+    private String status;
+    /** 通用件号 */
+    private String commonNumber;
+    /** 材料 */
+    private String materials;
+    /** 所属公司 */
+    private String company;
+    /** 备注 */
+    private String notes;
+    /** 包装数量 */
+    private Integer packingQuantity;
+    /** 重量 */
+    private BigDecimal weight;
+    /** 手册名称 */
+    private String manual;
+    /** 一级进价 */
+    private BigDecimal purchasingPrice1;
+    /** 二级进价 */
+    private BigDecimal purchasingPrice2;
+    /** 三级进价 */
+    private BigDecimal purchasingPrice3;
+    /** 一级销价 */
+    private BigDecimal sellingPrice1;
+    /** 二级销价 */
+    private BigDecimal sellingPrice2;
+    /** 三级销价 */
+    private BigDecimal sellingPrice3;
+    /** 最低销价 */
+    private BigDecimal bottomPrice;
+    /** 外币单位 */
+    private String foreignCurrencyUnit;
+    /** 外币价格 */
+    private String foreignCurrencyPrice;
+    /** 紧缺件 */
+    private Boolean shortage;
     /** SKU与货位映射集合 */
     @OneToMany(mappedBy = "sku")
     private Set<SKUSlotMapping> skuSlotMappingSet = new HashSet<>();
