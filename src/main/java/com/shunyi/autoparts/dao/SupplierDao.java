@@ -16,8 +16,8 @@ public interface SupplierDao extends JpaRepository<Supplier, Long>, JpaSpecifica
     /**
      * 获取Supplier列表通过分类ID
      *
-     * @param categoryId
+     * @param supplierCategoryId
      * @return
      */
-    List<Supplier> findAllByCategoryIdOrderByIdAsc(Long categoryId);
+    List<Supplier> findAllBySupplierCategoryIdOrderByIdAsc(Long supplierCategoryId);
 }

@@ -8,25 +8,25 @@ import lombok.ToString;
 import javax.persistence.*;
 
 /**
- * @description 供应商分类实体类
+ * @description 配件产地实体类
  * @author Shunyi Chen
- * @date 2020/3/23
+ * @date 2020/4/2
  */
 @Entity
-@Table(name = "supplier_categories")
+@Table(name = "places")
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
 @ToString
-public class SupplierCategory {
+public class Place {
     /** 自增ID */
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
-    /** 类目名称 */
+    /** 产地编码 */
+    private String code;
+    /** 产地名称 */
     private String name;
-    /** 父类目ID */
-    private Long parentId;
-    /** 是否父节点 */
-    private Boolean parent;
+    /** 备注 */
+    private String notes;
 }

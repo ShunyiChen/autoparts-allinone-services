@@ -13,5 +13,5 @@ import java.util.List;
  */
 public interface ProductDao extends JpaRepository<Product, Long>, JpaSpecificationExecutor<Product>{
 
-    List<Product> findAllByBrandSeries_idOrderByIdAsc(Long BrandSeries_id);
+//    List<Product> findAllByBrandSeries_idOrderByIdAsc(Long BrandSeries_id);
 }

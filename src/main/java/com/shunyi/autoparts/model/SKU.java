@@ -52,14 +52,14 @@ public class SKU {
     /** 条形码 */
     private String barCode;
     /** SKU与货位映射集合 */
-    @OneToMany
-    private Set<SKUSlotMapping> skuSlotMappings = new HashSet<>();
+    @OneToMany(mappedBy = "sku")
+    private Set<SKUSlotMapping> skuSlotMappingSet = new HashSet<>();
     /** SKU图片列表 */
     @OneToMany
-    @JoinColumn(name = "sku_picture_id",
-            foreignKey = @ForeignKey(name = "SKU_PICTURE_ID_FK")
+    @JoinColumn(name = "sku_photo_id",
+            foreignKey = @ForeignKey(name = "SKU_PHOTO_ID_FK")
     )
-    private Set<Picture> pictures = new HashSet<>();
+    private Set<SKUPhoto> photos = new HashSet<>();
     /** 创建时间 */
     private Date dateCreated;
     /** 创建者 */

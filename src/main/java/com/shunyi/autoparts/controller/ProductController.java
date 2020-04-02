@@ -2,8 +2,6 @@ package com.shunyi.autoparts.controller;
 
 import com.shunyi.autoparts.dao.ProductDao;
 import com.shunyi.autoparts.exception.ProductNotFoundException;
-import com.shunyi.autoparts.model.BrandSeries;
-import com.shunyi.autoparts.model.Car;
 import com.shunyi.autoparts.model.Product;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -62,10 +60,10 @@ public class ProductController {
         return productDao.findAll(Sort.by(Sort.Direction.ASC,"id"));
     }
 
-    @GetMapping("/products/brandSeries/{bid}")
-    public List<Product> retrieveAllByBrand(@PathVariable Long bid) {
-        return productDao.findAllByBrandSeries_idOrderByIdAsc(bid);
-    }
+//    @GetMapping("/products/brandSeries/{bid}")
+//    public List<Product> retrieveAllByBrand(@PathVariable Long bid) {
+//        return productDao.findAllByBrandSeries_idOrderByIdAsc(bid);
+//    }
 
     @GetMapping("/products/{id}")
     public Product retrieve(@PathVariable Long id) {
@@ -87,46 +85,46 @@ public class ProductController {
                     Predicate predicate = cb.like(path, "%"+product.getCode()+"%");
                     predicates.add(predicate);
                 }
-                if(!product.getName().equals("")) {
-                    Path<String> path = root.get("name");
-                    Predicate predicate = cb.like(path, "%"+product.getName()+"%");
-                    predicates.add(predicate);
-                }
-                if(product.getBarCode() != null && !product.getBarCode().equals("")) {
-                    Path<String> path = root.get("barCode");
-                    Predicate predicate = cb.like(path, "%"+product.getBarCode()+"%");
-                    predicates.add(predicate);
-                }
-                if(product.getBrandSeries() != null && !product.getBrandSeries().equals("")) {
-                    Path<BrandSeries> path = root.get("brandSeries");
-                    Predicate predicate = cb.like(path.get("chineseName"), "%"+product.getBrandSeries().getChineseName()+"%");
-                    predicates.add(predicate);
-                }
-                if(product.getListPrice() != null && !product.getListPrice().equals("")) {
-                    Path<BigDecimal> path = root.get("listPrice");
-                    Predicate predicate = cb.equal(path, product.getListPrice());
-                    predicates.add(predicate);
-                }
-                if(product.getSupplier() != null && !product.getSupplier().equals("")) {
-                    Path<String> path = root.get("supplier");
-                    Predicate predicate = cb.like(path.get("name"), "%"+product.getSupplier().getName()+"%");
-                    predicates.add(predicate);
-                }
-                if(product.getImported() != null && !product.getImported().equals("")) {
-                    Path<String> path = root.get("imported");
-                    Predicate predicate = cb.like(path, "%"+product.getImported()+"%");
-                    predicates.add(predicate);
-                }
-                if(!product.getOrigin().equals("")) {
-                    Path<String> path = root.get("origin");
-                    Predicate predicate = cb.like(path, "%"+product.getOrigin()+"%");
-                    predicates.add(predicate);
-                }
-                if(product.getCar() != null && !product.getCar().equals("")) {
-                    Path<Car> path = root.get("car");
-                    Predicate predicate = cb.like(path.get("model"), "%"+product.getCar().getModel()+"%");
-                    predicates.add(predicate);
-                }
+//                if(!product.getName().equals("")) {
+//                    Path<String> path = root.get("name");
+//                    Predicate predicate = cb.like(path, "%"+product.getName()+"%");
+//                    predicates.add(predicate);
+//                }
+//                if(product.getBarCode() != null && !product.getBarCode().equals("")) {
+//                    Path<String> path = root.get("barCode");
+//                    Predicate predicate = cb.like(path, "%"+product.getBarCode()+"%");
+//                    predicates.add(predicate);
+//                }
+//                if(product.getBrandSeries() != null && !product.getBrandSeries().equals("")) {
+//                    Path<BrandSeries> path = root.get("brandSeries");
+//                    Predicate predicate = cb.like(path.get("chineseName"), "%"+product.getBrandSeries().getChineseName()+"%");
+//                    predicates.add(predicate);
+//                }
+//                if(product.getListPrice() != null && !product.getListPrice().equals("")) {
+//                    Path<BigDecimal> path = root.get("listPrice");
+//                    Predicate predicate = cb.equal(path, product.getListPrice());
+//                    predicates.add(predicate);
+//                }
+//                if(product.getSupplier() != null && !product.getSupplier().equals("")) {
+//                    Path<String> path = root.get("supplier");
+//                    Predicate predicate = cb.like(path.get("name"), "%"+product.getSupplier().getName()+"%");
+//                    predicates.add(predicate);
+//                }
+//                if(product.getImported() != null && !product.getImported().equals("")) {
+//                    Path<String> path = root.get("imported");
+//                    Predicate predicate = cb.like(path, "%"+product.getImported()+"%");
+//                    predicates.add(predicate);
+//                }
+//                if(!product.getOrigin().equals("")) {
+//                    Path<String> path = root.get("origin");
+//                    Predicate predicate = cb.like(path, "%"+product.getOrigin()+"%");
+//                    predicates.add(predicate);
+//                }
+//                if(product.getCar() != null && !product.getCar().equals("")) {
+//                    Path<Car> path = root.get("car");
+//                    Predicate predicate = cb.like(path.get("model"), "%"+product.getCar().getModel()+"%");
+//                    predicates.add(predicate);
+//                }
                 return query.where(predicates.toArray(new Predicate[predicates.size()])).getRestriction();
             }
         };

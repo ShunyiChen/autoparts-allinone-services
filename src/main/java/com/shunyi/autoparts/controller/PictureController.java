@@ -2,7 +2,7 @@ package com.shunyi.autoparts.controller;
 
 import com.shunyi.autoparts.dao.PictureDao;
 import com.shunyi.autoparts.exception.PictureNotFoundException;
-import com.shunyi.autoparts.model.Picture;
+import com.shunyi.autoparts.model.SKUPhoto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,14 +27,14 @@ public class PictureController {
     private PictureDao pictureDao;
 
     @PostMapping("/pictures")
-    public ResponseEntity<?> create(@RequestBody Picture picture) {
-        Picture savedPicture = pictureDao.save(picture);
+    public ResponseEntity<?> create(@RequestBody SKUPhoto picture) {
+        SKUPhoto savedPicture = pictureDao.save(picture);
         return new ResponseEntity<>(savedPicture.getId(), HttpStatus.OK);
     }
 
     @PutMapping("/pictures/{id}")
-    public ResponseEntity<?> update(@RequestBody Picture picture, @PathVariable Long id) {
-        Optional<Picture> pictureOptional = pictureDao.findById(id);
+    public ResponseEntity<?> update(@RequestBody SKUPhoto picture, @PathVariable Long id) {
+        Optional<SKUPhoto> pictureOptional = pictureDao.findById(id);
         if (!pictureOptional.isPresent()) {
             return ResponseEntity.notFound().build();
         }
@@ -49,13 +49,13 @@ public class PictureController {
     }
 
     @GetMapping("/pictures")
-    public List<Picture> retrieveAll() {
+    public List<SKUPhoto> retrieveAll() {
         return pictureDao.findAll();
     }
 
     @GetMapping("/pictures/{id}")
-    public Picture retrieve(@PathVariable Long id) {
-        Optional<Picture> picture = pictureDao.findById(id);
+    public SKUPhoto retrieve(@PathVariable Long id) {
+        Optional<SKUPhoto> picture = pictureDao.findById(id);
         if (!picture.isPresent()) {
             throw new PictureNotFoundException("Picture not found with id -" + id);
         }

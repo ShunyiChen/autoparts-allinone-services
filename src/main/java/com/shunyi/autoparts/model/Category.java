@@ -6,10 +6,9 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import javax.persistence.*;
-import java.util.Date;
 
 /**
- * @description 产品类目
+ * @description 产品分类实体类
  * @author Shunyi Chen
  * @date 2020/3/23
  */
@@ -36,20 +35,4 @@ public class Category {
             foreignKey = @ForeignKey(name = "CATEGORY_STORE_ID_FK")
     )
     private Store store;
-    /** 创建时间 */
-    private Date dateCreated;
-    /** 创建者 */
-    private String creator;
-    /** 更新时间 */
-    private Date dateUpdated;
-    /** 更新者 */
-    private String updater;
-    /** 更新次数 */
-    private Integer updatedCount;
-    /** 删除时间 */
-    private Date dateDeleted;
-    /** 删除标记 */
-    private Boolean deleteFlag;
-    /** 删除者 */
-    private String deleter;
 }

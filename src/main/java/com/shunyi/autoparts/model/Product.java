@@ -8,9 +8,11 @@ import lombok.ToString;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
- * @description 产品（汽车配件）
+ * @description 配件实体类
  * @author Shunyi Chen
  * @date 2020/3/23
  */
@@ -27,38 +29,81 @@ public class Product {
     private Long id;
     /** 产品编码 */
     private String code;
-    /** 条形码 */
-    private String barCode;
+    /** 类别 */
+    @ManyToOne
+    @JoinColumn(name = "product_category_id",
+            foreignKey = @ForeignKey(name = "PRODUCT_CATEGORY_ID_FK")
+    )
+    private Category category;
     /** 产品名称 */
     private String name;
+    /** 单位 */
+    private String unit;
+    /** 条形码 */
+    private String barCode;
+    /** 配件与车型映射关系 */
+    @OneToMany(mappedBy = "product")
+    private Set<ProductCarMapping> productCarMappingSet = new HashSet<>();
+    /** 产地 */
+    @ManyToOne
+    @JoinColumn(name = "place_id",
+            foreignKey = @ForeignKey(name = "PLACE_ID_FK")
+    )
+    private Place place;
     /** 品牌 */
     @ManyToOne
-    @JoinColumn(name = "brandSeries_id",
-            foreignKey = @ForeignKey(name = "BRANDSERIES_ID_FK")
+    @JoinColumn(name = "brand_id",
+            foreignKey = @ForeignKey(name = "BRAND_ID_FK")
     )
-    private BrandSeries brandSeries;
-    /** 通用车型 */
-    @ManyToOne
-    @JoinColumn(name = "car_id",
-            foreignKey = @ForeignKey(name = "CAR_ID_FK")
-    )
-    private Car car;
+    private Brand brand;
+    /** 英文名 */
+    private String englishName;
+    /** 进口 */
+    private String imported;
+    /** 折扣% */
+    private String discountPercentage;
+    /** 可用状态 */
+    private String status;
+    /** 通用件号 */
+    private String commonNumber;
+    /** 材料 */
+    private String materials;
+    /** 所属公司 */
+    private String company;
+    /** 备注 */
+    private String notes;
+    /** 包装数量 */
+    private Integer packingQuantity;
+    /** 重量 */
+    private BigDecimal weight;
+    /** 手册名称 */
+    private String manual;
     /** 供应商 */
     @ManyToOne
     @JoinColumn(name = "supplier_id",
             foreignKey = @ForeignKey(name = "SUPPLIER_ID_FK")
     )
     private Supplier supplier;
-    /** 单位 */
-    private String unit;
-    /** 列表价 */
-    private BigDecimal listPrice;
-    /** 进口 */
-    private String imported;
-    /** 原产地 */
-    private String origin;
-    /** 其他 */
-    private String notes;
+    /** 一级进价 */
+    private BigDecimal  purchasingPrice1;
+    /** 二级进价 */
+    private BigDecimal  purchasingPrice2;
+    /** 三级进价 */
+    private BigDecimal  purchasingPrice3;
+    /** 一级销价 */
+    private BigDecimal  sellingPrice1;
+    /** 二级销价 */
+    private BigDecimal  sellingPrice2;
+    /** 三级销价 */
+    private BigDecimal  sellingPrice3;
+    /** 最低销价 */
+    private BigDecimal  bottomPrice;
+    /** 外币单位 */
+    private String  foreignCurrencyUnit;
+    /** 外币价格 */
+    private String  foreignCurrencyPrice;
+    /** 紧缺件 */
+    private Boolean shortage;
     /** 创建时间 */
     private Date dateCreated;
     /** 创建者 */
