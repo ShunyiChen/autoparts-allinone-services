@@ -60,18 +60,12 @@ public class Product {
     private String englishName;
     /** 进口 */
     private String imported;
-    /** 折扣% */
-    private String discountPercentage;
-    /** 可用状态 */
-    private String status;
     /** 通用件号 */
     private String commonNumber;
     /** 材料 */
     private String materials;
     /** 所属公司 */
     private String company;
-    /** 备注 */
-    private String notes;
     /** 包装数量 */
     private Integer packingQuantity;
     /** 重量 */
