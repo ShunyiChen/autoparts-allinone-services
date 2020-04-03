@@ -33,7 +33,6 @@ drop table if exists consumers CASCADE;
 drop table if exists consumer_categories CASCADE;
 drop table if exists payments CASCADE;
 drop table if exists places CASCADE;
-drop table if exists places CASCADE;
 drop table if exists product_car_mappings CASCADE;
 drop table if exists purchase_order_items CASCADE;
 drop table if exists sku_sku_slot_mappings CASCADE;
