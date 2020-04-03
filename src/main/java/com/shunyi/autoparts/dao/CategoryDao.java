@@ -12,5 +12,5 @@ import java.util.List;
  */
 public interface CategoryDao extends JpaRepository<Category, Long> {
 
-    List<Category> findAllByOrderByIdAsc();
+    List<Category> findAllByStoreIdOrderByIdAsc(Long storeId);
 }

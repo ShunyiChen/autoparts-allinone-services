@@ -5,6 +5,7 @@ import com.shunyi.autoparts.dao.UserStoreMappingDao;
 import com.shunyi.autoparts.exception.StoreNotFoundException;
 import com.shunyi.autoparts.model.Store;
 import com.shunyi.autoparts.model.UserStoreMapping;
+import com.shunyi.autoparts.model.Warehouse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -80,5 +81,14 @@ public class StoreController {
             throw new StoreNotFoundException("Store not found with id -" + id);
         }
         return store.get();
+    }
+
+    @GetMapping("/stores/name/{name}")
+    public Store retrieve(@PathVariable String name) {
+        List<Store> stores = storeDao.findAllByNameOrderByIdAsc(name);
+        if (stores.size() == 0) {
+            return new Store();
+        }
+        return stores.get(0);
     }
 }

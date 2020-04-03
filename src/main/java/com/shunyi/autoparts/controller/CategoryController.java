@@ -62,8 +62,8 @@ public class CategoryController {
         return category.get();
     }
 
-    @GetMapping("/categories/sorted")
-    public List<Category> retrieveAllByOrderByIdAsc() {
-        return categoryDao.findAllByOrderByIdAsc();
+    @GetMapping("/categories/sorted/{storeId}")
+    public List<Category> retrieveAllByStoreIdOrderByIdAsc(@PathVariable Long storeId) {
+        return categoryDao.findAllByStoreIdOrderByIdAsc(storeId);
     }
 }
