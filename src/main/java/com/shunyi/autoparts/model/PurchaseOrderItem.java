@@ -11,8 +11,7 @@ import java.math.BigDecimal;
 /**
  * @Description: 采购订单明细
  * @Author: 陈顺谊
- * @CreateDate: 2020/4/1 12:36
- * @Version: 1.0
+ * @CreateDate: 2020/4/4
  */
 @Entity
 @Table(name = "purchase_order_items")
@@ -37,6 +36,8 @@ public class PurchaseOrderItem {
             foreignKey = @ForeignKey(name = "PURCHASE_ORDER_ITEMS_SKU_ID_FK")
     )
     private SKU sku;
+    /** 数量 */
+    private Integer quantity;
     /** 金额 */
     private BigDecimal amount;
     /** 折扣 */
@@ -45,12 +46,16 @@ public class PurchaseOrderItem {
     private BigDecimal discountedAmount;
     /** 税率% */
     private BigDecimal taxRate;
-    /** 税率% */
+    /** 税额 */
     private BigDecimal taxAmount;
     /** 含税单价 */
     private BigDecimal priceIncludingTax;
     /** 含税金额 */
     private BigDecimal amountIncludingTax;
+    /** 不含税单价 */
+    private Integer priceExcludingTax;
+    /** 不含税金额 */
+    private Integer amountExcludingTax;
     /** 备注 */
     private String notes;
 }

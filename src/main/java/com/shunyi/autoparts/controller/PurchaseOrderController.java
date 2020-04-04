@@ -65,6 +65,6 @@ public class PurchaseOrderController {
 
     @GetMapping("/purchaseOrders/orderNo/{userId}")
     public String retrieveOrderNo(@PathVariable Long userId) {
-        return OrderCodeFactory.getPurchaseOrderCode(userId);
+        return "CG"+OrderCodeFactory.getPurchaseOrderCode(userId);
     }
 }

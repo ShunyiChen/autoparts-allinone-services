@@ -14,7 +14,7 @@ import java.util.Set;
 /**
  * @description 配件实体类
  * @author Shunyi Chen
- * @date 2020/3/23
+ * @date 2020/4/4
  */
 @Entity
 @Table(name = "products")
@@ -41,7 +41,13 @@ public class Product {
     private String unit;
     /** 条形码 */
     private String barCode;
-    /** 配件与车型映射关系 */
+    /** 车型 */
+    @ManyToOne
+    @JoinColumn(name = "car_id",
+            foreignKey = @ForeignKey(name = "CAR_ID_FK")
+    )
+    private Car car;
+    /** 通用车型 */
     @OneToMany(mappedBy = "product")
     private Set<ProductCarMapping> productCarMappingSet = new HashSet<>();
     /** 产地 */

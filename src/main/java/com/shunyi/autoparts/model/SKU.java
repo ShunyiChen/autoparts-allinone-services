@@ -12,7 +12,7 @@ import java.util.*;
 /**
  * @description 产品SKU实体类
  * @author Shunyi Chen
- * @date 2020/4/2
+ * @date 2020/4/4
  */
 @Entity
 @Table(name = "sku")
@@ -38,7 +38,7 @@ public class SKU {
     /** 规格 */
     private String specification;
     /** 条形码 */
-    private String barCode;
+    private String skuBarCode;
     /** 库存数量 */
     private Integer stockQty;
     /** 属性字符串 */
@@ -60,7 +60,6 @@ public class SKU {
             foreignKey = @ForeignKey(name = "SKU_PHOTO_ID_FK")
     )
     private Set<SKUPhoto> photos = new HashSet<>();
-
     /** 创建时间 */
     private Date dateCreated;
     /** 创建者 */

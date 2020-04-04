@@ -12,7 +12,7 @@ import java.util.Date;
 /**
  * @description 采购订单
  * @author Shunyi Chen
- * @date 2020/3/23
+ * @date 2020/4/4
  */
 @Entity
 @Table(name = "purchase_orders")
@@ -24,7 +24,7 @@ public class PurchaseOrder {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
-    /** 单号 */
+    /** 业务单号 */
     private String orderNo;
     /** 单据日期 */
     private Date orderDate;
