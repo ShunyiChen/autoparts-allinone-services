@@ -105,9 +105,9 @@ public class SKUController {
                     Predicate predicate = cb.like(path, "%"+sku.getSkuName()+"%");
                     predicates.add(predicate);
                 }
-                if(sku.getBarCode() != null) {
+                if(sku.getSkuBarCode() != null) {
                     Path<String> path = root.get("barCode");
-                    Predicate predicate = cb.like(path, "%"+sku.getBarCode()+"%");
+                    Predicate predicate = cb.like(path, "%"+sku.getSkuBarCode()+"%");
                     predicates.add(predicate);
                 }
                 if(sku.getProduct() != null) {
