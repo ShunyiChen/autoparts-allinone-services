@@ -14,4 +14,8 @@ import java.util.List;
 public interface SKUDao extends JpaRepository<SKU, Long>, JpaSpecificationExecutor<SKU> {
 
     List<SKU> findAllByProduct_idOrderByIdAsc(Long Product_id);
+
+    List<SKU> findAllBySkuCodeOrderByIdAsc(String skuCode);
+
+    List<SKU> findAllBySkuNameOrderByIdAsc(String skuName);
 }

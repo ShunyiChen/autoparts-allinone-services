@@ -53,9 +53,9 @@ public class PurchaseOrderItem {
     /** 含税金额 */
     private BigDecimal amountIncludingTax;
     /** 不含税单价 */
-    private Integer priceExcludingTax;
+    private BigDecimal priceExcludingTax;
     /** 不含税金额 */
-    private Integer amountExcludingTax;
+    private BigDecimal amountExcludingTax;
     /** 备注 */
     private String notes;
 }

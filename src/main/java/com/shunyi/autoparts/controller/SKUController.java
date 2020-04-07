@@ -89,6 +89,25 @@ public class SKUController {
         return sku.get();
     }
 
+    @GetMapping("/sku/code/{skuCode}")
+    public SKU retrieveByCode(@PathVariable String skuCode) {
+        List<SKU> list = skuDao.findAllBySkuCodeOrderByIdAsc(skuCode);
+        if(list.size() > 0) {
+            return list.get(0);
+        }
+        return new SKU();
+    }
+
+    @GetMapping("/sku/name/{skuName}")
+    public SKU retrieveByName(@PathVariable String skuName) {
+        List<SKU> list = skuDao.findAllBySkuNameOrderByIdAsc(skuName);
+        if(list.size() > 0) {
+            return list.get(0);
+        }
+        return new SKU();
+    }
+
+
     @PostMapping("/sku/search")
     public List<SKU> search(@RequestBody SKU sku) {
         Specification<SKU> specification = new Specification<SKU>() {
