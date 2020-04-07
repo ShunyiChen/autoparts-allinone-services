@@ -1,8 +1,10 @@
 package com.shunyi.autoparts.controller;
 
+import com.shunyi.autoparts.dao.CategoryDao;
 import com.shunyi.autoparts.dao.StoreDao;
 import com.shunyi.autoparts.dao.UserStoreMappingDao;
 import com.shunyi.autoparts.exception.StoreNotFoundException;
+import com.shunyi.autoparts.model.Category;
 import com.shunyi.autoparts.model.Store;
 import com.shunyi.autoparts.model.UserStoreMapping;
 import com.shunyi.autoparts.model.Warehouse;
@@ -30,6 +32,10 @@ public class StoreController {
     private static final Logger logger = LoggerFactory.getLogger(StoreController.class);
     @Autowired
     private StoreDao storeDao;
+    @Autowired
+    private CategoryDao categoryDao;
+
+
     /** 用户与店铺关系Dao */
     @Autowired
     private UserStoreMappingDao userStoreMappingDao;
@@ -37,6 +43,9 @@ public class StoreController {
     @PostMapping("/stores")
     public ResponseEntity<?> create(@RequestBody Store store) {
         Store savedStore = storeDao.save(store);
+        //创建门店，然后创建一个根分类
+        Category rootCategory = new Category(0L, "所有分类", 0L, true, savedStore);
+        categoryDao.save(rootCategory);
         return new ResponseEntity<>(savedStore.getId(), HttpStatus.OK);
     }
 
