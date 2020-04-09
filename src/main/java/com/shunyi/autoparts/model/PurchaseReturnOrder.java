@@ -10,17 +10,17 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 /**
- * @description 采购订单
+ * @description 采购退货单
  * @author Shunyi Chen
- * @date 2020/4/4
+ * @date 2020/4/9
  */
 @Entity
-@Table(name = "purchase_orders")
+@Table(name = "purchase_return_orders")
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
 @ToString
-public class PurchaseOrder {
+public class PurchaseReturnOrder {
     /** ID */
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
