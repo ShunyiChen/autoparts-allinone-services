@@ -14,7 +14,7 @@ import java.util.Date;
  * @author Shunyi Chen
  * @date 2020/4/9
  */
-@Entity
+//@Entity
 @Table(name = "purchase_return_orders")
 @NoArgsConstructor
 @AllArgsConstructor
