@@ -27,13 +27,13 @@ public class BrandController {
     @Autowired
     private BrandDao brandSeriesDao;
 
-    @PostMapping("/brand")
+    @PostMapping("/brands")
     public ResponseEntity<?> create(@RequestBody Brand brand) {
         Brand savedBrandSeries = brandSeriesDao.save(brand);
         return new ResponseEntity<>(savedBrandSeries.getId(), HttpStatus.OK);
     }
 
-    @PutMapping("/brand/{id}")
+    @PutMapping("/brands/{id}")
     public ResponseEntity<?> update(@RequestBody Brand brand, @PathVariable Long id) {
         Optional<Brand> brandSeriesOptional = brandSeriesDao.findById(id);
         if (!brandSeriesOptional.isPresent()) {
@@ -44,17 +44,17 @@ public class BrandController {
         return ResponseEntity.noContent().build();
     }
 
-    @DeleteMapping("/brand/{id}")
+    @DeleteMapping("/brands/{id}")
     public void delete(@PathVariable Long id) {
         brandSeriesDao.deleteById(id);
     }
 
-    @GetMapping("/brand")
+    @GetMapping("/brands")
     public List<Brand> retrieveAll() {
         return brandSeriesDao.findAll(Sort.by(Sort.Direction.ASC,"id"));
     }
 
-    @GetMapping("/brand/{id}")
+    @GetMapping("/brands/{id}")
     public Brand retrieve(@PathVariable Long id) {
         Optional<Brand> brand = brandSeriesDao.findById(id);
         if (!brand.isPresent()) {

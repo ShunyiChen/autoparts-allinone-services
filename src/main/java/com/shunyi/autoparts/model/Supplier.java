@@ -24,7 +24,7 @@ public class Supplier {
     private Long id;
     /** 供应商编码 */
     private String code;
-    /** 供应商类目 */
+    /** 供应商类别 */
     @ManyToOne
     @JoinColumn(name = "supplier_category_id",
             foreignKey = @ForeignKey(name = "SUPPLIER_CATEGORY_ID_FK")
@@ -46,7 +46,7 @@ public class Supplier {
     private String postCode;
     /** 网站 */
     private String webSite;
-    /** 全程 */
+    /** 全称 */
     private String fullName;
     /** 法人 */
     private String corp;
@@ -58,6 +58,10 @@ public class Supplier {
     private String taxFileNumber;
     /** 开票地址 */
     private String billingAddress;
+    /** 公司 */
+    private String company;
+    /** 手机号 */
+    private String tel;
     /** 备注 */
     private String notes;
 }
