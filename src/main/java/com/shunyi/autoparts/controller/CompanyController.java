@@ -29,8 +29,13 @@ public class CompanyController {
 
     @PostMapping("/companies")
     public ResponseEntity<?> create(@RequestBody Company company) {
-        Company savedImport = companyDao.save(company);
-        return new ResponseEntity<>(savedImport.getId(), HttpStatus.OK);
+        List<Company> companies = companyDao.findAll();
+        Optional<Company> findAny = companies.parallelStream().filter(c -> c.getName().equals(company.getName())).findAny();
+        if(!findAny.isPresent()) {
+            Company savedCompany = companyDao.save(company);
+            return new ResponseEntity<>(savedCompany.getId(), HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @PutMapping("/companies/{id}")

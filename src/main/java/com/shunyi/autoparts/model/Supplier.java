@@ -38,6 +38,8 @@ public class Supplier {
     private String contact;
     /** 电话 */
     private String phone;
+    /** 传真 */
+    private String fax;
     /** 电子邮件 */
     private String email;
     /** 地址 */
@@ -61,7 +63,7 @@ public class Supplier {
     /** 公司 */
     private String company;
     /** 手机号 */
-    private String tel;
+    private String mobile;
     /** 备注 */
     private String notes;
 }

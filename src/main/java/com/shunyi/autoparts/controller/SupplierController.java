@@ -18,9 +18,9 @@ import javax.persistence.criteria.*;
 import java.util.*;
 
 /**
- * @description 供应商控制器
+ * @description 供应商Controller
  * @author Shunyi Chen
- * @date 2020/3/23
+ * @date 2020/4/12
  */
 @RestController
 @CrossOrigin
@@ -67,7 +67,7 @@ public class SupplierController {
     }
 
     /** 递归获取 */
-    @GetMapping("/suppliers/category/{pid}")
+    @GetMapping("/suppliers/category/recursion/{pid}")
     public List<Supplier> retrieveAll_R(@PathVariable Long pid) {
         List<SupplierCategory> allCategories = supplierCategoryDao.findAllByOrderByIdAsc();
         Set<Long> idSet = new HashSet<>();
@@ -77,7 +77,7 @@ public class SupplierController {
             @Override
             public Predicate toPredicate(Root<Supplier> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
                 List<Predicate> predicates = new ArrayList<>();
-                Path<Long> path = root.get("category");
+                Path<Long> path = root.get("supplierCategory");
                 CriteriaBuilder.In<Long> in = cb.in(path);
                 idSet.stream().forEach(e -> {
                     in.value(e.longValue());
@@ -91,7 +91,7 @@ public class SupplierController {
     }
 
     /** 非递归获取 */
-    @GetMapping("/suppliers/category2/{pid}")
+    @GetMapping("/suppliers/category/{pid}")
     public List<Supplier> retrieveAll(@PathVariable Long pid) {
         return supplierDao.findAllBySupplierCategoryIdOrderByIdAsc(pid);
     }
@@ -107,56 +107,41 @@ public class SupplierController {
                     Predicate predicate = cb.like(path, "%"+supplier.getCode()+"%");
                     predicates.add(predicate);
                 }
-//                if(supplier.getName() != null && !supplier.getName().equals("")) {
-//                    Path<String> path = root.get("name");
-//                    Predicate predicate = cb.like(path, "%"+supplier.getName()+"%");
-//                    predicates.add(predicate);
-//                }
-//                if(supplier.getContact() != null && !supplier.getContact().equals("")) {
-//                    Path<String> path = root.get("contact");
-//                    Predicate predicate = cb.like(path, "%"+supplier.getContact()+"%");
-//                    predicates.add(predicate);
-//                }
-//                if(supplier.getPhone1() != null && !supplier.getPhone1().equals("")) {
-//                    Path<String> path = root.get("phone1");
-//                    Predicate predicate = cb.like(path, "%"+supplier.getPhone1()+"%");
-//                    predicates.add(predicate);
-//                }
-//                if(supplier.getPhone2() != null && !supplier.getPhone2().equals("")) {
-//                    Path<String> path = root.get("phone2");
-//                    Predicate predicate = cb.like(path, "%"+supplier.getPhone2()+"%");
-//                    predicates.add(predicate);
-//                }
-//                if(supplier.getEmail() != null && !supplier.getEmail().equals("")) {
-//                    Path<String> path = root.get("email");
-//                    Predicate predicate = cb.like(path, "%"+supplier.getEmail()+"%");
-//                    predicates.add(predicate);
-//                }
-//                if(supplier.getAddress() != null && !supplier.getAddress().equals("")) {
-//                    Path<String> path = root.get("address");
-//                    Predicate predicate = cb.like(path, "%"+supplier.getAddress()+"%");
-//                    predicates.add(predicate);
-//                }
-//                if(supplier.getPostCode() != null && !supplier.getPostCode().equals("")) {
-//                    Path<String> path = root.get("postCode");
-//                    Predicate predicate = cb.like(path, "%"+supplier.getPostCode()+"%");
-//                    predicates.add(predicate);
-//                }
-//                if(supplier.getPayment() != null) {
-//                    Path<String> path = root.get("payment");
-//                    Predicate predicate = cb.equal(path, supplier.getPayment());
-//                    predicates.add(predicate);
-//                }
-//                if(supplier.getGrade() != null) {
-//                    Path<String> path = root.get("grade");
-//                    Predicate predicate = cb.equal(path, supplier.getGrade());
-//                    predicates.add(predicate);
-//                }
-//                if(supplier.getNotes()!= null && !supplier.getNotes().equals("")) {
-//                    Path<String> path = root.get("notes");
-//                    Predicate predicate = cb.like(path, "%"+supplier.getNotes()+"%");
-//                    predicates.add(predicate);
-//                }
+                if(supplier.getName() != null && !supplier.getName().equals("")) {
+                    Path<String> path = root.get("name");
+                    Predicate predicate = cb.like(path, "%"+supplier.getName()+"%");
+                    predicates.add(predicate);
+                }
+                if(supplier.getContact() != null && !supplier.getContact().equals("")) {
+                    Path<String> path = root.get("contact");
+                    Predicate predicate = cb.like(path, "%"+supplier.getContact()+"%");
+                    predicates.add(predicate);
+                }
+                if(supplier.getPhone() != null && !supplier.getPhone().equals("")) {
+                    Path<String> path = root.get("phone");
+                    Predicate predicate = cb.like(path, "%"+supplier.getPhone()+"%");
+                    predicates.add(predicate);
+                }
+                if(supplier.getEmail() != null && !supplier.getEmail().equals("")) {
+                    Path<String> path = root.get("email");
+                    Predicate predicate = cb.like(path, "%"+supplier.getEmail()+"%");
+                    predicates.add(predicate);
+                }
+                if(supplier.getAddress() != null && !supplier.getAddress().equals("")) {
+                    Path<String> path = root.get("address");
+                    Predicate predicate = cb.like(path, "%"+supplier.getAddress()+"%");
+                    predicates.add(predicate);
+                }
+                if(supplier.getPostCode() != null && !supplier.getPostCode().equals("")) {
+                    Path<String> path = root.get("postCode");
+                    Predicate predicate = cb.like(path, "%"+supplier.getPostCode()+"%");
+                    predicates.add(predicate);
+                }
+                if(supplier.getNotes()!= null && !supplier.getNotes().equals("")) {
+                    Path<String> path = root.get("notes");
+                    Predicate predicate = cb.like(path, "%"+supplier.getNotes()+"%");
+                    predicates.add(predicate);
+                }
                 return query.where(predicates.toArray(new Predicate[predicates.size()])).getRestriction();
             }
         };

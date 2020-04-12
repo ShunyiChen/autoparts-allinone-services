@@ -2,6 +2,7 @@ package com.shunyi.autoparts.controller;
 
 import com.shunyi.autoparts.dao.SupplierCategoryDao;
 import com.shunyi.autoparts.exception.SupplierCategoryNotFoundException;
+import com.shunyi.autoparts.model.Category;
 import com.shunyi.autoparts.model.SupplierCategory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -64,4 +65,8 @@ public class SupplierCategoryController {
         return supplierCategory.get();
     }
 
+    @GetMapping("/supplier/categories/root")
+    public SupplierCategory retrieveRoot() {
+        return supplierCategoryDao.findByParentId(0L);
+    }
 }

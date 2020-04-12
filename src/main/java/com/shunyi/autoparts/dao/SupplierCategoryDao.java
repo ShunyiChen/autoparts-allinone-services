@@ -13,4 +13,7 @@ import java.util.List;
 public interface SupplierCategoryDao extends JpaRepository<SupplierCategory, Long> {
 
     List<SupplierCategory> findAllByOrderByIdAsc();
+
+    /** 取根节点 */
+    SupplierCategory findByParentId(Long parentId);
 }
