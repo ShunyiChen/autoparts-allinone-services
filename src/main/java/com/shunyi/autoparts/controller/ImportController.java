@@ -29,8 +29,13 @@ public class ImportController {
 
     @PostMapping("/imports")
     public ResponseEntity<?> create(@RequestBody Import imports) {
-        Import savedImport = importDao.save(imports);
-        return new ResponseEntity<>(savedImport.getId(), HttpStatus.OK);
+        List<Import> imports1 = importDao.findAll();
+        Optional<Import> findAny = imports1.parallelStream().filter(c -> c.getName().equals(imports.getName())).findAny();
+        if(!findAny.isPresent()) {
+            Import savedImport = importDao.save(imports);
+            return new ResponseEntity<>(savedImport.getId(), HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @PutMapping("/imports/{id}")

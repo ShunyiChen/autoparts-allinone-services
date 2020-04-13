@@ -17,7 +17,7 @@ import java.util.Optional;
 /**
  * @description 配件产地控制器
  * @author Shunyi Chen
- * @date 2020/4/2
+ * @date 2020/4/13
  */
 @RestController
 @CrossOrigin
@@ -29,8 +29,13 @@ public class PlaceController {
 
     @PostMapping("/places")
     public ResponseEntity<?> create(@RequestBody Place place) {
-        Place savedCar = placeDao.save(place);
-        return new ResponseEntity<>(savedCar.getId(), HttpStatus.OK);
+        List<Place> places = placeDao.findAll();
+        Optional<Place> findAny = places.parallelStream().filter(c -> c.getName().equals(place.getName())).findAny();
+        if(!findAny.isPresent()) {
+            Place savedPlace = placeDao.save(place);
+            return new ResponseEntity<>(savedPlace.getId(), HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @PutMapping("/places/{id}")

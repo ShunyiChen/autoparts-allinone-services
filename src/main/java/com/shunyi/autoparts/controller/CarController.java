@@ -17,7 +17,7 @@ import java.util.Optional;
 /**
  * @description 车型控制器
  * @author Shunyi Chen
- * @date 2020/3/23
+ * @date 2020/4/13
  */
 @RestController
 @CrossOrigin
@@ -29,8 +29,13 @@ public class CarController {
 
     @PostMapping("/cars")
     public ResponseEntity<?> create(@RequestBody Car car) {
-        Car savedCar = carDao.save(car);
-        return new ResponseEntity<>(savedCar.getId(), HttpStatus.OK);
+        List<Car> cars = carDao.findAll();
+        Optional<Car> findAny = cars.parallelStream().filter(c -> c.getName().equals(car.getName())).findAny();
+        if(!findAny.isPresent()) {
+            Car savedCar = carDao.save(car);
+            return new ResponseEntity<>(savedCar.getId(), HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @PutMapping("/cars/{id}")

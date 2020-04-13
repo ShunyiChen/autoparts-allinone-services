@@ -8,13 +8,11 @@ import lombok.ToString;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
 
 /**
  * @description 配件实体类
  * @author Shunyi Chen
- * @date 2020/4/4
+ * @date 2020/4/13
  */
 @Entity
 @Table(name = "products")
@@ -48,8 +46,7 @@ public class Product {
     )
     private Car car;
     /** 通用车型 */
-    @OneToMany(mappedBy = "product")
-    private Set<ProductCarMapping> productCarMappingSet = new HashSet<>();
+    private String relevantModels;
     /** 产地 */
     @ManyToOne
     @JoinColumn(name = "place_id",
@@ -65,17 +62,25 @@ public class Product {
     /** 英文名 */
     private String englishName;
     /** 进口 */
-    private String imported;
+    @ManyToOne
+    @JoinColumn(name = "imported_id",
+            foreignKey = @ForeignKey(name = "IMPORTED_ID_FK")
+    )
+    private Import imported;
     /** 通用件号 */
     private String commonNumber;
     /** 材料 */
     private String materials;
     /** 所属公司 */
-    private String company;
+    @ManyToOne
+    @JoinColumn(name = "company_id",
+            foreignKey = @ForeignKey(name = "COMPANY_ID_FK")
+    )
+    private Company company;
     /** 包装数量 */
     private Integer packingQuantity;
     /** 重量 */
-    private BigDecimal weight;
+    private String weight;
     /** 手册名称 */
     private String manual;
     /** 供应商 */

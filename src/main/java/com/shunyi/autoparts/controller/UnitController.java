@@ -17,7 +17,7 @@ import java.util.Optional;
 /**
  * @description 配件产地控制器
  * @author Shunyi Chen
- * @date 2020/4/7
+ * @date 2020/4/12
  */
 @RestController
 @CrossOrigin
@@ -28,9 +28,14 @@ public class UnitController {
     private UnitDao unitDao;
 
     @PostMapping("/units")
-    public ResponseEntity<?> create(@RequestBody Unit place) {
-        Unit savedCar = unitDao.save(place);
-        return new ResponseEntity<>(savedCar.getId(), HttpStatus.OK);
+    public ResponseEntity<?> create(@RequestBody Unit unit) {
+        List<Unit> units = unitDao.findAll();
+        Optional<Unit> findAny = units.parallelStream().filter(c -> c.getName().equals(unit.getName())).findAny();
+        if(!findAny.isPresent()) {
+            Unit savedUnit = unitDao.save(unit);
+            return new ResponseEntity<>(savedUnit.getId(), HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @PutMapping("/units/{id}")
