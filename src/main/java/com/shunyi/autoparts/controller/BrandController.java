@@ -35,7 +35,7 @@ public class BrandController {
             Brand savedBrand = brandDao.save(brand);
             return new ResponseEntity<>(savedBrand.getId(), HttpStatus.OK);
         }
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(findAny.get().getId(), HttpStatus.OK);
     }
 
     @PutMapping("/brands/{id}")

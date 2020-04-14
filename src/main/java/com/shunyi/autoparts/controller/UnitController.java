@@ -35,7 +35,7 @@ public class UnitController {
             Unit savedUnit = unitDao.save(unit);
             return new ResponseEntity<>(savedUnit.getId(), HttpStatus.OK);
         }
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(findAny.get().getId(), HttpStatus.OK);
     }
 
     @PutMapping("/units/{id}")

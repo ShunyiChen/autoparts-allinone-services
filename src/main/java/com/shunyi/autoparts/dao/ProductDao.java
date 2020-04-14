@@ -9,9 +9,10 @@ import java.util.List;
 /**
  * @description 产品Dao
  * @author Shunyi Chen
- * @date 2020/3/23
+ * @date 2020/4/14
  */
 public interface ProductDao extends JpaRepository<Product, Long>, JpaSpecificationExecutor<Product>{
 
-//    List<Product> findAllByBrandSeries_idOrderByIdAsc(Long BrandSeries_id);
+    /** 根据分类ID取产品ID */
+    List<Product> findAllByCategoryIdOrderByIdAsc(Long categoryId);
 }

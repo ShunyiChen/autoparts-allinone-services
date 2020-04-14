@@ -60,10 +60,10 @@ public class ProductController {
         return productDao.findAll(Sort.by(Sort.Direction.ASC,"id"));
     }
 
-//    @GetMapping("/products/brandSeries/{bid}")
-//    public List<Product> retrieveAllByBrand(@PathVariable Long bid) {
-//        return productDao.findAllByBrandSeries_idOrderByIdAsc(bid);
-//    }
+    @GetMapping("/products/category/{cid}")
+    public List<Product> retrieveAllByCategoryId(@PathVariable Long cid) {
+        return productDao.findAllByCategoryIdOrderByIdAsc(cid);
+    }
 
     @GetMapping("/products/{id}")
     public Product retrieve(@PathVariable Long id) {

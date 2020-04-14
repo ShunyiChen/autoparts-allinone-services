@@ -70,7 +70,7 @@ public class SKUController {
             @Override
             public Predicate toPredicate(Root<SKU> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
                 List<Predicate> predicates = new ArrayList<>();
-                Path<Product> path = root.get("product").get("brandSeries").get("category");
+                Path<Category> path = root.get("product").get("category").get("id");
                 Predicate predicate = cb.equal(path, categoryId);
                 predicates.add(predicate);
                 return query.where(predicates.toArray(new Predicate[predicates.size()])).getRestriction();

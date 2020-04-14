@@ -35,7 +35,7 @@ public class ImportController {
             Import savedImport = importDao.save(imports);
             return new ResponseEntity<>(savedImport.getId(), HttpStatus.OK);
         }
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(findAny.get().getId(), HttpStatus.OK);
     }
 
     @PutMapping("/imports/{id}")

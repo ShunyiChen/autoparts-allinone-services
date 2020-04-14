@@ -35,7 +35,7 @@ public class CarController {
             Car savedCar = carDao.save(car);
             return new ResponseEntity<>(savedCar.getId(), HttpStatus.OK);
         }
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(findAny.get().getId(), HttpStatus.OK);
     }
 
     @PutMapping("/cars/{id}")

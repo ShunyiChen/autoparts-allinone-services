@@ -35,7 +35,7 @@ public class CompanyController {
             Company savedCompany = companyDao.save(company);
             return new ResponseEntity<>(savedCompany.getId(), HttpStatus.OK);
         }
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(findAny.get().getId(), HttpStatus.OK);
     }
 
     @PutMapping("/companies/{id}")

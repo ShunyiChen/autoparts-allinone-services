@@ -35,7 +35,7 @@ public class PlaceController {
             Place savedPlace = placeDao.save(place);
             return new ResponseEntity<>(savedPlace.getId(), HttpStatus.OK);
         }
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(findAny.get().getId(), HttpStatus.OK);
     }
 
     @PutMapping("/places/{id}")
