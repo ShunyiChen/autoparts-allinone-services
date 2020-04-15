@@ -36,7 +36,11 @@ public class Product {
     /** 产品名称 */
     private String name;
     /** 单位 */
-    private String unit;
+    @ManyToOne
+    @JoinColumn(name = "unit_id",
+            foreignKey = @ForeignKey(name = "UNIT_ID_FK")
+    )
+    private Unit unit;
     /** 条形码 */
     private String barCode;
     /** 车型 */
