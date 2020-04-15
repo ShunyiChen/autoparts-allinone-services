@@ -107,7 +107,6 @@ public class SKUController {
         return new SKU();
     }
 
-
     @PostMapping("/sku/search")
     public List<SKU> search(@RequestBody SKU sku) {
         Specification<SKU> specification = new Specification<SKU>() {
@@ -124,29 +123,34 @@ public class SKUController {
                     Predicate predicate = cb.like(path, "%"+sku.getSkuName()+"%");
                     predicates.add(predicate);
                 }
-                if(sku.getSkuBarCode() != null) {
-                    Path<String> path = root.get("barCode");
-                    Predicate predicate = cb.like(path, "%"+sku.getSkuBarCode()+"%");
+                if(sku.getProduct().getCar() != null) {
+                    Path<String> path = root.get("product").get("car").get("name");
+                    Predicate predicate = cb.like(path, "%"+sku.getProduct().getCar().getName()+"%");
                     predicates.add(predicate);
                 }
-                if(sku.getProduct() != null) {
-                    Path<String> path = root.get("product").get("code");
-                    Predicate predicate = cb.like(path, "%"+sku.getProduct().getCode()+"%");
+                if(sku.getProduct().getRelevantModels() != null) {
+                    Path<String> path = root.get("product").get("relevantModels");
+                    Predicate predicate = cb.like(path, "%"+sku.getProduct().getRelevantModels()+"%");
                     predicates.add(predicate);
                 }
-                if(sku.getProduct() != null) {
-                    Path<String> path = root.get("product").get("name");
-                    Predicate predicate = cb.like(path, "%"+sku.getProduct().getName()+"%");
+                if(sku.getProduct().getPlace() != null) {
+                    Path<String> path = root.get("product").get("place").get("name");
+                    Predicate predicate = cb.like(path, "%"+sku.getProduct().getPlace().getName()+"%");
                     predicates.add(predicate);
                 }
-                if(sku.getProduct() != null) {
+                if(sku.getProduct().getSupplier() != null) {
                     Path<String> path = root.get("product").get("supplier").get("name");
                     Predicate predicate = cb.like(path, "%"+sku.getProduct().getSupplier().getName()+"%");
                     predicates.add(predicate);
                 }
-                if(sku.getSpecification() != null) {
-                    Path<String> path = root.get("specification");
-                    Predicate predicate = cb.like(path, "%"+sku.getSpecification()+"%");
+                if(sku.getProduct().getBrand() != null) {
+                    Path<String> path = root.get("product").get("brand").get("name");
+                    Predicate predicate = cb.like(path, "%"+sku.getProduct().getBrand().getName()+"%");
+                    predicates.add(predicate);
+                }
+                if(sku.getProduct().getCompany() != null) {
+                    Path<String> path = root.get("product").get("company").get("name");
+                    Predicate predicate = cb.like(path, "%"+sku.getProduct().getCompany().getName()+"%");
                     predicates.add(predicate);
                 }
                 return query.where(predicates.toArray(new Predicate[predicates.size()])).getRestriction();
