@@ -46,6 +46,8 @@ public class ProductController {
             return ResponseEntity.notFound().build();
         }
         product.setId(id);
+        product.setDateUpdated(new Date());
+        product.setUpdatedCount(product.getUpdatedCount() == null? 1 : product.getUpdatedCount() + 1);
         productDao.save(product);
         return ResponseEntity.noContent().build();
     }

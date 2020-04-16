@@ -34,8 +34,13 @@ public class SupplierController {
 
     @PostMapping("/suppliers")
     public ResponseEntity<?> create(@RequestBody Supplier supplier) {
-        Supplier savedSupplier = supplierDao.save(supplier);
-        return new ResponseEntity<>(savedSupplier.getId(), HttpStatus.OK);
+        List<Supplier> suppliers = supplierDao.findAll();
+        Optional<Supplier> findAny = suppliers.parallelStream().filter(c -> c.getName().equals(supplier.getName())).findAny();
+        if(!findAny.isPresent()) {
+            Supplier savedSupplier = supplierDao.save(supplier);
+            return new ResponseEntity<>(savedSupplier.getId(), HttpStatus.OK);
+        }
+        return new ResponseEntity<>(findAny.get().getId(), HttpStatus.OK);
     }
 
     @PutMapping("/suppliers/{id}")

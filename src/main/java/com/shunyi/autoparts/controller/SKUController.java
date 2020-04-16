@@ -10,6 +10,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.criteria.*;
@@ -113,42 +114,42 @@ public class SKUController {
             @Override
             public Predicate toPredicate(Root<SKU> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
                 List<Predicate> predicates = new ArrayList<>();
-                if(sku.getSkuCode() != null) {
+                if(!StringUtils.isEmpty(sku.getSkuCode())) {
                     Path<String> path = root.get("skuCode");
                     Predicate predicate = cb.like(path, "%"+sku.getSkuCode()+"%");
                     predicates.add(predicate);
                 }
-                if(sku.getSkuName() != null) {
+                if(!StringUtils.isEmpty(sku.getSkuName())) {
                     Path<String> path = root.get("skuName");
                     Predicate predicate = cb.like(path, "%"+sku.getSkuName()+"%");
                     predicates.add(predicate);
                 }
-                if(sku.getProduct().getCar() != null) {
+                if(sku.getProduct().getCar() != null && !StringUtils.isEmpty(sku.getProduct().getCar().getName())) {
                     Path<String> path = root.get("product").get("car").get("name");
                     Predicate predicate = cb.like(path, "%"+sku.getProduct().getCar().getName()+"%");
                     predicates.add(predicate);
                 }
-                if(sku.getProduct().getRelevantModels() != null) {
+                if(!StringUtils.isEmpty(sku.getProduct().getRelevantModels())) {
                     Path<String> path = root.get("product").get("relevantModels");
                     Predicate predicate = cb.like(path, "%"+sku.getProduct().getRelevantModels()+"%");
                     predicates.add(predicate);
                 }
-                if(sku.getProduct().getPlace() != null) {
+                if(sku.getProduct().getPlace() != null && !StringUtils.isEmpty(sku.getProduct().getPlace().getName())) {
                     Path<String> path = root.get("product").get("place").get("name");
                     Predicate predicate = cb.like(path, "%"+sku.getProduct().getPlace().getName()+"%");
                     predicates.add(predicate);
                 }
-                if(sku.getProduct().getSupplier() != null) {
+                if(sku.getProduct().getSupplier() != null && !StringUtils.isEmpty(sku.getProduct().getSupplier().getName())) {
                     Path<String> path = root.get("product").get("supplier").get("name");
                     Predicate predicate = cb.like(path, "%"+sku.getProduct().getSupplier().getName()+"%");
                     predicates.add(predicate);
                 }
-                if(sku.getProduct().getBrand() != null) {
+                if(sku.getProduct().getBrand() != null && !StringUtils.isEmpty(sku.getProduct().getBrand().getName())) {
                     Path<String> path = root.get("product").get("brand").get("name");
                     Predicate predicate = cb.like(path, "%"+sku.getProduct().getBrand().getName()+"%");
                     predicates.add(predicate);
                 }
-                if(sku.getProduct().getCompany() != null) {
+                if(sku.getProduct().getCompany() != null && !StringUtils.isEmpty(sku.getProduct().getCompany().getName())) {
                     Path<String> path = root.get("product").get("company").get("name");
                     Predicate predicate = cb.like(path, "%"+sku.getProduct().getCompany().getName()+"%");
                     predicates.add(predicate);

@@ -28,8 +28,13 @@ public class CategoryController {
 
     @PostMapping("/categories")
     public ResponseEntity<?> create(@RequestBody Category category) {
-        Category savedCategory = categoryDao.save(category);
-        return new ResponseEntity<>(savedCategory.getId(), HttpStatus.OK);
+        List<Category> categories = categoryDao.findAll();
+        Optional<Category> findAny = categories.parallelStream().filter(c -> c.getName().equals(category.getName())).findAny();
+        if(!findAny.isPresent()) {
+            Category savedCategory = categoryDao.save(category);
+            return new ResponseEntity<>(savedCategory.getId(), HttpStatus.OK);
+        }
+        return new ResponseEntity<>(findAny.get().getId(), HttpStatus.OK);
     }
 
     @PutMapping("/categories/{id}")

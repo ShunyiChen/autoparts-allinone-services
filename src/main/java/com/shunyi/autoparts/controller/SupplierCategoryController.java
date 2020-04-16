@@ -2,7 +2,6 @@ package com.shunyi.autoparts.controller;
 
 import com.shunyi.autoparts.dao.SupplierCategoryDao;
 import com.shunyi.autoparts.exception.SupplierCategoryNotFoundException;
-import com.shunyi.autoparts.model.Category;
 import com.shunyi.autoparts.model.SupplierCategory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,9 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 
@@ -31,8 +28,13 @@ public class SupplierCategoryController {
 
     @PostMapping("/supplier/categories")
     public ResponseEntity<Long> create(@RequestBody SupplierCategory supplierCategory) {
-        SupplierCategory savedCategory = supplierCategoryDao.save(supplierCategory);
-        return new ResponseEntity<>(savedCategory.getId(), HttpStatus.OK);
+        List<SupplierCategory> categories = supplierCategoryDao.findAll();
+        Optional<SupplierCategory> findAny = categories.parallelStream().filter(c -> c.getName().equals(supplierCategory.getName())).findAny();
+        if(!findAny.isPresent()) {
+            SupplierCategory savedCategory = supplierCategoryDao.save(supplierCategory);
+            return new ResponseEntity<>(savedCategory.getId(), HttpStatus.OK);
+        }
+        return new ResponseEntity<>(findAny.get().getId(), HttpStatus.OK);
     }
 
     @PutMapping("/supplier/categories/{id}")
@@ -40,6 +42,7 @@ public class SupplierCategoryController {
         Optional<SupplierCategory> categoryOptional = supplierCategoryDao.findById(id);
         if (!categoryOptional.isPresent()) {
             return ResponseEntity.notFound().build();
+
         }
         supplierCategory.setId(id);
         supplierCategoryDao.save(supplierCategory);
