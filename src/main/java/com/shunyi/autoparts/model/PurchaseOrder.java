@@ -35,6 +35,7 @@ public class PurchaseOrder {
             foreignKey = @ForeignKey(name = "PURCHASE_WAREHOUSE_ID_FK")
     )
     private Warehouse warehouse;
+    /** 供应商 */
     @ManyToOne
     @JoinColumn(name = "purchase_supplier_id",
             foreignKey = @ForeignKey(name = "PURCHASE_SUPPLIER_ID_FK")
@@ -48,28 +49,24 @@ public class PurchaseOrder {
     private BigDecimal freight;
     /** 备注 */
     private String notes;
-    /** 结算方式 */
-    private String payment;
-    /** 应付账号 */
-    private String account;
-    /** 合计数量 */
-    private Integer totalQty;
-    /** 折后金额 */
-    private BigDecimal discountedAmount;
-    /** 合计金额 */
-    private BigDecimal totalAmount;
-    /** 付款金额 */
-    private BigDecimal paidAmount;
-    /** 含税金额 */
-    private BigDecimal taxIncludedAmount;
-    /** 优惠 */
-    private BigDecimal discount;
-    /** 优惠后金额 */
-    private BigDecimal discountedAmount2;
-    /** 应付款 */
-    private BigDecimal due;
     /** 经办人 */
     private String operator;
+    /** 结算方式 */
+    private String payment;
+    /** 货款金额 */
+    private BigDecimal purchaseAmount;
+    /** 垫付费用 */
+    private BigDecimal disbursement;
+    /** 本次优惠 */
+    private BigDecimal discountAmount;
+    /** 应付总额 */
+    private BigDecimal amountPayable;
+    /** 本次付款 */
+    private BigDecimal paymentAmount;
+    /** 账号 */
+    private String account;
+    /** 还款日期 */
+    private Date repaymentDate;
     /** 订单状态 */
     private String status;
     /** 创建时间 */
