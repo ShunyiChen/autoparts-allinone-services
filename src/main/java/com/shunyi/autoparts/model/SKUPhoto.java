@@ -24,6 +24,8 @@ public class SKUPhoto {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
+    /** 图片名 */
+    private String name;
     /** 图片路径 */
     private String path;
     /** 图片所在VFS文件系统 */
