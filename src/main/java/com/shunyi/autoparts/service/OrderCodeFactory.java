@@ -8,29 +8,19 @@ import java.util.Random;
 /**
  * @Description:
  * @Author: 陈顺谊
- * @CreateDate: 2020/4/1 13:40
- * @Version: 1.0
+ * @CreateDate: 2020/4/25
  */
 public class OrderCodeFactory {
 
     /**
      * 采购订单类别头
      */
-    private static final String PURCHASE_CODE = "1";
+    private static final String PURCHASE_CODE = "CG";
     /**
-     * 退货类别头
+     * 采购退货类别头
      */
 
-    private static final String RETURN_ORDER = "2";
-    /**
-     * 退款类别头
-     */
-    private static final String REFUND_ORDER = "3";
-    /**
-     * 未付款重新支付别头
-     */
-
-    private static final String AGAIN_ORDER = "4";
+    private static final String PURCHASE_RETURN_ORDER = "CGTH";
     /**
      * 随即编码
      */
@@ -94,47 +84,21 @@ public class OrderCodeFactory {
     }
 
     /**
-     * 生成订单单号编码
+     * 生成采购订单单号
      *
      * @param userId
      */
-
-
     public static String getPurchaseOrderCode(Long userId) {
         return PURCHASE_CODE + getCode(userId);
     }
 
     /**
-     * 生成退货单号编码
+     * 生成采购退货订单单号
      *
      * @param userId
      */
-
-
-    public static String getReturnCode(Long userId) {
-        return RETURN_ORDER + getCode(userId);
-    }
-
-    /**
-     * 生成退款单号编码
-     *
-     * @param userId
-     */
-
-
-    public static String getRefundCode(Long userId) {
-        return REFUND_ORDER + getCode(userId);
-    }
-
-    /**
-     * 未付款重新支付
-     *
-     * @param userId
-     */
-
-
-    public static String getAgainCode(Long userId) {
-        return AGAIN_ORDER + getCode(userId);
+    public static String getPurchaseReturnOrderCode(Long userId) {
+        return PURCHASE_RETURN_ORDER + getCode(userId);
     }
 
     public static void main(String[] args) {

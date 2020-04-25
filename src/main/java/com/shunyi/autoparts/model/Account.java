@@ -1,6 +1,5 @@
 package com.shunyi.autoparts.model;
 
-import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -27,7 +26,6 @@ public class Account {
      * 编号
      */
     private String code;
-    @ApiModelProperty(notes = "Name of the Account", name = "name", required = true, value = "test name")
     /** 名称 */
     private String name;
     /**

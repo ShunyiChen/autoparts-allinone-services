@@ -3,10 +3,6 @@ package com.shunyi.autoparts.controller;
 import com.shunyi.autoparts.dao.AccountDao;
 import com.shunyi.autoparts.exception.AccountNotFoundException;
 import com.shunyi.autoparts.model.Account;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +19,6 @@ import java.util.Optional;
  * @author Shunyi Chen
  * @date 2020/4/18
  */
-@Api(value = "AccountController", description = "REST APIs related to Account Entity!!!!")
 @RestController
 @CrossOrigin
 public class AccountController {
@@ -59,12 +54,6 @@ public class AccountController {
         accountDao.deleteById(id);
     }
 
-    @ApiOperation(value = "Get list of Accounts in the System ", response = Iterable.class, tags = "retrieveAll")
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Success|OK"),
-            @ApiResponse(code = 401, message = "not authorized!"),
-            @ApiResponse(code = 403, message = "forbidden!!!"),
-            @ApiResponse(code = 404, message = "not found!!!") })
     @GetMapping("/accounts")
     public List<Account> retrieveAll() {
         return accountDao.findAll(Sort.by(Sort.Direction.ASC, "id"));

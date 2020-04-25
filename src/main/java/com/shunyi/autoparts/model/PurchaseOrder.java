@@ -67,6 +67,8 @@ public class PurchaseOrder {
     private BigDecimal paymentAmount;
     /** 账号 */
     private String account;
+    /** 还款金额 */
+    private BigDecimal repaymentAmount;
     /** 还款日期 */
     private Date repaymentDate;
     /** 订单状态 */

@@ -51,7 +51,7 @@ public class PurchaseOrderItemController {
 
     @GetMapping("/purchaseOrderItems")
     public List<PurchaseOrderItem> retrieveAll() {
-        return purchaseOrderItemDao.findAll(Sort.by(Sort.Direction.ASC,"id"));
+        return purchaseOrderItemDao.findAll(Sort.by(Sort.Direction.DESC,"id"));
     }
 
     @GetMapping("/purchaseOrderItems/{id}")

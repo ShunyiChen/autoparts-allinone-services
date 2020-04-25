@@ -7,17 +7,19 @@ import com.shunyi.autoparts.service.OrderCodeFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
 /**
  * @description 采购订单控制器
  * @author Shunyi Chen
- * @date 2020/3/23
+ * @date 2020/4/25
  */
 @RestController
 @CrossOrigin
@@ -29,6 +31,7 @@ public class PurchaseOrderController {
 
     @PostMapping("/purchaseOrders")
     public ResponseEntity<?> create(@RequestBody PurchaseOrder purchaseOrder) {
+        purchaseOrder.setDateCreated(new Date());
         PurchaseOrder savedPurchaseOrder = purchaseOrderDao.save(purchaseOrder);
         return new ResponseEntity<>(savedPurchaseOrder.getId(), HttpStatus.OK);
     }
@@ -51,7 +54,7 @@ public class PurchaseOrderController {
 
     @GetMapping("/purchaseOrders")
     public List<PurchaseOrder> retrieveAll() {
-        return purchaseOrderDao.findAll();
+        return purchaseOrderDao.findAll(Sort.by(Sort.Direction.DESC,"id"));
     }
 
     @GetMapping("/purchaseOrders/{id}")
@@ -65,6 +68,6 @@ public class PurchaseOrderController {
 
     @GetMapping("/purchaseOrders/orderNo/{userId}")
     public String retrieveOrderNo(@PathVariable Long userId) {
-        return "CG"+OrderCodeFactory.getPurchaseOrderCode(userId);
+        return OrderCodeFactory.getPurchaseOrderCode(userId);
     }
 }
