@@ -51,6 +51,8 @@ public class PurchaseOrder {
     private String notes;
     /** 经办人 */
     private String operator;
+    /** 系统登录账号 */
+    private String userName;
     /** 结算方式 */
     private String payment;
     /** 货款金额 */
