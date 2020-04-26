@@ -55,10 +55,16 @@ public class PurchaseOrder {
     private String userName;
     /** 结算方式 */
     private String payment;
+    /** 进货数量 */
+    private Integer purchaseQty;
+    /** 已入库数量 */
+    private Integer warehouseQty;
+    /** 退货数量合计 */
+    private Integer returnedTotalQty;
     /** 货款金额 */
     private BigDecimal purchaseAmount;
     /** 垫付费用 */
-    private BigDecimal disbursement;
+    private BigDecimal disbursementAmount;
     /** 本次优惠 */
     private BigDecimal discountAmount;
     /** 应付总额 */
