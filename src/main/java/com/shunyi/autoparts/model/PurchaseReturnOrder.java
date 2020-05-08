@@ -12,9 +12,9 @@ import java.util.Date;
 /**
  * @description 采购退货单
  * @author Shunyi Chen
- * @date 2020/4/9
+ * @date 2020/5/9
  */
-//@Entity
+@Entity
 @Table(name = "purchase_return_orders")
 @NoArgsConstructor
 @AllArgsConstructor
@@ -31,13 +31,14 @@ public class PurchaseReturnOrder {
     private Date orderDate;
     /** 仓库 */
     @ManyToOne
-    @JoinColumn(name = "purchase_warehouse_id",
-            foreignKey = @ForeignKey(name = "PURCHASE_WAREHOUSE_ID_FK")
+    @JoinColumn(name = "purchase_return_warehouse_id",
+            foreignKey = @ForeignKey(name = "PURCHASE_RETURN_WAREHOUSE_ID_FK")
     )
     private Warehouse warehouse;
+    /** 供应商 */
     @ManyToOne
-    @JoinColumn(name = "purchase_supplier_id",
-            foreignKey = @ForeignKey(name = "PURCHASE_SUPPLIER_ID_FK")
+    @JoinColumn(name = "purchase_return_supplier_id",
+            foreignKey = @ForeignKey(name = "PURCHASE_RETURN_SUPPLIER_ID_FK")
     )
     private Supplier supplier;
     /** 发票类型 */
@@ -48,28 +49,34 @@ public class PurchaseReturnOrder {
     private BigDecimal freight;
     /** 备注 */
     private String notes;
-    /** 结算方式 */
-    private String payment;
-    /** 应付账号 */
-    private String account;
-    /** 合计数量 */
-    private Integer totalQty;
-    /** 折后金额 */
-    private BigDecimal discountedAmount;
-    /** 合计金额 */
-    private BigDecimal totalAmount;
-    /** 付款金额 */
-    private BigDecimal paidAmount;
-    /** 含税金额 */
-    private BigDecimal taxIncludedAmount;
-    /** 优惠 */
-    private BigDecimal discount;
-    /** 优惠后金额 */
-    private BigDecimal discountedAmount2;
-    /** 应付款 */
-    private BigDecimal due;
     /** 经办人 */
     private String operator;
+    /** 系统登录账号 */
+    private String userName;
+    /** 结算方式 */
+    private String payment;
+    /** 进货数量 */
+    private Integer purchaseQty;
+    /** 已入库数量 */
+    private Integer warehouseQty;
+    /** 退货数量合计 */
+    private Integer returnedTotalQty;
+    /** 货款金额 */
+    private BigDecimal purchaseAmount;
+    /** 垫付费用 */
+    private BigDecimal disbursementAmount;
+    /** 本次优惠 */
+    private BigDecimal discountAmount;
+    /** 应付总额 */
+    private BigDecimal amountPayable;
+    /** 本次付款 */
+    private BigDecimal paymentAmount;
+    /** 账号 */
+    private String account;
+    /** 还款金额 */
+    private BigDecimal repaymentAmount;
+    /** 还款日期 */
+    private Date repaymentDate;
     /** 订单状态 */
     private String status;
     /** 创建时间 */
@@ -82,4 +89,14 @@ public class PurchaseReturnOrder {
     private Boolean deleteFlag;
     /** 删除者 */
     private String deleter;
+
+    /** 搜索日期类型 */
+    @Transient
+    private String dateType;
+    @Transient
+    /** 起始日期 */
+    private Date fromDate;
+    @Transient
+    /** 结束日期 */
+    private Date toDate;
 }
