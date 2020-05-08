@@ -14,7 +14,6 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.criteria.*;
-import java.math.BigDecimal;
 import java.util.*;
 
 /**
@@ -47,6 +46,20 @@ public class SKUController {
         sku.setDateUpdated(new Date());
         sku.setUpdatedCount(sku.getUpdatedCount() == null? 1 : sku.getUpdatedCount() + 1);
         skuDao.save(sku);
+        return ResponseEntity.noContent().build();
+    }
+
+    @PutMapping("/sku/stockQty/{id}")
+    public ResponseEntity<?> updateStockQty(@RequestBody Integer increment, @PathVariable Long id) {
+        Optional<SKU> skuOptional = skuDao.findById(id);
+        if (!skuOptional.isPresent()) {
+            return ResponseEntity.notFound().build();
+        }
+        SKU findSKU = skuOptional.get();
+        findSKU.setId(id);
+        findSKU.setDateUpdated(new Date());
+        findSKU.setUpdatedCount(findSKU.getUpdatedCount() == null? 1 : findSKU.getUpdatedCount() + 1);
+        skuDao.updateStockQtyBySKUID(findSKU.getStockQty() + increment, id);
         return ResponseEntity.noContent().build();
     }
 

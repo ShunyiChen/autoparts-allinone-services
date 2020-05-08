@@ -89,4 +89,14 @@ public class PurchaseOrder {
     private Boolean deleteFlag;
     /** 删除者 */
     private String deleter;
+
+    /** 搜索日期类型 */
+    @Transient
+    private String dateType;
+    @Transient
+    /** 起始日期 */
+    private Date fromDate;
+    @Transient
+    /** 结束日期 */
+    private Date toDate;
 }

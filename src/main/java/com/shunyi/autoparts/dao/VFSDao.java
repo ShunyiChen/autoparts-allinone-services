@@ -1,5 +1,6 @@
 package com.shunyi.autoparts.dao;
 
+import com.shunyi.autoparts.exception.VFSNotFoundException;
 import com.shunyi.autoparts.model.VFS;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -16,15 +17,23 @@ import java.util.List;
  */
 public interface VFSDao extends JpaRepository<VFS, Long> {
 
+    /** 根据分类ID查找全部 */
     List<VFS> findAllByCategoryIdOrderById(Long categoryId);
 
+    /**
+     * 取消所有主设置
+     */
     @Modifying
-    @Transactional
+    @Transactional(rollbackOn = VFSNotFoundException.class)
     @Query("update VFS v set v.master=false")
     void restoreMaster();
 
+    /**
+     * 根据ID设置主要VFS
+     * @param vfsId
+     */
     @Modifying
-    @Transactional
+    @Transactional(rollbackOn = VFSNotFoundException.class)
     @Query("update VFS v set v.master=true where v.id=:vfsId")
     void updateMasterByVFSId(@Param(value = "vfsId") Long vfsId);
 
