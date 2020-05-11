@@ -10,17 +10,17 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 /**
- * @description 采购退货单
- * @author Shunyi Chen
- * @date 2020/5/9
+ * @Description: 销售单
+ * @Author: Shunyi
+ * @CreateDate: 2020/5/11 23:09
  */
 @Entity
-@Table(name = "purchase_return_orders")
+@Table(name = "sales_orders")
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
 @ToString
-public class PurchaseReturnOrder {
+public class SalesOrder {
     /** ID */
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
@@ -31,16 +31,16 @@ public class PurchaseReturnOrder {
     private Date orderDate;
     /** 仓库 */
     @ManyToOne
-    @JoinColumn(name = "purchase_return_warehouse_id",
-            foreignKey = @ForeignKey(name = "PURCHASE_RETURN_WAREHOUSE_ID_FK")
+    @JoinColumn(name = "sales_warehouse_id",
+            foreignKey = @ForeignKey(name = "SALES_WAREHOUSE_ID_FK")
     )
     private Warehouse warehouse;
-    /** 供应商 */
+    /** 客户 */
     @ManyToOne
-    @JoinColumn(name = "purchase_return_supplier_id",
-            foreignKey = @ForeignKey(name = "PURCHASE_RETURN_SUPPLIER_ID_FK")
+    @JoinColumn(name = "sales_consumer_id",
+            foreignKey = @ForeignKey(name = "SALES_CONSUMER_ID_FK")
     )
-    private Supplier supplier;
+    private Consumer consumer;
     /** 发票类型 */
     private String invoiceType;
     /** 发票号 */
@@ -55,8 +55,8 @@ public class PurchaseReturnOrder {
     private String userName;
     /** 结算方式 */
     private String payment;
-    /** 退货数量 */
-    private Integer returnQty;
+    /** 进货数量 */
+    private Integer purchaseQty;
     /** 已入库数量 */
     private Integer warehouseQty;
     /** 退货数量合计 */
@@ -67,10 +67,10 @@ public class PurchaseReturnOrder {
     private BigDecimal disbursementAmount;
     /** 本次优惠 */
     private BigDecimal discountAmount;
-    /** 应付总额 */
-    private BigDecimal amountPayable;
-    /** 本次付款 */
-    private BigDecimal paymentAmount;
+    /** 应收总额 */
+    private BigDecimal amountReceivable;
+    /** 本次收款 */
+    private BigDecimal payeeAmount;
     /** 账号 */
     private String account;
     /** 还款金额 */

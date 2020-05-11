@@ -69,8 +69,8 @@ public class PurchaseReturnOrderController {
         return purchaseReturnOrder.get();
     }
 
-    @GetMapping("/purchaseReturnOrders/orderNo/{userId}")
-    public String retrieveOrderNo(@PathVariable Long userId) {
+    @GetMapping("/purchaseReturnOrders/generation/orderNo/{userId}")
+    public String generateOrderNo(@PathVariable Long userId) {
         return OrderCodeFactory.getPurchaseReturnOrderCode(userId);
     }
 
@@ -126,15 +126,9 @@ public class PurchaseReturnOrderController {
                     predicates.add(predicate);
                 }
                 if(purchaseReturnOrder.getFromDate() != null && purchaseReturnOrder.getToDate() != null) {
-                    if(purchaseReturnOrder.getDateType().equals("单据日期")) {
-                        Path path = root.get("orderDate");
-                        Predicate predicate = cb.between(path, purchaseReturnOrder.getFromDate(), purchaseReturnOrder.getToDate());
-                        predicates.add(predicate);
-                    } else {
-                        Path path = root.get("repaymentDate");
-                        Predicate predicate = cb.between(path, purchaseReturnOrder.getFromDate(), purchaseReturnOrder.getToDate());
-                        predicates.add(predicate);
-                    }
+                    Path path = root.get("orderDate");
+                    Predicate predicate = cb.between(path, purchaseReturnOrder.getFromDate(), purchaseReturnOrder.getToDate());
+                    predicates.add(predicate);
                 }
                 return query.where(predicates.toArray(new Predicate[predicates.size()])).getRestriction();
             }

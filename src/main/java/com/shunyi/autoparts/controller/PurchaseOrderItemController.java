@@ -7,10 +7,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.criteria.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -49,6 +52,14 @@ public class PurchaseOrderItemController {
         purchaseOrderItemDao.deleteById(id);
     }
 
+    @DeleteMapping("/purchaseOrderItems/order/{id}")
+    public void deleteByOrderId(@PathVariable Long orderId) {
+        List<PurchaseOrderItem> itemList = purchaseOrderItemDao.findAllByPurchaseOrderIdOrderByIdAsc(orderId);
+        itemList.forEach(e -> {
+            purchaseOrderItemDao.deleteById(e.getId());
+        });
+    }
+
     @GetMapping("/purchaseOrderItems")
     public List<PurchaseOrderItem> retrieveAll() {
         return purchaseOrderItemDao.findAll(Sort.by(Sort.Direction.DESC,"id"));
@@ -66,5 +77,31 @@ public class PurchaseOrderItemController {
     @GetMapping("/purchaseOrderItems/order/{pid}")
     public List<PurchaseOrderItem> retrieveByOrderId(@PathVariable Long pid) {
         return purchaseOrderItemDao.findAllByPurchaseOrderIdOrderByIdAsc(pid);
+    }
+
+    @PostMapping("/purchaseOrderItems/orderNo")
+    public ResponseEntity<?> fetchOrderNoBySkuCode(@RequestBody PurchaseOrderItem purchaseOrderItem) {
+        Specification<PurchaseOrderItem> specification = new Specification<PurchaseOrderItem>() {
+            @Override
+            public Predicate toPredicate(Root<PurchaseOrderItem> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
+                List<Predicate> predicates = new ArrayList<>();
+                if(purchaseOrderItem != null) {
+                    Path<String> path1 = root.get("sku").get("skuCode");
+                    Predicate predicate1 = cb.equal(path1, purchaseOrderItem.getSku().getSkuCode());
+                    predicates.add(predicate1);
+                    Path<String> path2 = root.get("purchaseOrder").get("supplier").get("code");
+                    Predicate predicate2 = cb.equal(path2, purchaseOrderItem.getPurchaseOrder().getSupplier().getCode());
+                    predicates.add(predicate2);
+                }
+                return query.where(predicates.toArray(new Predicate[predicates.size()])).getRestriction();
+            }
+        };
+        Sort sort = Sort.by(Sort.Direction.DESC,"id");
+        List<PurchaseOrderItem> orderList = purchaseOrderItemDao.findAll(specification, sort);
+        if(orderList.size() > 0) {
+            return new ResponseEntity<>(orderList.get(0).getPurchaseOrder().getOrderNo(), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>("", HttpStatus.OK);
+        }
     }
 }

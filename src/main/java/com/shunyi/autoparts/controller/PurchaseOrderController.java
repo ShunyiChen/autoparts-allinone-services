@@ -69,8 +69,17 @@ public class PurchaseOrderController {
         return purchaseOrder.get();
     }
 
-    @GetMapping("/purchaseOrders/orderNo/{userId}")
-    public String retrieveOrderNo(@PathVariable Long userId) {
+    @GetMapping("/purchaseOrders/orderNo/{orderNo}")
+    public PurchaseOrder retrieve(@PathVariable String orderNo) {
+        List<PurchaseOrder> purchaseOrderList = purchaseOrderDao.findAllByOrderNoOrderByIdAsc(orderNo);
+        if (purchaseOrderList.size() > 0) {
+            return purchaseOrderList.get(0);
+        }
+        return null;
+    }
+
+    @GetMapping("/purchaseOrders/generation/orderNo/{userId}")
+    public String generateOrderNo(@PathVariable Long userId) {
         return OrderCodeFactory.getPurchaseOrderCode(userId);
     }
 

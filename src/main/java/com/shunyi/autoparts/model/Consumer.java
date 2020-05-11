@@ -26,11 +26,11 @@ public class Consumer {
     private Long id;
     /** 客户编码 */
     private String code;
-    /** 客户单位名称 */
+    /** 客户名称 */
     private String name;
     /** 联系人 */
     private String contact;
-    /** 电话好 */
+    /** 电话 */
     private String phone;
     /** Email */
     private String email;

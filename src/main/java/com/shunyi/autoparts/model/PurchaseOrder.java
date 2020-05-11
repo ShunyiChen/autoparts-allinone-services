@@ -10,7 +10,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 /**
- * @description 采购订单
+ * @description 采购单
  * @author Shunyi Chen
  * @date 2020/4/4
  */
