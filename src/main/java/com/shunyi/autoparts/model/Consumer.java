@@ -39,6 +39,8 @@ public class Consumer {
     private String contact;
     /** 电话 */
     private String phone;
+    /** 地址 */
+    private String address;
     /** Email */
     private String email;
     /** 车牌号 */
@@ -49,4 +51,8 @@ public class Consumer {
     private BigDecimal lineOfCredit;
     /** 预收款总额 */
     private BigDecimal totalAmountReceived;
+    /** 公司 */
+    private String company;
+    /** 备注 */
+    private String notes;
 }
