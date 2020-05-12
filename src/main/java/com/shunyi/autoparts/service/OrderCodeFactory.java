@@ -6,12 +6,12 @@ import java.util.Date;
 import java.util.Random;
 
 /**
- * @Description:
- * @Author: 陈顺谊
+ * @Description: 生成订单号工具类
+ *
+ * @Author: Shunyi
  * @CreateDate: 2020/4/25
  */
 public class OrderCodeFactory {
-
     /**
      * 采购订单类别头
      */
@@ -19,24 +19,22 @@ public class OrderCodeFactory {
     /**
      * 采购退货类别头
      */
-
     private static final String PURCHASE_RETURN_ORDER = "CGTH";
+    /**
+     * 销售单类别头
+     */
+    private static final String SALES_CODE = "XS";
     /**
      * 随即编码
      */
-
     private static final int[] r = new int[]{7, 9, 6, 2, 8, 1, 3, 0, 5, 4};
     /**
      * 用户id和随机数总长度
      */
-
     private static final int maxLength = 14;
-
     /**
      * 更具id进行加密+加随机数组成固定长度编码
      */
-
-
     private static String toCode(Long id) {
         String idStr = id.toString();
         StringBuilder idsbs = new StringBuilder();
@@ -49,8 +47,6 @@ public class OrderCodeFactory {
     /**
      * 生成时间戳
      */
-
-
     private static String getDateTime() {
         DateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmssSSS");
         return sdf.format(new Date());
@@ -76,8 +72,6 @@ public class OrderCodeFactory {
      *
      * @param userId
      */
-
-
     private static synchronized String getCode(Long userId) {
         userId = userId == null ? 10000 : userId;
         return getDateTime() + toCode(userId);
@@ -99,6 +93,15 @@ public class OrderCodeFactory {
      */
     public static String getPurchaseReturnOrderCode(Long userId) {
         return PURCHASE_RETURN_ORDER + getCode(userId);
+    }
+
+    /**
+     * 生成销售单单号
+     *
+     * @param userId
+     */
+    public static String getSalesOrderCode(Long userId) {
+        return SALES_CODE + getCode(userId);
     }
 
     public static void main(String[] args) {

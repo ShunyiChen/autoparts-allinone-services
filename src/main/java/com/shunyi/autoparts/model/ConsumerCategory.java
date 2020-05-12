@@ -9,8 +9,8 @@ import javax.persistence.*;
 import java.util.Date;
 
 /**
- * @description 客户
- * @author Shunyi Chen
+ * @description 客户分类
+ * @author Shunyi
  * @date 2020/3/23
  */
 @Entity

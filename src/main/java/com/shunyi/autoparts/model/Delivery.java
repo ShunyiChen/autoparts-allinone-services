@@ -27,4 +27,6 @@ public class Delivery {
     private String name;
     /** 货运编码 */
     private String freightCode;
+    /** 货运名称 */
+    private String freightName;
 }

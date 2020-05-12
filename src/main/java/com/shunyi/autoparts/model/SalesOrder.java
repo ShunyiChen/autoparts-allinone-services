@@ -45,8 +45,22 @@ public class SalesOrder {
     private String invoiceType;
     /** 发票号 */
     private String invoiceNo;
-    /** 运费 */
+    /** 发货方式 */
+    @ManyToOne
+    @JoinColumn(name = "sales_delivery_id",
+            foreignKey = @ForeignKey(name = "SALES_DELIVERY_ID_FK")
+    )
+    private Delivery delivery;
+    /** 货运费 */
     private BigDecimal freight;
+    /** 到货地点 */
+    private String deliveryAddress;
+    /** 收货人 */
+    private String consignee;
+    /** 收货人电话 */
+    private String tel;
+    /** 货运站收款 */
+    private boolean freightStationCollection;
     /** 备注 */
     private String notes;
     /** 经办人 */
@@ -55,8 +69,8 @@ public class SalesOrder {
     private String userName;
     /** 结算方式 */
     private String payment;
-    /** 进货数量 */
-    private Integer purchaseQty;
+    /** 销售数量 */
+    private Integer salesQty;
     /** 已入库数量 */
     private Integer warehouseQty;
     /** 退货数量合计 */
@@ -71,6 +85,8 @@ public class SalesOrder {
     private BigDecimal amountReceivable;
     /** 本次收款 */
     private BigDecimal payeeAmount;
+    /** 本次欠款 */
+    private BigDecimal amountOwed;
     /** 账号 */
     private String account;
     /** 还款金额 */
@@ -89,7 +105,6 @@ public class SalesOrder {
     private Boolean deleteFlag;
     /** 删除者 */
     private String deleter;
-
     /** 搜索日期类型 */
     @Transient
     private String dateType;
