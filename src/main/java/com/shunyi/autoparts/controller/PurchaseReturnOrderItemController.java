@@ -49,7 +49,7 @@ public class PurchaseReturnOrderItemController {
         purchaseReturnOrderItemDao.deleteById(id);
     }
 
-    @DeleteMapping("/purchaseReturnOrderItems/order/{id}")
+    @DeleteMapping("/purchaseReturnOrderItems/order/{orderId}")
     public void deleteByOrderId(@PathVariable Long orderId) {
         List<PurchaseReturnOrderItem> itemList = purchaseReturnOrderItemDao.findAllByPurchaseReturnOrderIdOrderByIdAsc(orderId);
         itemList.forEach(e -> {

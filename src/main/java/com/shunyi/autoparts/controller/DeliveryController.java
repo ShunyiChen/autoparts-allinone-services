@@ -2,15 +2,19 @@ package com.shunyi.autoparts.controller;
 
 import com.shunyi.autoparts.dao.DeliveryDao;
 import com.shunyi.autoparts.exception.DeliveryNotFoundException;
+import com.shunyi.autoparts.model.Consumer;
 import com.shunyi.autoparts.model.Delivery;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.criteria.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -66,5 +70,23 @@ public class DeliveryController {
             throw new DeliveryNotFoundException("Delivery not found with id -" + id);
         }
         return delivery.get();
+    }
+
+    @PostMapping("/deliveries/search")
+    public List<Delivery> search(@RequestBody Delivery delivery) {
+        Specification<Delivery> specification = new Specification<Delivery>() {
+            @Override
+            public Predicate toPredicate(Root<Delivery> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
+                List<Predicate> predicates = new ArrayList<>();
+                if(delivery.getName() != null && !delivery.getName().equals("")) {
+                    Path<String> path = root.get("name");
+                    Predicate predicate = cb.equal(path, delivery.getName());
+                    predicates.add(predicate);
+                }
+                return query.where(predicates.toArray(new Predicate[predicates.size()])).getRestriction();
+            }
+        };
+        Sort sort = Sort.by(Sort.Direction.ASC,"id");
+        return deliveryDao.findAll(specification, sort);
     }
 }

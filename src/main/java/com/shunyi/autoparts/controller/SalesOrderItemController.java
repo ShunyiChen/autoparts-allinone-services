@@ -52,7 +52,7 @@ public class SalesOrderItemController {
         salesOrderItemDao.deleteById(id);
     }
 
-    @DeleteMapping("/salesOrderItems/order/{id}")
+    @DeleteMapping("/salesOrderItems/order/{orderId}")
     public void deleteByOrderId(@PathVariable Long orderId) {
         List<SalesOrderItem> itemList = salesOrderItemDao.findAllBySalesOrderIdOrderByIdAsc(orderId);
         itemList.forEach(e -> {
