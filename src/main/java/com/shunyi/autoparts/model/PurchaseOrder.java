@@ -93,10 +93,10 @@ public class PurchaseOrder {
     /** 搜索日期类型 */
     @Transient
     private String dateType;
-    @Transient
     /** 起始日期 */
-    private Date fromDate;
     @Transient
+    private Date fromDate;
     /** 结束日期 */
+    @Transient
     private Date toDate;
 }
