@@ -33,6 +33,10 @@ public class OrderCodeFactory {
      */
     private static final String STOCKTAKING_CODE = "PD";
     /**
+     * 调价单类别头
+     */
+    private static final String PRICE_ADJUSTMENT_CODE = "TJ";
+    /**
      * 随即编码
      */
     private static final int[] r = new int[]{7, 9, 6, 2, 8, 1, 3, 0, 5, 4};
@@ -128,6 +132,15 @@ public class OrderCodeFactory {
      */
     public static String getStocktakingOrderCode(Long userId) {
         return STOCKTAKING_CODE + getCode(userId);
+    }
+
+    /**
+     * 生成调价单单号
+     *
+     * @param userId
+     */
+    public static String getPriceAdjustmentOrderCode(Long userId) {
+        return PRICE_ADJUSTMENT_CODE + getCode(userId);
     }
 
     public static void main(String[] args) {
