@@ -32,7 +32,10 @@ public class Store {
     /** 是否父节点 */
     private Boolean parent;
     /** 用户店铺映射关系 */
-    @OneToMany(mappedBy = "store")
+    @OneToMany
+    @JoinColumn(name = "store_user_id",
+            foreignKey = @ForeignKey(name = "STORE_USER_ID_FK")
+    )
     protected Set<UserStoreMapping> userStoreMappingSet = new HashSet<>();
     /** 仓库 */
     @ManyToOne

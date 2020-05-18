@@ -70,6 +70,7 @@ public class SKUSlotMapping {
     @ManyToOne
     @JoinColumn(
             name = "skuId",
+            foreignKey = @ForeignKey(name = "SSM_SKU_ID_FK"),
             insertable = false, updatable = false
     )
     @JsonIgnore
@@ -78,6 +79,7 @@ public class SKUSlotMapping {
     @ManyToOne
     @JoinColumn(
             name = "slotId",
+            foreignKey = @ForeignKey(name = "SSM_SLOT_ID_FK"),
             insertable = false, updatable = false
     )
     @JsonIgnore

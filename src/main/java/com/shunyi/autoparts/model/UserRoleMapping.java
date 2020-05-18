@@ -57,8 +57,8 @@ public class UserRoleMapping {
 
         @Override
         public boolean equals(Object o) {
-            if (this == o) return true;
-            if (o == null || getClass() != o.getClass()) return false;
+            if (this == o) { return true;}
+            if (o == null || getClass() != o.getClass()) {return false;}
             Id id = (Id) o;
             return Objects.equals(userId, id.userId) &&
                     Objects.equals(roleId, id.roleId);
@@ -84,6 +84,7 @@ public class UserRoleMapping {
     @ManyToOne
     @JoinColumn(
             name = "role_id",
+            foreignKey = @ForeignKey(name = "URM_ROLE_ID_FK"),
             insertable = false, updatable = false
     )
     @JsonIgnore
@@ -92,6 +93,7 @@ public class UserRoleMapping {
     @ManyToOne
     @JoinColumn(
             name = "user_id",
+            foreignKey = @ForeignKey(name = "URM_USER_ID_FK"),
             insertable = false, updatable = false
     )
     @JsonIgnore

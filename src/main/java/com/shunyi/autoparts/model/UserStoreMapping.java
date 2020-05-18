@@ -82,6 +82,7 @@ public class UserStoreMapping {
     @ManyToOne
     @JoinColumn(
             name = "user_id",
+            foreignKey = @ForeignKey(name = "USM_USER_ID_FK"),
             insertable = false,
             updatable = false
     )
@@ -91,6 +92,7 @@ public class UserStoreMapping {
     @ManyToOne
     @JoinColumn(
             name = "store_id",
+            foreignKey = @ForeignKey(name = "USM_STORE_ID_FK"),
             insertable = false,
             updatable = false
     )

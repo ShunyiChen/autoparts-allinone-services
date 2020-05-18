@@ -34,7 +34,10 @@ public class Permission {
     @Column(name = "description")
     private String description;
     /** 角色与权限映射关系 */
-    @OneToMany(mappedBy = "permission")
+    @OneToMany
+    @JoinColumn(name = "permission_role_id",
+            foreignKey = @ForeignKey(name = "PERMISSION_ROLE_ID_FK")
+    )
     protected Set<RolePermissionMapping> rolePermissionMappingSet = new HashSet<>();
     /** 权限编码 */
     @Column(name = "code")

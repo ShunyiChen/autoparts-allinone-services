@@ -11,7 +11,7 @@ import java.util.*;
 
 /**
  * @description 产品SKU实体类
- * @author Shunyi Chen
+ * @author Shunyi
  * @date 2020/4/4
  */
 @Entity
@@ -41,6 +41,16 @@ public class SKU {
     private String skuBarCode;
     /** 库存数量 */
     private Integer stockQty;
+    /** 库存平均价 */
+    private Integer stockAvgPrice;
+    /** 库存金额 */
+    private Integer stockAmount;
+    /** 进货平均价 */
+    private BigDecimal purchaseAvgPrice;
+    /** 进货金额 */
+    private BigDecimal purchaseAmount;
+    /** 均摊价 */
+    private BigDecimal capitationPrice;
     /** 属性字符串 */
     private String properties;
     /** 折扣% */
@@ -49,10 +59,11 @@ public class SKU {
     private String status;
     /** 备注 */
     private String notes;
-    /** 进货平均价 */
-    private BigDecimal avgPrice;
     /** SKU与货位映射集合 */
-    @OneToMany(mappedBy = "sku")
+    @OneToMany
+    @JoinColumn(name = "sku_slot_id",
+            foreignKey = @ForeignKey(name = "SKU_SLOT_ID_FK")
+    )
     private Set<SKUSlotMapping> skuSlotMappingSet = new HashSet<>();
     /** SKU图片列表 */
     @OneToMany
@@ -60,20 +71,4 @@ public class SKU {
             foreignKey = @ForeignKey(name = "SKU_PHOTO_ID_FK")
     )
     private Set<SKUPhoto> photos = new HashSet<>();
-    /** 创建时间 */
-    private Date dateCreated;
-    /** 创建者 */
-    private String creator;
-    /** 更新时间 */
-    private Date dateUpdated;
-    /** 更新者 */
-    private String updater;
-    /** 更新次数 */
-    private Integer updatedCount;
-    /** 删除时间 */
-    private Date dateDeleted;
-    /** 删除标记 */
-    private Boolean deleteFlag;
-    /** 删除者 */
-    private String deleter;
 }

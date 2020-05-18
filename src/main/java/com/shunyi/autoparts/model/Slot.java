@@ -46,6 +46,9 @@ public class Slot {
     /** 第几个存放盒位/货架层中库位 */
     private String level_5;
     /** SKU与货位映射集合 */
-    @OneToMany(mappedBy = "slot")
+    @OneToMany
+    @JoinColumn(name = "slot_sku_id",
+            foreignKey = @ForeignKey(name = "SLOT_SKU_ID_FK")
+    )
     private Set<SKUSlotMapping> SKUSlotMappings = new HashSet<>();
 }

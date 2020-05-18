@@ -31,7 +31,6 @@ public class SKUController {
 
     @PostMapping("/sku")
     public ResponseEntity<?> create(@RequestBody SKU sku) {
-        sku.setDateCreated(new Date());
         SKU savedSKU = skuDao.save(sku);
         return new ResponseEntity<>(savedSKU.getId(), HttpStatus.OK);
     }
@@ -43,8 +42,6 @@ public class SKUController {
             return ResponseEntity.notFound().build();
         }
         sku.setId(id);
-        sku.setDateUpdated(new Date());
-        sku.setUpdatedCount(sku.getUpdatedCount() == null? 1 : sku.getUpdatedCount() + 1);
         skuDao.save(sku);
         return ResponseEntity.noContent().build();
     }
@@ -57,8 +54,6 @@ public class SKUController {
         }
         SKU findSKU = skuOptional.get();
         findSKU.setId(id);
-        findSKU.setDateUpdated(new Date());
-        findSKU.setUpdatedCount(findSKU.getUpdatedCount() == null? 1 : findSKU.getUpdatedCount() + 1);
         skuDao.updateStockQtyBySKUID(findSKU.getStockQty() + increment, id);
         return ResponseEntity.noContent().build();
     }
@@ -71,8 +66,6 @@ public class SKUController {
         }
         SKU findSKU = skuOptional.get();
         findSKU.setId(id);
-        findSKU.setDateUpdated(new Date());
-        findSKU.setUpdatedCount(findSKU.getUpdatedCount() == null? 1 : findSKU.getUpdatedCount() + 1);
         skuDao.updateStockQtyBySKUID(newStockQty, id);
         return ResponseEntity.noContent().build();
     }

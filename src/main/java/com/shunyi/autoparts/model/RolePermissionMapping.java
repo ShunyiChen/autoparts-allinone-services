@@ -57,8 +57,10 @@ public class RolePermissionMapping {
 
         @Override
         public boolean equals(Object o) {
-            if (this == o) return true;
-            if (o == null || getClass() != o.getClass()) return false;
+            if (this == o) {return true;}
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
             Id id = (Id) o;
             return Objects.equals(roleId, id.roleId) &&
                     Objects.equals(permissionId, id.permissionId);
@@ -84,6 +86,7 @@ public class RolePermissionMapping {
     @ManyToOne
     @JoinColumn(
             name = "role_id",
+            foreignKey = @ForeignKey(name = "RPM_ROLE_ID_FK"),
             insertable = false, updatable = false
     )
     @JsonIgnore
@@ -92,6 +95,7 @@ public class RolePermissionMapping {
     @ManyToOne
     @JoinColumn(
             name = "permission_id",
+            foreignKey = @ForeignKey(name = "RPM_PERMISSION_ID_FK"),
             insertable = false, updatable = false
     )
     @JsonIgnore

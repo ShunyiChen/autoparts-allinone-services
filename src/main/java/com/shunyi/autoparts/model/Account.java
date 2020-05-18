@@ -22,14 +22,10 @@ public class Account {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    /**
-     * 编号
-     */
+    /** 编号 */
     private String code;
     /** 名称 */
     private String name;
-    /**
-     * 备注
-     */
+    /** 备注 */
     private String notes;
 }
