@@ -34,15 +34,9 @@ public class Role {
     @Column(name = "description")
     private String description;
     /** 用户与角色映射关系 */
-    @OneToMany
-    @JoinColumn(name = "role_user_id",
-            foreignKey = @ForeignKey(name = "ROLE_USER_ID_FK")
-    )
+    @OneToMany(mappedBy = "role")
     private Set<UserRoleMapping> userRoleMappingSet = new HashSet<>();
     /** 角色与权限映射关系 */
-    @OneToMany
-    @JoinColumn(name = "role_permission_id",
-            foreignKey = @ForeignKey(name = "ROLE_PERMISSION_ID_FK")
-    )
+    @OneToMany(mappedBy = "role")
     private Set<RolePermissionMapping> rolePermissionMappingSet = new HashSet<>();
 }

@@ -67,13 +67,13 @@ public class CategoryController {
         return category.get();
     }
 
-    @GetMapping("/categories/store/{storeId}")
-    public List<Category> retrieveAllByStoreIdOrderByIdAsc(@PathVariable Long storeId) {
-        return categoryDao.findAllByStoreIdOrderByIdAsc(storeId);
+    @GetMapping("/categories/warehouse/{warehouseId}")
+    public List<Category> retrieveAllByStoreIdOrderByIdAsc(@PathVariable Long warehouseId) {
+        return categoryDao.findAllByWarehouseIdOrderByIdAsc(warehouseId);
     }
 
-    @GetMapping("/category/root/{storeId}")
-    public Category retrieveRoot(@PathVariable Long storeId) {
-        return categoryDao.findByParentIdAndStoreId(0L, storeId);
+    @GetMapping("/category/root/{warehouseId}")
+    public Category retrieveRoot(@PathVariable Long warehouseId) {
+        return categoryDao.findByParentIdAndWarehouseId(0L, warehouseId);
     }
 }

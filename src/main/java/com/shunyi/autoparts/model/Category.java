@@ -29,10 +29,10 @@ public class Category {
     private Long parentId;
     /** 是否父节点 */
     private Boolean parent;
-    /** 所属门店 */
-    @ManyToOne
-    @JoinColumn(name = "category_store_id",
-            foreignKey = @ForeignKey(name = "CATEGORY_STORE_ID_FK")
+    /** 所属仓库 */
+    @OneToOne
+    @JoinColumn(name = "category_warehouse_id",
+            foreignKey = @ForeignKey(name = "CATEGORY_WAREHOUSE_ID_FK")
     )
-    private Store store;
+    private Warehouse warehouse;
 }

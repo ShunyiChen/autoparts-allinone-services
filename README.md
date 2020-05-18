@@ -14,7 +14,6 @@
 2.插入permission集合
 3.创建一个Warehouse
 4.创建一个Store
-5.创建一个根Category
-6.创建一个根SupplierCategory
-7.创建一个根ConsumerCategory
-8.创建一个根VFSCategory
+5.创建一个根SupplierCategory
+6.创建一个根ConsumerCategory
+7.创建一个根VFSCategory

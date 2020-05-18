@@ -1,7 +1,9 @@
 package com.shunyi.autoparts.controller;
 
+import com.shunyi.autoparts.dao.CategoryDao;
 import com.shunyi.autoparts.dao.WarehouseDao;
 import com.shunyi.autoparts.exception.WarehouseNotFoundException;
+import com.shunyi.autoparts.model.Category;
 import com.shunyi.autoparts.model.Warehouse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,10 +27,16 @@ public class WarehouseController {
     private static final Logger logger = LoggerFactory.getLogger(WarehouseController.class);
     @Autowired
     private WarehouseDao warehouseDao;
+    @Autowired
+    private CategoryDao categoryDao;
 
     @PostMapping("/warehouses")
     public ResponseEntity<Long> create(@RequestBody Warehouse warehouse) {
         Warehouse savedWarehouse = warehouseDao.save(warehouse);
+        //创建一个产品根分类
+        Category rootCategory = new Category(0L, "所有分类", 0L, true, savedWarehouse);
+        categoryDao.save(rootCategory);
+
         return new ResponseEntity<>(savedWarehouse.getId(), HttpStatus.OK);
     }
 

@@ -43,15 +43,9 @@ public class User {
 	/** 是否激活 */
 	private Boolean enabled;
 	/** 用户和店铺映射关系 */
-	@OneToMany
-	@JoinColumn(name = "user_store_id",
-			foreignKey = @ForeignKey(name = "USER_STORE_ID_FK")
-	)
+	@OneToMany(mappedBy = "user")
 	protected Set<UserStoreMapping> userStoreMappingSet = new HashSet<>();
 	/** 用户和角色映射关系 */
-	@OneToMany
-	@JoinColumn(name = "user_role_id",
-			foreignKey = @ForeignKey(name = "USER_ROLE_ID_FK")
-	)
+	@OneToMany(mappedBy = "user")
 	protected Set<UserRoleMapping> userRoleMappingSet = new HashSet<>();
 }

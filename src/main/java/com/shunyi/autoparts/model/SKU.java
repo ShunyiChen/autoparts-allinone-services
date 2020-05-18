@@ -60,10 +60,7 @@ public class SKU {
     /** 备注 */
     private String notes;
     /** SKU与货位映射集合 */
-    @OneToMany
-    @JoinColumn(name = "sku_slot_id",
-            foreignKey = @ForeignKey(name = "SKU_SLOT_ID_FK")
-    )
+    @OneToMany(mappedBy = "sku")
     private Set<SKUSlotMapping> skuSlotMappingSet = new HashSet<>();
     /** SKU图片列表 */
     @OneToMany

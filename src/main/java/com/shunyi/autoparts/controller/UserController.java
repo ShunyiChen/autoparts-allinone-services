@@ -73,6 +73,8 @@ public class UserController {
 
     @GetMapping("/users")
     public List<User> retrieveAll() {
+
+
         return userDao.findAll(Sort.by(Sort.Direction.ASC, "id")).stream()
                 .filter(e -> !e.getUsername().equalsIgnoreCase("root"))
                 .collect(Collectors.toList());
