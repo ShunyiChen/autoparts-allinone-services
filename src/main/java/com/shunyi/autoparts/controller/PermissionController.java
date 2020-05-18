@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -33,6 +34,12 @@ public class PermissionController {
     public ResponseEntity<?> create(@RequestBody Permission permission) {
         Permission savedPermission = permissionDao.save(permission);
         return new ResponseEntity<>(savedPermission.getId(), HttpStatus.OK);
+    }
+
+    @PostMapping("/permissions/batch")
+    public ResponseEntity<?> createBatch(@RequestBody Iterable<Permission> permissions) {
+        List<Permission> list = permissionDao.saveAll(permissions);
+        return new ResponseEntity<>(list, HttpStatus.OK);
     }
 
     @PutMapping("/permissions/{id}")
@@ -64,4 +71,5 @@ public class PermissionController {
         }
         return department.get();
     }
+
 }
