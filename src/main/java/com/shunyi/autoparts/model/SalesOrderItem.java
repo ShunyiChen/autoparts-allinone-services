@@ -56,6 +56,8 @@ public class SalesOrderItem {
     private BigDecimal priceExcludingTax;
     /** 不含税金额 */
     private BigDecimal amountExcludingTax;
+    /** 均摊单价 */
+    private BigDecimal capitationPrice;
     /** 备注 */
     private String notes;
 }

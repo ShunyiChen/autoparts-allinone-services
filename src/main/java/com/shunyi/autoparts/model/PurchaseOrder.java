@@ -58,7 +58,7 @@ public class PurchaseOrder {
     /** 进货数量 */
     private Integer purchaseQty;
     /** 已入库数量 */
-    private Integer warehouseQty;
+    private Integer stockedQty;
     /** 退货数量合计 */
     private Integer returnedTotalQty;
     /** 货款金额 */
@@ -77,19 +77,16 @@ public class PurchaseOrder {
     private BigDecimal repaymentAmount;
     /** 还款日期 */
     private Date repaymentDate;
+    /** 未税金额 */
+    private BigDecimal totalAmountExcludingTax;
+    /** 含税金额 */
+    private BigDecimal totalAmountIncludingTax;
     /** 订单状态 */
     private String status;
     /** 创建时间 */
     private Date dateCreated;
     /** 创建者 */
     private String creator;
-    /** 删除时间 */
-    private Date dateDeleted;
-    /** 删除标记 */
-    private Boolean deleteFlag;
-    /** 删除者 */
-    private String deleter;
-
     /** 搜索日期类型 */
     @Transient
     private String dateType;

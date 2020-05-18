@@ -97,12 +97,6 @@ public class SalesReturnOrder {
     private Date dateCreated;
     /** 创建者 */
     private String creator;
-    /** 删除时间 */
-    private Date dateDeleted;
-    /** 删除标记 */
-    private Boolean deleteFlag;
-    /** 删除者 */
-    private String deleter;
     /** 搜索日期类型 */
     @Transient
     private String dateType;

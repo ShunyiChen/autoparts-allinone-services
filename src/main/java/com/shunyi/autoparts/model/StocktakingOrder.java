@@ -53,6 +53,11 @@ public class StocktakingOrder {
     private String status;
     /** 备注 */
     private String notes;
+    /** 创建时间 */
+    private Date dateCreated;
+    /** 创建者 */
+    private String creator;
+
     /** 起始日期 */
     @Transient
     private Date fromDate;

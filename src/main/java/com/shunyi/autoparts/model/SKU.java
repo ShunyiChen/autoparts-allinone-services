@@ -49,14 +49,12 @@ public class SKU {
     private BigDecimal purchaseAvgPrice;
     /** 进货金额 */
     private BigDecimal purchaseAmount;
-    /** 均摊价 */
-    private BigDecimal capitationPrice;
     /** 属性字符串 */
     private String properties;
     /** 折扣% */
     private String discountPercentage;
     /** 可用状态 */
-    private String status;
+    private Boolean enabled;
     /** 备注 */
     private String notes;
     /** SKU与货位映射集合 */

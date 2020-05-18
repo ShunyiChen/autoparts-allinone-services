@@ -34,7 +34,7 @@ public class WarehouseController {
     public ResponseEntity<Long> create(@RequestBody Warehouse warehouse) {
         Warehouse savedWarehouse = warehouseDao.save(warehouse);
         //创建一个产品根分类
-        Category rootCategory = new Category(0L, "所有分类", 0L, true, savedWarehouse);
+        Category rootCategory = new Category(0L, "全部分类", 0L, true, savedWarehouse);
         categoryDao.save(rootCategory);
 
         return new ResponseEntity<>(savedWarehouse.getId(), HttpStatus.OK);

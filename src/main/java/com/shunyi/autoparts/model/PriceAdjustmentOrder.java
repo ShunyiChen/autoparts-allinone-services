@@ -45,6 +45,10 @@ public class PriceAdjustmentOrder {
     private String notes;
     /** 订单状态 */
     private String status;
+    /** 创建时间 */
+    private Date dateCreated;
+    /** 创建者 */
+    private String creator;
     /** 起始日期 */
     @Transient
     private Date fromDate;
