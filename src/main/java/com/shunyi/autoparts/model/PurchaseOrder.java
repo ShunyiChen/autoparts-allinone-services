@@ -31,14 +31,14 @@ public class PurchaseOrder {
     private Date orderDate;
     /** 仓库 */
     @ManyToOne
-    @JoinColumn(name = "purchase_warehouse_id",
-            foreignKey = @ForeignKey(name = "PURCHASE_WAREHOUSE_ID_FK")
+    @JoinColumn(name = "purchase_order_warehouse_id",
+            foreignKey = @ForeignKey(name = "PURCHASE_ORDER_WAREHOUSE_ID_FK")
     )
     private Warehouse warehouse;
     /** 供应商 */
     @ManyToOne
-    @JoinColumn(name = "purchase_supplier_id",
-            foreignKey = @ForeignKey(name = "PURCHASE_SUPPLIER_ID_FK")
+    @JoinColumn(name = "purchase_order_supplier_id",
+            foreignKey = @ForeignKey(name = "PURCHASE_ORDER_SUPPLIER_ID_FK")
     )
     private Supplier supplier;
     /** 发票类型 */
@@ -65,6 +65,8 @@ public class PurchaseOrder {
     private BigDecimal purchaseAmount;
     /** 垫付费用 */
     private BigDecimal disbursementAmount;
+    /** 垫付摘要 */
+    private String summary;
     /** 本次优惠 */
     private BigDecimal discountAmount;
     /** 应付总额 */
@@ -83,6 +85,11 @@ public class PurchaseOrder {
     private BigDecimal totalAmountIncludingTax;
     /** 订单状态 */
     private String status;
+    /** 入库 */
+    private Boolean warehousing;
+    /** 付款 */
+    private Boolean paying;
+
     /** 创建时间 */
     private Date dateCreated;
     /** 创建者 */

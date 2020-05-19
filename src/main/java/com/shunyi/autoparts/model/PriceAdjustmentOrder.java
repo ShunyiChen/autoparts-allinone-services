@@ -31,8 +31,8 @@ public class PriceAdjustmentOrder {
     private Date orderDate;
     /** 仓库 */
     @ManyToOne
-    @JoinColumn(name = "price_adjustment_warehouse_id",
-            foreignKey = @ForeignKey(name = "PRICE_ADJUSTMENT_WAREHOUSE_ID_FK")
+    @JoinColumn(name = "price_adjustment_order_warehouse_id",
+            foreignKey = @ForeignKey(name = "PRICE_ADJUSTMENT_ORDER_WAREHOUSE_ID_FK")
     )
     private Warehouse warehouse;
     /** 调价金额 */

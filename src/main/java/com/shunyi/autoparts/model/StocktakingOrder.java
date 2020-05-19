@@ -31,14 +31,14 @@ public class StocktakingOrder {
     private Date orderDate;
     /** 仓库 */
     @ManyToOne
-    @JoinColumn(name = "stocktaking_warehouse_id",
-            foreignKey = @ForeignKey(name = "STOCKTAKING_WAREHOUSE_ID_FK")
+    @JoinColumn(name = "stocktaking_order_warehouse_id",
+            foreignKey = @ForeignKey(name = "STOCKTAKING_ORDER_WAREHOUSE_ID_FK")
     )
     private Warehouse warehouse;
     /** 盘点方式 */
     @ManyToOne
-    @JoinColumn(name = "stocktaking_id",
-            foreignKey = @ForeignKey(name = "STOCKTAKING_ID_FK")
+    @JoinColumn(name = "stocktaking_order_stocktaking_id",
+            foreignKey = @ForeignKey(name = "STOCKTAKING_ORDER_STOCKTAKING_ID_FK")
     )
     private Stocktaking stocktaking;
     /** 盘点数量 */

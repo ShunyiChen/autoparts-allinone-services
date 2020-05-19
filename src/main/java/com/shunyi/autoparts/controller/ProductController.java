@@ -1,8 +1,14 @@
 package com.shunyi.autoparts.controller;
 
 import com.shunyi.autoparts.dao.ProductDao;
+import com.shunyi.autoparts.dao.PurchaseOrderDao;
+import com.shunyi.autoparts.dao.PurchaseOrderItemDao;
+import com.shunyi.autoparts.dao.SKUDao;
 import com.shunyi.autoparts.exception.ProductNotFoundException;
 import com.shunyi.autoparts.model.Product;
+import com.shunyi.autoparts.model.PurchaseOrder;
+import com.shunyi.autoparts.model.PurchaseOrderItem;
+import com.shunyi.autoparts.model.SKU;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +37,10 @@ public class ProductController {
     private static final Logger logger = LoggerFactory.getLogger(ProductController.class);
     @Autowired
     private ProductDao productDao;
+    @Autowired
+    private SKUDao skuDao;
+    @Autowired
+    private PurchaseOrderItemDao purchaseOrderItemDao;
 
     @PostMapping("/products")
     public ResponseEntity<?> create(@RequestBody Product product) {
@@ -50,8 +60,40 @@ public class ProductController {
     }
 
     @DeleteMapping("/products/{id}")
-    public void delete(@PathVariable Long id) {
-        productDao.deleteById(id);
+    public ResponseEntity<?> delete(@PathVariable Long id) {
+        Optional<Product> productOptional = productDao.findById(id);
+        if (!productOptional.isPresent()) {
+            throw new ProductNotFoundException("Product not found with id -" + id);
+        }
+        Product product = productOptional.get();
+        List<SKU> skuList = skuDao.findAllByProduct_idOrderByIdAsc(id);
+        if(skuList.size() > 0) {
+            skuList.forEach(e -> {
+                Specification<PurchaseOrderItem> specification = new Specification<PurchaseOrderItem>() {
+                    @Override
+                    public Predicate toPredicate(Root<PurchaseOrderItem> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
+                        List<Predicate> predicates = new ArrayList<>();
+                        Path<String> path1 = root.get("sku").get("skuCode");
+                        Predicate predicate1 = cb.equal(path1, e.getSkuCode());
+                        predicates.add(predicate1);
+                        return query.where(predicates.toArray(new Predicate[predicates.size()])).getRestriction();
+                    }
+                };
+                List<PurchaseOrderItem> purchaseOrderItems = purchaseOrderItemDao.findAll(specification);
+                if(purchaseOrderItems.size() == 0) {
+                    skuDao.delete(e);
+                }
+            });
+            skuList = skuDao.findAllByProduct_idOrderByIdAsc(id);
+            if(skuList.size() == 0) {
+                productDao.delete(product);
+            } else {
+                return new ResponseEntity<>("0", HttpStatus.OK);
+            }
+        } else {
+            productDao.delete(product);
+        }
+        return new ResponseEntity<>("1", HttpStatus.OK);
     }
 
     @GetMapping("/products")

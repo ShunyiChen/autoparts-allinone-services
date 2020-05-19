@@ -31,14 +31,14 @@ public class SalesOrder {
     private Date orderDate;
     /** 仓库 */
     @ManyToOne
-    @JoinColumn(name = "sales_warehouse_id",
-            foreignKey = @ForeignKey(name = "SALES_WAREHOUSE_ID_FK")
+    @JoinColumn(name = "sales_order_warehouse_id",
+            foreignKey = @ForeignKey(name = "SALES_ORDER_WAREHOUSE_ID_FK")
     )
     private Warehouse warehouse;
     /** 客户 */
     @ManyToOne
-    @JoinColumn(name = "sales_consumer_id",
-            foreignKey = @ForeignKey(name = "SALES_CONSUMER_ID_FK")
+    @JoinColumn(name = "sales_order_consumer_id",
+            foreignKey = @ForeignKey(name = "SALES_ORDER_CONSUMER_ID_FK")
     )
     private Consumer consumer;
     /** 发票类型 */
@@ -47,8 +47,8 @@ public class SalesOrder {
     private String invoiceNo;
     /** 发货方式 */
     @ManyToOne
-    @JoinColumn(name = "sales_delivery_id",
-            foreignKey = @ForeignKey(name = "SALES_DELIVERY_ID_FK")
+    @JoinColumn(name = "sales_order_delivery_id",
+            foreignKey = @ForeignKey(name = "SALES_ORDER_DELIVERY_ID_FK")
     )
     private Delivery delivery;
     /** 货运费 */

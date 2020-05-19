@@ -31,14 +31,14 @@ public class SalesReturnOrder {
     private Date orderDate;
     /** 仓库 */
     @ManyToOne
-    @JoinColumn(name = "sales_return_warehouse_id",
-            foreignKey = @ForeignKey(name = "SALES_RETURN_WAREHOUSE_ID_FK")
+    @JoinColumn(name = "sales_return_order_warehouse_id",
+            foreignKey = @ForeignKey(name = "SALES_RETURN_ORDER_WAREHOUSE_ID_FK")
     )
     private Warehouse warehouse;
     /** 客户 */
     @ManyToOne
     @JoinColumn(name = "sales_return_consumer_id",
-            foreignKey = @ForeignKey(name = "SALES_RETURN_CONSUMER_ID_FK")
+            foreignKey = @ForeignKey(name = "SALES_RETURN_ORDER_CONSUMER_ID_FK")
     )
     private Consumer consumer;
     /** 发票类型 */

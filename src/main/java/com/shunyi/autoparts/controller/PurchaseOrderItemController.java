@@ -79,8 +79,8 @@ public class PurchaseOrderItemController {
         return purchaseOrderItemDao.findAllByPurchaseOrderIdOrderByIdAsc(pid);
     }
 
-    @PostMapping("/purchaseOrderItems/orderNo")
-    public ResponseEntity<?> fetchOrderNoBySkuCode(@RequestBody PurchaseOrderItem purchaseOrderItem) {
+    @PostMapping("/purchaseOrderItems/search")
+    public List<PurchaseOrderItem> search(@RequestBody PurchaseOrderItem purchaseOrderItem) {
         Specification<PurchaseOrderItem> specification = new Specification<PurchaseOrderItem>() {
             @Override
             public Predicate toPredicate(Root<PurchaseOrderItem> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
@@ -88,20 +88,29 @@ public class PurchaseOrderItemController {
                 if(purchaseOrderItem != null) {
                     Path<String> path1 = root.get("sku").get("skuCode");
                     Predicate predicate1 = cb.equal(path1, purchaseOrderItem.getSku().getSkuCode());
-                    predicates.add(predicate1);
                     Path<String> path2 = root.get("purchaseOrder").get("supplier").get("code");
                     Predicate predicate2 = cb.equal(path2, purchaseOrderItem.getPurchaseOrder().getSupplier().getCode());
+                    Path<String> path3 = root.get("purchaseOrder").get("warehouse").get("name");
+                    Predicate predicate3 = cb.equal(path3, purchaseOrderItem.getPurchaseOrder().getWarehouse().getName());
+                    predicates.add(predicate1);
                     predicates.add(predicate2);
+                    predicates.add(predicate3);
                 }
                 return query.where(predicates.toArray(new Predicate[predicates.size()])).getRestriction();
             }
         };
         Sort sort = Sort.by(Sort.Direction.DESC,"id");
-        List<PurchaseOrderItem> orderList = purchaseOrderItemDao.findAll(specification, sort);
+        return purchaseOrderItemDao.findAll(specification, sort);
+    }
+
+    @PostMapping("/purchaseOrderItems/fetchOrderNo")
+    public ResponseEntity<?> fetchOrderNoBySkuCode(@RequestBody PurchaseOrderItem purchaseOrderItem) {
+        List<PurchaseOrderItem> orderList = search(purchaseOrderItem);
         if(orderList.size() > 0) {
             return new ResponseEntity<>(orderList.get(0).getPurchaseOrder().getOrderNo(), HttpStatus.OK);
         } else {
             return new ResponseEntity<>("", HttpStatus.OK);
         }
     }
+
 }

@@ -45,7 +45,7 @@ public class SKU {
     private Integer stockAvgPrice;
     /** 库存金额 */
     private Integer stockAmount;
-    /** 进货平均价 */
+    /** 进货平均单价 */
     private BigDecimal purchaseAvgPrice;
     /** 进货金额 */
     private BigDecimal purchaseAmount;
