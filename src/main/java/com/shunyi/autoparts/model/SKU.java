@@ -52,7 +52,7 @@ public class SKU {
     /** 属性字符串 */
     private String properties;
     /** 折扣% */
-    private String discountPercentage;
+    private BigDecimal discount;
     /** 可用状态 */
     private Boolean enabled;
     /** 备注 */
