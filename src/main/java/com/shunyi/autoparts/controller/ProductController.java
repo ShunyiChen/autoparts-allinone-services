@@ -1,14 +1,8 @@
 package com.shunyi.autoparts.controller;
 
-import com.shunyi.autoparts.dao.ProductDao;
-import com.shunyi.autoparts.dao.PurchaseOrderDao;
-import com.shunyi.autoparts.dao.PurchaseOrderItemDao;
-import com.shunyi.autoparts.dao.SKUDao;
+import com.shunyi.autoparts.dao.*;
 import com.shunyi.autoparts.exception.ProductNotFoundException;
-import com.shunyi.autoparts.model.Product;
-import com.shunyi.autoparts.model.PurchaseOrder;
-import com.shunyi.autoparts.model.PurchaseOrderItem;
-import com.shunyi.autoparts.model.SKU;
+import com.shunyi.autoparts.model.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +29,8 @@ import java.util.Optional;
 public class ProductController {
     /** 日志 */
     private static final Logger logger = LoggerFactory.getLogger(ProductController.class);
+    @Autowired
+    private BasicAttributeDao basicAttributeDao;
     @Autowired
     private ProductDao productDao;
     @Autowired
@@ -87,11 +83,19 @@ public class ProductController {
             skuList = skuDao.findAllByProduct_idOrderByIdAsc(id);
             if(skuList.size() == 0) {
                 productDao.delete(product);
+                List<BasicAttributes> list = basicAttributeDao.findByProduct_id(product.getId());
+                list.forEach(e -> {
+                    basicAttributeDao.delete(e);
+                });
             } else {
                 return new ResponseEntity<>("0", HttpStatus.OK);
             }
         } else {
             productDao.delete(product);
+            List<BasicAttributes> list = basicAttributeDao.findByProduct_id(product.getId());
+            list.forEach(e -> {
+                basicAttributeDao.delete(e);
+            });
         }
         return new ResponseEntity<>("1", HttpStatus.OK);
     }
