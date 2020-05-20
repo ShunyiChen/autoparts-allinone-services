@@ -41,51 +41,44 @@ public class PurchaseReturnOrder {
             foreignKey = @ForeignKey(name = "PURCHASE_RETURN_ORDER_SUPPLIER_ID_FK")
     )
     private Supplier supplier;
+    /** 退回数量 */
+    private Integer returnQty;
+    /** 未税金额 */
+    private BigDecimal totalAmountExcludingTax;
+    /** 含税金额 */
+    private BigDecimal totalAmountIncludingTax;
+    /** 税额 */
+    private BigDecimal taxAmount;
+    /** 费用金额 */
+    private BigDecimal totalFees;
+    /** 费用已付金额 */
+    private BigDecimal totalFeesPaid;
+    /** 货款已付金额 */
+    private BigDecimal goodsPaymentPaid;
+    /** 应付总额 */
+    private BigDecimal amountPayable;
+    /** 付款金额合计 */
+    private BigDecimal totalPaymentAmount;
     /** 发票类型 */
     private String invoiceType;
     /** 发票号 */
     private String invoiceNo;
-    /** 运费 */
-    private BigDecimal freight;
     /** 备注 */
     private String notes;
     /** 经办人 */
     private String operator;
-    /** 系统登录账号 */
+    /** 操作员 */
     private String userName;
     /** 结算方式 */
     private String payment;
-    /** 退货数量 */
-    private Integer returnQty;
-    /** 已入库数量 */
-    private Integer warehouseQty;
-    /** 退货数量合计 */
-    private Integer returnedTotalQty;
-    /** 货款金额 */
-    private BigDecimal purchaseAmount;
-    /** 垫付费用 */
-    private BigDecimal disbursementAmount;
-    /** 本次优惠 */
-    private BigDecimal discountAmount;
-    /** 应付总额 */
-    private BigDecimal amountPayable;
-    /** 本次付款 */
-    private BigDecimal paymentAmount;
-    /** 账号 */
-    private String account;
-    /** 还款金额 */
-    private BigDecimal repaymentAmount;
-    /** 还款日期 */
-    private Date repaymentDate;
     /** 订单状态 */
     private String status;
     /** 创建时间 */
     private Date dateCreated;
     /** 创建者 */
     private String creator;
-    /** 搜索日期类型 */
-    @Transient
-    private String dateType;
+    /** 出库 */
+    private Boolean warehousingOut;
     /** 起始日期 */
     @Transient
     private Date fromDate;

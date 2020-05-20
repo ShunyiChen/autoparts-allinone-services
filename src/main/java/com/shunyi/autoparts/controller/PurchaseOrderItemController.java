@@ -103,13 +103,13 @@ public class PurchaseOrderItemController {
         return purchaseOrderItemDao.findAll(specification, sort);
     }
 
-    @PostMapping("/purchaseOrderItems/fetchOrderNo")
+    @PostMapping("/purchaseOrderItems/lastItem")
     public ResponseEntity<?> fetchOrderNoBySkuCode(@RequestBody PurchaseOrderItem purchaseOrderItem) {
         List<PurchaseOrderItem> orderList = search(purchaseOrderItem);
         if(orderList.size() > 0) {
-            return new ResponseEntity<>(orderList.get(0).getPurchaseOrder().getOrderNo(), HttpStatus.OK);
+            return new ResponseEntity<>(orderList.get(0), HttpStatus.OK);
         } else {
-            return new ResponseEntity<>("", HttpStatus.OK);
+            return new ResponseEntity<>(new PurchaseOrderItem(), HttpStatus.OK);
         }
     }
 

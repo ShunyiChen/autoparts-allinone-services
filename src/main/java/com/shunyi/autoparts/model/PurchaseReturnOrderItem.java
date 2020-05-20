@@ -40,12 +40,6 @@ public class PurchaseReturnOrderItem {
     private SKU sku;
     /** 数量 */
     private Integer quantity;
-    /** 金额 */
-    private BigDecimal amount;
-    /** 折扣 */
-    private BigDecimal discount;
-    /** 折后金额 */
-    private BigDecimal discountedAmount;
     /** 税率% */
     private BigDecimal taxRate;
     /** 税额 */
@@ -60,4 +54,6 @@ public class PurchaseReturnOrderItem {
     private BigDecimal amountExcludingTax;
     /** 备注 */
     private String notes;
+    /** 可退货数量 */
+    private Integer returnableQty;
 }
