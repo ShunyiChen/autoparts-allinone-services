@@ -65,14 +65,14 @@ public class SalesOrder {
     private String notes;
     /** 经办人 */
     private String operator;
-    /** 系统登录账号 */
+    /** 操作员 */
     private String userName;
     /** 结算方式 */
     private String payment;
     /** 销售数量 */
     private Integer salesQty;
-    /** 已入库数量 */
-    private Integer warehouseQty;
+    /** 已出库数量 */
+    private Integer outboundQty;
     /** 退货数量合计 */
     private Integer returnedTotalQty;
     /** 货款金额 */
@@ -83,6 +83,8 @@ public class SalesOrder {
     private BigDecimal discountAmount;
     /** 应收总额 */
     private BigDecimal amountReceivable;
+    /** 已开票总额 */
+    private BigDecimal totalInvoiceAmount;
     /** 本次收款 */
     private BigDecimal payeeAmount;
     /** 本次欠款 */
@@ -93,6 +95,10 @@ public class SalesOrder {
     private BigDecimal repaymentAmount;
     /** 还款日期 */
     private Date repaymentDate;
+    /** 未税金额 */
+    private BigDecimal totalAmountExcludingTax;
+    /** 含税金额 */
+    private BigDecimal totalAmountIncludingTax;
     /** 订单状态 */
     private String status;
     /** 创建时间 */
@@ -108,4 +114,10 @@ public class SalesOrder {
     /** 结束日期 */
     @Transient
     private Date toDate;
+    /** 出库 */
+    private Boolean warehousingOut;
+    /** 收款 */
+    private Boolean gathering;
+    /** 总额 */
+    private BigDecimal totalAmount;
 }
