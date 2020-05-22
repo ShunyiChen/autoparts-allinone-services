@@ -79,8 +79,8 @@ public class SalesOrderItemController {
         return salesOrderItemDao.findAllBySalesOrderIdOrderByIdAsc(pid);
     }
 
-    @PostMapping("/salesOrderItems/orderNo")
-    public ResponseEntity<?> fetchOrderNoBySkuCode(@RequestBody SalesOrderItem salesOrderItem) {
+    @PostMapping("/salesOrderItems/search")
+    public List<SalesOrderItem> search(@RequestBody SalesOrderItem salesOrderItem) {
         Specification<SalesOrderItem> specification = new Specification<SalesOrderItem>() {
             @Override
             public Predicate toPredicate(Root<SalesOrderItem> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
@@ -92,16 +92,24 @@ public class SalesOrderItemController {
                     Path<String> path2 = root.get("salesOrder").get("consumer").get("code");
                     Predicate predicate2 = cb.equal(path2, salesOrderItem.getSalesOrder().getConsumer().getCode());
                     predicates.add(predicate2);
+                    Path<String> path3 = root.get("salesOrder").get("warehouse").get("name");
+                    Predicate predicate3 = cb.equal(path3, salesOrderItem.getSalesOrder().getWarehouse().getName());
+                    predicates.add(predicate3);
                 }
                 return query.where(predicates.toArray(new Predicate[predicates.size()])).getRestriction();
             }
         };
         Sort sort = Sort.by(Sort.Direction.DESC,"id");
-        List<SalesOrderItem> orderList = salesOrderItemDao.findAll(specification, sort);
+        return salesOrderItemDao.findAll(specification, sort);
+    }
+
+    @PostMapping("/salesOrderItems/lastItem")
+    public ResponseEntity<?> fetchOrderNoBySkuCode(@RequestBody SalesOrderItem salesOrderItem) {
+        List<SalesOrderItem> orderList = search(salesOrderItem);
         if(orderList.size() > 0) {
-            return new ResponseEntity<>(orderList.get(0).getSalesOrder().getOrderNo(), HttpStatus.OK);
+            return new ResponseEntity<>(orderList.get(0), HttpStatus.OK);
         } else {
-            return new ResponseEntity<>("", HttpStatus.OK);
+            return new ResponseEntity<>(new SalesOrderItem(), HttpStatus.OK);
         }
     }
 }

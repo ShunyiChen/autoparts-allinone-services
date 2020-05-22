@@ -41,26 +41,8 @@ public class SalesReturnOrder {
             foreignKey = @ForeignKey(name = "SALES_RETURN_ORDER_CONSUMER_ID_FK")
     )
     private Consumer consumer;
-    /** 发票类型 */
-    private String invoiceType;
-    /** 发票号 */
-    private String invoiceNo;
-    /** 运费 */
-    private BigDecimal freight;
-    /** 备注 */
-    private String notes;
-    /** 经办人 */
-    private String operator;
-    /** 系统登录账号 */
-    private String userName;
-    /** 结算方式 */
-    private String payment;
-    /** 退货数量 */
+    /** 数量合计 */
     private Integer returnQty;
-    /** 已入库数量 */
-    private Integer warehouseQty;
-    /** 退货数量合计 */
-    private Integer returnedTotalQty;
     /** 含税金额 */
     private BigDecimal amountIncludingTax;
     /** 不含税金额 */
@@ -69,34 +51,34 @@ public class SalesReturnOrder {
     private BigDecimal taxAmount;
     /** 总额 */
     private BigDecimal totalAmount;
-    /** 费用金额 */
-    private BigDecimal expenses;
-    /** 费用已退金额 */
-    private BigDecimal returnedExpenses;
+    /** 代垫费用金额 */
+    private BigDecimal disbursementAmount;
     /** 货款已退金额 */
     private BigDecimal returnedSalesAmount;
-    /** 已退款金额 */
+    /** 代垫费用已退金额 */
+    private BigDecimal disbursementReturnedAmount;
+    /** 已退款总额 */
     private BigDecimal totalReturnedAmount;
-    /** 垫付费用 */
-    private BigDecimal disbursementAmount;
-    /** 本次优惠 */
-    private BigDecimal discountAmount;
-    /** 本次付款 */
-    private BigDecimal paymentAmount;
-    /** 账号 */
-    private String account;
-    /** 还款金额 */
-    private BigDecimal repaymentAmount;
-    /** 还款日期 */
-    private Date repaymentDate;
-    /** 已还金额 */
-    private Date paidAmount;
+    /** 发票类型 */
+    private String invoiceType;
+    /** 发票号 */
+    private String invoiceNo;
+    /** 备注 */
+    private String notes;
+    /** 经办人 */
+    private String operator;
+    /** 操作员 */
+    private String userName;
+    /** 结算方式 */
+    private String payment;
     /** 订单状态 */
     private String status;
     /** 创建时间 */
     private Date dateCreated;
     /** 创建者 */
     private String creator;
+    /** 入库 */
+    private Boolean warehousing;
     /** 搜索日期类型 */
     @Transient
     private String dateType;

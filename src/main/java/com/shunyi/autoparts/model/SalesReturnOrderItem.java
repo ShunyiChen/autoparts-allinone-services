@@ -60,4 +60,12 @@ public class SalesReturnOrderItem {
     private BigDecimal amountExcludingTax;
     /** 备注 */
     private String notes;
+    /** 可退货数量 */
+    private Integer returnableQty;
+    /** 异常 */
+    private boolean exceptional;
+    /** 开单价格 */
+    private BigDecimal billingPrice;
+    /** 开单金额 */
+    private BigDecimal billingAmount;
 }
