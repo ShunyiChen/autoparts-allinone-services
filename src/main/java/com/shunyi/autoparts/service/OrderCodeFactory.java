@@ -15,27 +15,27 @@ public class OrderCodeFactory {
     /**
      * 采购订单类别头
      */
-    private static final String PURCHASE_CODE = "CG";
+    public static final String PURCHASE_CODE = "CG";
     /**
      * 采购退货类别头
      */
-    private static final String PURCHASE_RETURN_ORDER = "CGTH";
+    public static final String PURCHASE_RETURN_ORDER = "CGTH";
     /**
      * 销售单类别头
      */
-    private static final String SALES_CODE = "XS";
+    public static final String SALES_CODE = "XS";
     /**
      * 销售退货单类别头
      */
-    private static final String SALES_RETURN_CODE = "XSTH";
-    /**
-     * 盘点单类别头
-     */
-    private static final String STOCKTAKING_CODE = "PD";
+    public static final String SALES_RETURN_CODE = "XSTH";
     /**
      * 调价单类别头
      */
-    private static final String PRICE_ADJUSTMENT_CODE = "TJ";
+    public static final String PRICE_ADJUSTMENT_CODE = "TJ";
+    /**
+     * 盘点单类别头
+     */
+    public static final String STOCKTAKING_CODE = "PD";
     /**
      * 随即编码
      */
