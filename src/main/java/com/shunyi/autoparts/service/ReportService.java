@@ -18,8 +18,11 @@ import org.springframework.stereotype.Service;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.*;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -42,6 +45,8 @@ public class ReportService {
 
 	@Autowired
 	private PurchaseOrderDao purchaseOrderDao;
+	@Autowired
+	private PurchaseOrderItemDao purchaseOrderItemDao;
 	@Autowired
 	private PurchaseReturnOrderDao purchaseReturnOrderDao;
 	@Autowired
@@ -93,66 +98,69 @@ public class ReportService {
 	 */
 	public void generate(String orderNo, String templateName, String reportFileType) {
 		if(orderNo.startsWith(OrderCodeFactory.PURCHASE_CODE)) {
-			List<PurchaseOrder> list = purchaseOrderDao.findAllByOrderNoOrderByIdAsc(orderNo);
-			if (list.size() > 0) {
+			List<PurchaseOrder> purchaseOrderList = purchaseOrderDao.findAllByOrderNoOrderByIdAsc(orderNo);
+			if (purchaseOrderList.size() > 0) {
+				List<PurchaseOrderItem> itemList = purchaseOrderItemDao.findAllByPurchaseOrderIdOrderByIdAsc(purchaseOrderList.get(0).getId());
+				System.out.println(itemList);
+
 				if(reportFileType.equals(PDF)) {
-					jasperToPdf(list, orderNo, templateName);
+					jasperToPdf(itemList, orderNo, templateName);
 				} else if(reportFileType.equals(HTML)) {
-					jasperToHtml(list, orderNo, templateName);
+					jasperToHtml(itemList, orderNo, templateName);
 				} else if(reportFileType.equals(PNG)) {
-					jasperToPng(list, orderNo, templateName);
+					jasperToPng(itemList, orderNo, templateName);
 				}
 			}
 
 		} else if(orderNo.startsWith(OrderCodeFactory.PURCHASE_RETURN_ORDER)) {
-			List<PurchaseReturnOrder> list = purchaseReturnOrderDao.findAllByOrderNoOrderByIdAsc(orderNo);
-			if(reportFileType.equals(PDF)) {
-				jasperToPdf(list, orderNo, templateName);
-			} else if(reportFileType.equals(HTML)) {
-				jasperToHtml(list, orderNo, templateName);
-			} else if(reportFileType.equals(PNG)) {
-				jasperToPng(list, orderNo, templateName);
-			}
+//			List<PurchaseReturnOrder> list = purchaseReturnOrderDao.findAllByOrderNoOrderByIdAsc(orderNo);
+//			if(reportFileType.equals(PDF)) {
+//				jasperToPdf(list, orderNo, templateName);
+//			} else if(reportFileType.equals(HTML)) {
+//				jasperToHtml(list, orderNo, templateName);
+//			} else if(reportFileType.equals(PNG)) {
+//				jasperToPng(list, orderNo, templateName);
+//			}
 
 		} else if(orderNo.startsWith(OrderCodeFactory.SALES_CODE)) {
-			List<SalesOrder> list = salesOrderDao.findAllByOrderNoOrderByIdAsc(orderNo);
-			if(reportFileType.equals(PDF)) {
-				jasperToPdf(list, orderNo, templateName);
-			} else if(reportFileType.equals(HTML)) {
-				jasperToHtml(list, orderNo, templateName);
-			} else if(reportFileType.equals(PNG)) {
-				jasperToPng(list, orderNo, templateName);
-			}
+//			List<SalesOrder> list = salesOrderDao.findAllByOrderNoOrderByIdAsc(orderNo);
+//			if(reportFileType.equals(PDF)) {
+//				jasperToPdf(list, orderNo, templateName);
+//			} else if(reportFileType.equals(HTML)) {
+//				jasperToHtml(list, orderNo, templateName);
+//			} else if(reportFileType.equals(PNG)) {
+//				jasperToPng(list, orderNo, templateName);
+//			}
 
 		} else if(orderNo.startsWith(OrderCodeFactory.SALES_RETURN_CODE)) {
-			List<SalesReturnOrder> list = salesReturnOrderDao.findAllByOrderNoOrderByIdAsc(orderNo);
-			if(reportFileType.equals(PDF)) {
-				jasperToPdf(list, orderNo, templateName);
-			} else if(reportFileType.equals(HTML)) {
-				jasperToHtml(list, orderNo, templateName);
-			} else if(reportFileType.equals(PNG)) {
-				jasperToPng(list, orderNo, templateName);
-			}
+//			List<SalesReturnOrder> list = salesReturnOrderDao.findAllByOrderNoOrderByIdAsc(orderNo);
+//			if(reportFileType.equals(PDF)) {
+//				jasperToPdf(list, orderNo, templateName);
+//			} else if(reportFileType.equals(HTML)) {
+//				jasperToHtml(list, orderNo, templateName);
+//			} else if(reportFileType.equals(PNG)) {
+//				jasperToPng(list, orderNo, templateName);
+//			}
 
 		} else if(orderNo.startsWith(OrderCodeFactory.PRICE_ADJUSTMENT_CODE)) {
-			List<PriceAdjustmentOrder> list = priceAdjustmentOrderDao.findAllByOrderNoOrderByIdAsc(orderNo);
-			if(reportFileType.equals(PDF)) {
-				jasperToPdf(list, orderNo, templateName);
-			} else if(reportFileType.equals(HTML)) {
-				jasperToHtml(list, orderNo, templateName);
-			} else if(reportFileType.equals(PNG)) {
-				jasperToPng(list, orderNo, templateName);
-			}
+//			List<PriceAdjustmentOrder> list = priceAdjustmentOrderDao.findAllByOrderNoOrderByIdAsc(orderNo);
+//			if(reportFileType.equals(PDF)) {
+//				jasperToPdf(list, orderNo, templateName);
+//			} else if(reportFileType.equals(HTML)) {
+//				jasperToHtml(list, orderNo, templateName);
+//			} else if(reportFileType.equals(PNG)) {
+//				jasperToPng(list, orderNo, templateName);
+//			}
 
 		} else if(orderNo.startsWith(OrderCodeFactory.STOCKTAKING_CODE)) {
-			List<StocktakingOrder> list = stocktakingOrderDao.findAllByOrderNoOrderByIdAsc(orderNo);
-			if(reportFileType.equals(PDF)) {
-				jasperToPdf(list, orderNo, templateName);
-			} else if(reportFileType.equals(HTML)) {
-				jasperToHtml(list, orderNo, templateName);
-			} else if(reportFileType.equals(PNG)) {
-				jasperToPng(list, orderNo, templateName);
-			}
+//			List<StocktakingOrder> list = stocktakingOrderDao.findAllByOrderNoOrderByIdAsc(orderNo);
+//			if(reportFileType.equals(PDF)) {
+//				jasperToPdf(list, orderNo, templateName);
+//			} else if(reportFileType.equals(HTML)) {
+//				jasperToHtml(list, orderNo, templateName);
+//			} else if(reportFileType.equals(PNG)) {
+//				jasperToPng(list, orderNo, templateName);
+//			}
 		}
 	}
 
@@ -219,4 +227,50 @@ public class ReportService {
 		}
 	}
 
+
+	public static void main(String[] args) {
+
+		ReportService d = new ReportService();
+		d.jasperToPdf(createPurchaseOrderItemCollection(), "CG2020052323525096394287362311041", "采购单.jasper");
+	}
+
+	public static List<PurchaseOrderItem> createPurchaseOrderItemCollection() {
+		Supplier supplier = new Supplier();
+		supplier.setName("大连聚鑫伟业");
+		PurchaseOrder po = new PurchaseOrder();
+		po.setOrderDate(new Date());
+		po.setOrderNo("CG00012312313123");
+		po.setInvoiceNo("112233445");
+		po.setSupplier(supplier);
+		po.setOperator("陈顺谊");
+		po.setUserName("无视了");
+
+		Product product = new Product();
+		Unit unit = new Unit();
+		unit.setName("个");
+		product.setUnit(unit);
+		Car car = new Car();
+		car.setCode("FKS");
+		car.setName("福克斯");
+		product.setCar(car);
+
+		SKU sku = new SKU();
+		sku.setSkuCode("05MDO2.0-GT");
+		sku.setSkuName("缸套");
+		sku.setProduct(product);
+
+		List<PurchaseOrderItem> listItems = new ArrayList<>();
+		for(int i = 0; i < 10; i++) {
+			PurchaseOrderItem item = new PurchaseOrderItem();
+			item.setPurchaseOrder(po);
+			item.setSku(sku);
+			item.setQuantity(2*i);
+			item.setPriceExcludingTax(new BigDecimal(56.22+i).setScale(2, RoundingMode.HALF_UP));
+			item.setAmountExcludingTax(new BigDecimal(112.4+i).setScale(2, RoundingMode.HALF_UP));
+			item.setTaxAmount(new BigDecimal(i).setScale(2, RoundingMode.HALF_UP));
+			item.setNotes("无备注"+i);
+			listItems.add(item);
+		}
+		return listItems;
+	}
 }

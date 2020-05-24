@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -35,6 +36,7 @@ public class ReportController {
         Optional<Report> findAny = reports.parallelStream().filter(c -> c.getOrderNo().equals(report.getOrderNo())).findAny();
         if(!findAny.isPresent()) {
             reportService.generate(report.getOrderNo(), report.getTemplateName(), report.getReportFileType());
+            report.setDateCreated(new Date());
             Report savedReport = reportDao.save(report);
             return new ResponseEntity<>(savedReport.getId(), HttpStatus.OK);
         }
