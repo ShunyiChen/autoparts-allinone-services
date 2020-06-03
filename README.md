@@ -21,3 +21,15 @@
 
 构建：
 mvn clean package
+
+运行：
+mvn spring-boot:run
+
+快捷运行配置：
+windows环境下，将win目录加到path环境变量中，执行run启动
+
+
+与swagger2整合
+1.http://localhost:8080/swagger-ui.html
+2.执行/authenticate取token
+3.设置全局token(token以Bearer 开头)
