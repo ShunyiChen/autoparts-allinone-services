@@ -1,5 +1,6 @@
 package com.shunyi.autoparts.config;
 
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import springfox.documentation.service.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -20,6 +21,7 @@ import static springfox.documentation.builders.PathSelectors.regex;
 
 @Configuration
 @EnableSwagger2
+@ConditionalOnProperty(name = "swagger.enable", havingValue = "true")
 public class SwaggerConfig extends WebMvcConfigurationSupport {
     @Bean
     public Docket productApi() {

@@ -1,0 +1,12 @@
+server:
+   port: 8080
+jwt.secret: javainuse
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:33061/autoparts
+    username: root
+    password: cDe3@wsx
+    driver-class-name: com.mysql.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update

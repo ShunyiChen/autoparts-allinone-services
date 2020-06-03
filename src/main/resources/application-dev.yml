@@ -1,0 +1,13 @@
+server:
+   port: 8080
+swagger.enable: true
+jwt.secret: javainuse
+spring:
+   datasource:
+      url: jdbc:h2:~/autoparts
+      username: sa
+      password: sa
+      driver-class-name: org.h2.Driver
+   jpa:
+      hibernate:
+         ddl-auto: update
