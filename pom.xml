@@ -86,22 +86,24 @@
 		<dependency>
 			<groupId>com.lowagie</groupId>
 			<artifactId>itext</artifactId>
+			<scope>system</scope>
 			<version>2.1.7</version>
+			<systemPath>${project.basedir}/lib/iText-2.1.7.js2.jar</systemPath>
 		</dependency>
-		<dependency>
-			<groupId>it.businesslogic.ireport</groupId>
-			<artifactId>iReport-utils</artifactId>
-			<scope>system</scope>
-			<version>2.0.1</version>
-			<systemPath>${project.basedir}/lib/iReport-utils-2.0.1.jar</systemPath>
-		</dependency>
-		<dependency>
-			<groupId>net.sf</groupId>
-			<artifactId>jasperreports</artifactId>
-			<scope>system</scope>
-			<version>6.5.1</version>
-			<systemPath>${project.basedir}/lib/jasperreports-6.5.1.jar</systemPath>
-		</dependency>
+<!--		<dependency>-->
+<!--			<groupId>it.businesslogic.ireport</groupId>-->
+<!--			<artifactId>iReport-utils</artifactId>-->
+<!--			<scope>system</scope>-->
+<!--			<version>2.0.1</version>-->
+<!--			<systemPath>${project.basedir}/lib/iReport-utils-2.0.1.jar</systemPath>-->
+<!--		</dependency>-->
+<!--		<dependency>-->
+<!--			<groupId>net.sf</groupId>-->
+<!--			<artifactId>jasperreports</artifactId>-->
+<!--			<scope>system</scope>-->
+<!--			<version>6.5.1</version>-->
+<!--			<systemPath>${project.basedir}/lib/jasperreports-6.5.1.jar</systemPath>-->
+<!--		</dependency>-->
 		<dependency>
 			<groupId>com.lowagie</groupId>
 			<artifactId>textpdf</artifactId>
@@ -109,39 +111,42 @@
 			<version>1.0</version>
 			<systemPath>${project.basedir}/lib/iTextAsian.jar</systemPath>
 		</dependency>
-		<dependency>
-			<groupId>com.itextpdf</groupId>
-			<artifactId>itext-asiancmaps</artifactId>
-			<scope>system</scope>
-			<version>5.1.1</version>
-			<systemPath>${project.basedir}/lib/itext-asiancmaps-5.1.1.jar</systemPath>
-		</dependency>
-		<dependency>
-			<groupId>commons-beanutils</groupId>
-			<artifactId>commons-beanutils</artifactId>
-			<version>1.8.3</version>
-		</dependency>
-		<dependency>
-			<groupId>org.codehaus.groovy</groupId>
-			<artifactId>groovy-all</artifactId>
-			<version>2.4.7</version>
-		</dependency>
-		<dependency>
-			<groupId>commons-collections</groupId>
-			<artifactId>commons-collections</artifactId>
-			<version>3.2.1</version>
-		</dependency>
-		<dependency>
-			<groupId>commons-digester</groupId>
-			<artifactId>commons-digester</artifactId>
-			<version>2.1</version>
-		</dependency>
-
 <!--		<dependency>-->
-<!--			<groupId>net.sf.jasperreports</groupId>-->
-<!--			<artifactId>jasperreports</artifactId>-->
-<!--			<version>6.0.0</version>-->
+<!--			<groupId>com.itextpdf</groupId>-->
+<!--			<artifactId>itext-asiancmaps</artifactId>-->
+<!--			<scope>system</scope>-->
+<!--			<version>5.1.1</version>-->
+<!--			<systemPath>${project.basedir}/lib/itext-asiancmaps-5.1.1.jar</systemPath>-->
 <!--		</dependency>-->
+<!--		<dependency>-->
+<!--			<groupId>commons-beanutils</groupId>-->
+<!--			<artifactId>commons-beanutils</artifactId>-->
+<!--			<version>1.8.3</version>-->
+<!--		</dependency>-->
+<!--		<dependency>-->
+<!--			<groupId>org.codehaus.groovy</groupId>-->
+<!--			<artifactId>groovy-all</artifactId>-->
+<!--			<version>2.4.7</version>-->
+<!--		</dependency>-->
+<!--		<dependency>-->
+<!--			<groupId>commons-collections</groupId>-->
+<!--			<artifactId>commons-collections</artifactId>-->
+<!--			<version>3.2.1</version>-->
+<!--		</dependency>-->
+<!--		<dependency>-->
+<!--			<groupId>commons-digester</groupId>-->
+<!--			<artifactId>commons-digester</artifactId>-->
+<!--			<version>2.1</version>-->
+<!--		</dependency>-->
+
+
+
+<!--		-->
+		<dependency>
+			<groupId>net.sf.jasperreports</groupId>
+			<artifactId>jasperreports</artifactId>
+			<version>6.7.0</version>
+		</dependency>
 <!--		<dependency>-->
 <!--			<groupId>net.sf.jasperreports</groupId>-->
 <!--			<artifactId>jasperreports-fonts</artifactId>-->
@@ -168,6 +173,20 @@
 <!--			<version>2.4.11</version>-->
 <!--		</dependency>-->
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	</dependencies>
 
 
@@ -184,6 +203,45 @@
 				<checksumPolicy>fail</checksumPolicy>
 			</snapshots>
 		</repository>
+
 	</repositories>
+
+
+
+<!--	<packaging>jar</packaging>-->
+
+<!--	<build>-->
+<!--		<finalName>demo</finalName>-->
+<!--		<plugins>-->
+<!--			<plugin>-->
+<!--				<artifactId>maven-assembly-plugin</artifactId>-->
+<!--				<configuration>-->
+<!--					<archive>-->
+<!--						<manifest>-->
+<!--							<mainClass>com.shunyi.autoparts.SpringBootHelloWorldApplication</mainClass>-->
+<!--						</manifest>-->
+<!--					</archive>-->
+<!--					<descriptorRefs>-->
+<!--						<descriptorRef>jar-with-dependencies</descriptorRef>-->
+<!--					</descriptorRefs>-->
+<!--				</configuration>-->
+<!--			</plugin>-->
+<!--		</plugins>-->
+<!--	</build>-->
+
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<mainClass>com.shunyi.autoparts.SpringBootHelloWorldApplication</mainClass>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+
 
 </project>

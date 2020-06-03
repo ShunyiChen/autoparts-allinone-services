@@ -17,3 +17,7 @@
 5.创建一个根SupplierCategory
 6.创建一个根ConsumerCategory
 7.创建一个根VFSCategory
+
+
+构建：
+mvn clean package

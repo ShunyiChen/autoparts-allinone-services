@@ -8,6 +8,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 /**
  * @description 系统用户Dao
@@ -17,7 +18,7 @@ import javax.transaction.Transactional;
 @Repository
 public interface UserDao extends JpaRepository<User, Long> {
 	
-	User findByUsername(String username);
+	List<User> findByUsername(String username);
 
 	@Modifying
 	@Transactional

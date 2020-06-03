@@ -104,10 +104,10 @@ public class UserController {
 
     @GetMapping("/users/username/{username}")
     public User retrieveByUserName(@PathVariable String username) {
-        User user = userDao.findByUsername(username);
-        if (user == null) {
-            throw new UserNotFoundException("User not found with id -" + user.getId());
+        List<User> users = userDao.findByUsername(username);
+        if (users == null || users.size() == 0) {
+            throw new UserNotFoundException("User not found with username -" + username);
         }
-        return user;
+        return users.get(0);
     }
 }
