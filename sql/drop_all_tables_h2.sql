@@ -44,3 +44,4 @@ drop table if exists stocktaking CASCADE;
 drop table if exists stocktaking_orders CASCADE;
 drop table if exists stocktaking_orders_items CASCADE;
 drop table if exists units CASCADE;
+drop table if exists reports CASCADE;

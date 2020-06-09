@@ -34,9 +34,9 @@ public class Role {
     @Column(name = "description")
     private String description;
     /** 用户与角色映射关系 */
-    @OneToMany(mappedBy = "role")
+    @OneToMany(mappedBy = "role", fetch = FetchType.EAGER)
     private Set<UserRoleMapping> userRoleMappingSet = new HashSet<>();
     /** 角色与权限映射关系 */
-    @OneToMany(mappedBy = "role")
+    @OneToMany(mappedBy = "role", fetch = FetchType.EAGER)
     private Set<RolePermissionMapping> rolePermissionMappingSet = new HashSet<>();
 }

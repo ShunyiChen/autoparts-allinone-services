@@ -34,7 +34,7 @@ public class Permission {
     @Column(name = "description")
     private String description;
     /** 角色与权限映射关系 */
-    @OneToMany(mappedBy = "permission")
+    @OneToMany(mappedBy = "permission",fetch = FetchType.EAGER)
     protected Set<RolePermissionMapping> rolePermissionMappingSet = new HashSet<>();
     /** 权限编码 */
     @Column(name = "code")

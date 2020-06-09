@@ -23,7 +23,7 @@ set search_path to public
 //拉镜像
 docker pull mysql
 //启动容器
-docker run -d -e MYSQL_ROOT_PASSWORD=cDe3@wsx -p 33061:3306 --privileged=true --name mysql mysql
+docker run -d -e MYSQL_ROOT_PASSWORD=cDe3@wsx -p 33061:3306 --privileged=true --name mysql mysql:8.0.12
 //启动实例
 docker start mysql
 //进入容器

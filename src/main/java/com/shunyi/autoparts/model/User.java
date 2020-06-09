@@ -43,9 +43,9 @@ public class User {
 	/** 是否激活 */
 	private Boolean enabled;
 	/** 用户和店铺映射关系 */
-	@OneToMany(mappedBy = "user")
+	@OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
 	protected Set<UserStoreMapping> userStoreMappingSet = new HashSet<>();
 	/** 用户和角色映射关系 */
-	@OneToMany(mappedBy = "user")
+	@OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
 	protected Set<UserRoleMapping> userRoleMappingSet = new HashSet<>();
 }

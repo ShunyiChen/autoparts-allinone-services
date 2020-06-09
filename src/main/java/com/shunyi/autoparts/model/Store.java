@@ -32,7 +32,7 @@ public class Store {
     /** 是否父节点 */
     private Boolean parent;
     /** 用户店铺映射关系 */
-    @OneToMany(mappedBy = "store")
+    @OneToMany(mappedBy = "store", fetch = FetchType.EAGER)
     protected Set<UserStoreMapping> userStoreMappingSet = new HashSet<>();
     /** 仓库 */
     @ManyToOne
