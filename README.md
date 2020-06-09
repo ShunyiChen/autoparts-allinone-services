@@ -33,3 +33,7 @@ windows环境下，将win目录加到path环境变量中，执行run启动
 1.http://localhost:8080/swagger-ui.html
 2.执行/authenticate取token
 3.设置全局token(token以Bearer 开头)
+
+
+
+注意：ireport jar如果不能正常下载，可以通过还原maven settings文件解决（不使用aliyun mirror）
