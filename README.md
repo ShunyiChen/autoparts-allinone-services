@@ -3,7 +3,7 @@
 Autoparts-allinone-service
 *******
 Autoparts-allinone-service is the server side for invoicing system, 
-and it provides a set of RestAPI functions including Purchase order management,
+and it provides a set of RestAPIs for Purchase order management,
 Sale order management, Inventory management modules and other modules that
 can provide customers with "customization" products and services.
 
